@@ -1,0 +1,77 @@
+<%= form_with(model: business, local: true) do |form| %>
+  <% if business.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(business.errors.count, "error") %> prohibited this business from being saved:</h2>
+
+      <ul>
+      <% business.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :company_name %>
+    <%= form.text_field :company_name, id: :business_company_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :business_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first %>
+    <%= form.text_field :first, id: :business_first %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last %>
+    <%= form.text_field :last, id: :business_last %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :business_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :business_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state, id: :business_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :postal_code %>
+    <%= form.text_field :postal_code, id: :business_postal_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.text_field :country, id: :business_country %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_contacted_at %>
+    <%= form.datetime_select :last_contacted_at, id: :business_last_contacted_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_ordered_on %>
+    <%= form.datetime_select :last_ordered_on, id: :business_last_ordered_on %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_order_placed %>
+    <%= form.datetime_select :last_order_placed, id: :business_last_order_placed %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
