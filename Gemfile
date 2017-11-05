@@ -16,11 +16,13 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.3.0'
+gem 'mailgun-ruby', '~>1.1.6'
 
 group :development, :test do
   gem 'pry-rails'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem "figaro"
 end
 
 group :development do
