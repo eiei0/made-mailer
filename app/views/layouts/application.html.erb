@@ -1,22 +1,26 @@
-<!DOCTYPE html>
-<html>
+<html lang='en'>
   <head>
-    <title>MadeMailer</title>
+    <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Made Mailer</title>
 
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
-		<% if user_signed_in? %>
-			Signed in as <%=current_user.email %>. Not you?
-			<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-		<% else %>
-			<%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-		<% end %>
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <%= render 'layouts/shared/top_bar' if @disable_top_bar %>
+      <%= render 'layouts/shared/flash_messages' %>
+    </header>
+    <div class="container-fluid">
+      <div class="row">
+        <%= render 'layouts/shared/side_bar' if @disable_side_bar %>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

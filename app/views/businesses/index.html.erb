@@ -1,31 +1,31 @@
-<p id="notice"><%= notice %></p>
+<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+  <h2>Businesses</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Email</th>
+          <th>Primary Contact</th>
+          <th>Last Contact Date</th>
+          <th>Last Order Fulfillment Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @businesses.each do |business| %>
+          <tr>
+            <td><%= link_to business.company_name, business %></td>
+            <td><%= business.email %></td>
+            <td><%= business.primary_contact_name %></td>
+            <td><%= business.last_contacted_at.strftime("%m/%d/%Y") %></td>
+            <td><%= business.last_ordered_on.strftime("%m/%d/%Y") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<h1>Businesses</h1>
+    <br>
 
-<table>
-  <tbody>
-    <% @businesses.each do |business| %>
-      <tr>
-        <td><%= business.company_name %></td>
-        <td><%= business.email %></td>
-        <td><%= business.first %></td>
-        <td><%= business.last %></td>
-        <td><%= business.address %></td>
-        <td><%= business.city %></td>
-        <td><%= business.state %></td>
-        <td><%= business.postal_code %></td>
-        <td><%= business.country %></td>
-        <td><%= business.last_contacted_at %></td>
-        <td><%= business.last_ordered_on %></td>
-        <td><%= business.last_order_placed %></td>
-        <td><%= link_to 'Show', business %></td>
-        <td><%= link_to 'Edit', edit_business_path(business) %></td>
-        <td><%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Business', new_business_path %>
+    <%= link_to 'New Business', new_business_path %>
+  </div>
+</main>

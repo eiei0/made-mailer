@@ -1,26 +1,25 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="container">
+  <%= form_for resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin" } do |f| %>
+    <%= devise_error_messages! %>
+    <div class="logo-signin">
+      <%= link_to image_tag("made-logo-dark.png"), root_path %>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= f.email_field :email, placeholder: "Email Address", class: 'form-control', autofocus: true %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <div class="form-group">
+      <%= f.password_field :password, placeholder: "Password", class: 'form-control', autocomplete: "off" %>
+    </div>
+
+    <div class="form-group checkbox">
+      <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+    </div>
+
+    <%= f.submit "Sign In", class: 'btn btn-lg btn-primary btn-block' %>
+    <div class='devise-links'>
+      <%= render "devise/shared/links" %>
+    </div>
+  <% end %>
+</div>

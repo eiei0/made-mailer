@@ -17,6 +17,10 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.3.0'
 gem 'mailgun-ruby', '~>1.1.6'
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem 'jquery-rails'
+gem 'square_connect', '~>2.5.0.180'
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   gem 'pry-rails'

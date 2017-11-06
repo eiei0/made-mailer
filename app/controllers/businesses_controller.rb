@@ -4,6 +4,13 @@ class BusinessesController < ApplicationController
 
   def index
     @businesses = Business.all
+    # if params[:filter] == "current-clients"
+    #   @businesses = Business.all
+    # elsif params[:filter] == "perspective-clients"
+    #   @businesses = Business.all
+    # else
+    #   @businesses = Business.all
+    # end
   end
 
   def show

@@ -11,67 +11,51 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :company_name %>
-    <%= form.text_field :company_name, id: :business_company_name %>
+  <div class="form-group">
+    <%= form.text_field :company_name, id: :business_company_name, placeholder: "Company Name" %>
   </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email, id: :business_email %>
+  <div class="form-group">
+    <%= form.text_field :email, id: :business_email, placeholder: "Email Address" %>
   </div>
 
-  <div class="field">
-    <%= form.label :first %>
-    <%= form.text_field :first, id: :business_first %>
+  <div class="form-group">
+    <%= form.text_field :first, id: :business_first, placeholder: "First Name" %>
   </div>
 
-  <div class="field">
-    <%= form.label :last %>
-    <%= form.text_field :last, id: :business_last %>
+  <div class="form-group">
+    <%= form.text_field :last, id: :business_last, placeholder: "Last Name" %>
   </div>
 
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address, id: :business_address %>
+  <div class="form-group">
+    <%= form.text_field :address, id: :business_address, placeholder: "Address" %>
   </div>
 
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city, id: :business_city %>
+  <div class="form-group">
+    <%= form.text_field :city, id: :business_city, placeholder: "City" %>
   </div>
 
-  <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state, id: :business_state %>
+  <div class="form-group">
+    <%= form.text_field :state, id: :business_state, placeholder: "State" %>
   </div>
 
-  <div class="field">
-    <%= form.label :postal_code %>
-    <%= form.text_field :postal_code, id: :business_postal_code %>
+  <div class="form-group">
+    <%= form.text_field :postal_code, id: :business_postal_code, placeholder: "Zip Code" %>
   </div>
 
-  <div class="field">
-    <%= form.label :country %>
-    <%= form.text_field :country, id: :business_country %>
+  <div class="form-group">
+    <%= form.text_field :country, id: :business_country, placeholder: "Country" %>
   </div>
 
-  <div class="field">
-    <%= form.label :last_contacted_at %>
-    <%= form.datetime_select :last_contacted_at, id: :business_last_contacted_at %>
+  <div class="form-group">
+    <%= form.text_field :last_contacted_at, id: :business_last_contacted_at, placeholder: "Last contacted at", data: { provide: "datepicker" } %>
   </div>
 
-  <div class="field">
-    <%= form.label :last_ordered_on %>
-    <%= form.datetime_select :last_ordered_on, id: :business_last_ordered_on %>
+  <div class="form-group">
+    <%= form.text_field :last_order_placed, id: :business_last_order_placed, placeholder: "Last order placed", data: { provide: "datepicker" } %>
   </div>
 
-  <div class="field">
-    <%= form.label :last_order_placed %>
-    <%= form.datetime_select :last_order_placed, id: :business_last_order_placed %>
-  </div>
-
-  <div class="actions">
+  <div class="form-group">
     <%= form.submit %>
   </div>
 <% end %>
