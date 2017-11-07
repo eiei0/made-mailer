@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20171105152023) do
     t.string "state"
     t.string "postal_code"
     t.string "country"
+    t.string "square_id"
     t.datetime "last_contacted_at"
-    t.datetime "last_ordered_on"
     t.datetime "last_order_placed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

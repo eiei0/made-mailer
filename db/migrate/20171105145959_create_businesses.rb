@@ -10,8 +10,8 @@ class CreateBusinesses < ActiveRecord::Migration[5.1]
       t.string :state
       t.string :postal_code
       t.string :country
+      t.string :square_id
       t.datetime :last_contacted_at
-      t.datetime :last_ordered_on
       t.datetime :last_order_placed
 
       t.timestamps

@@ -8,7 +8,7 @@
           <th>Email</th>
           <th>Primary Contact</th>
           <th>Last Contact Date</th>
-          <th>Last Order Fulfillment Date</th>
+          <th>Last Order Payment Date</th>
         </tr>
       </thead>
       <tbody>
@@ -17,8 +17,8 @@
             <td><%= link_to business.company_name, business %></td>
             <td><%= business.email %></td>
             <td><%= business.primary_contact_name %></td>
-            <td><%= business.last_contacted_at.strftime("%m/%d/%Y") %></td>
-            <td><%= business.last_ordered_on.strftime("%m/%d/%Y") %></td>
+            <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
+            <td><%= business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
           </tr>
         <% end %>
       </tbody>
