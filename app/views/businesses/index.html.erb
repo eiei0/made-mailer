@@ -1,31 +1,36 @@
+<%- model_class = Business -%>
 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-  <h2>Businesses</h1>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Company Name</th>
-          <th>Email</th>
-          <th>Primary Contact</th>
-          <th>Last Contact Date</th>
-          <th>Last Order Payment Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @businesses.each do |business| %>
-          <tr>
-            <td><%= link_to business.company_name, business %></td>
-            <td><%= business.email %></td>
-            <td><%= business.primary_contact_name %></td>
-            <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
-            <td><%= business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <br>
-
-    <%= link_to 'New Business', new_business_path %>
+  <div class="page-header">
+    <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h2>
   </div>
-</main>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:company_name) %></th>
+        <th><%= model_class.human_attribute_name(:email) %></th>
+        <th><%= model_class.human_attribute_name(:city) %></th>
+        <th><%= model_class.human_attribute_name(:state) %></th>
+        <th><%= model_class.human_attribute_name(:last_contacted_at) %></th>
+        <th><%= model_class.human_attribute_name(:last_order_placed) %></th>
+        <th>Send Followup Mailer</th>
+        <th>Send Intro Mailer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @businesses.each do |business| %>
+        <tr>
+          <td><%= link_to business.company_name, business_path(business) %></td>
+          <td><%= business.email %></td>
+          <td><%= business.city %></td>
+          <td><%= business.state %></td>
+          <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
+          <td><%= business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
+          <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
+          <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "Create a new Business", new_business_path, :class => 'btn btn-primary' %>
+  </main>

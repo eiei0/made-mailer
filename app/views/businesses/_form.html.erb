@@ -1,61 +1,93 @@
-<%= form_with(model: business, local: true) do |form| %>
-  <% if business.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(business.errors.count, "error") %> prohibited this business from being saved:</h2>
+<%= form_for @business, :html => { :class => "form-horizontal business" } do |f| %>
 
-      <ul>
-      <% business.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @business.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@business.errors.count, "error") %> prohibited this business from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% @business.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
   <div class="form-group">
-    <%= form.text_field :company_name, id: :business_company_name, placeholder: "Company Name" %>
+    <%= f.label :company_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :company_name, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :email, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :first, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :first, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :last, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :last, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :address, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :address, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :city, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :city, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :state, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :state, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :postal_code, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :postal_code, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :country, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :country, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_contacted_at, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :last_contacted_at, :class => 'form-control', data: { provide: "datepicker" } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_order_placed, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :last_order_placed, :class => 'form-control', data: { provide: "datepicker" } %>
+    </div>
   </div>
 
   <div class="form-group">
-    <%= form.text_field :email, id: :business_email, placeholder: "Email Address" %>
-  </div>
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+        businesses_path, :class => 'btn btn-default' %>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <%= form.text_field :first, id: :business_first, placeholder: "First Name" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :last, id: :business_last, placeholder: "Last Name" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :address, id: :business_address, placeholder: "Address" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :city, id: :business_city, placeholder: "City" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :state, id: :business_state, placeholder: "State" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :postal_code, id: :business_postal_code, placeholder: "Zip Code" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :country, id: :business_country, placeholder: "Country" %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :last_contacted_at, id: :business_last_contacted_at, placeholder: "Last contacted at", data: { provide: "datepicker" } %>
-  </div>
-
-  <div class="form-group">
-    <%= form.text_field :last_order_placed, id: :business_last_order_placed, placeholder: "Last order placed", data: { provide: "datepicker" } %>
-  </div>
-
-  <div class="form-group">
-    <%= form.submit %>
-  </div>
 <% end %>

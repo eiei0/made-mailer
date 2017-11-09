@@ -1,8 +1,5 @@
-<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-  <h1>Editing Business</h1>
-
-  <%= render 'form', business: @business %>
-
-  <%= link_to 'Show', @business %> |
-  <%= link_to 'Back', businesses_path %> |
-</main>
+<%- model_class = Business -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= render :partial => 'form' %>
