@@ -6,15 +6,15 @@
     <meta name="author" content="">
     <title>Made Assistant</title>
 
-    <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.3/noty.js" integrity="sha256-35uun0LanRz94cb4LLowMrhE/a5nNRU2URx76QaqD/s=" crossorigin="anonymous" async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.3/noty.css" integrity="sha256-6lLJuDZcAoTls1PMzJ688ngM/NDckmD8HDXFXSTt4Rs=" crossorigin="anonymous" />
   </head>
 
   <body>
     <header>
       <%= render 'layouts/shared/top_bar' if @disable_top_bar %>
-      <%= render 'layouts/shared/flash_messages' %>
     </header>
     <div class="container-fluid">
       <div class="row">
@@ -22,5 +22,8 @@
         <%= yield %>
       </div>
     </div>
+  <%= javascript_include_tag "application" %>
+  <%= yield :footer_scripts %>
+  <%= render 'layouts/shared/flash_messages' %>
   </body>
 </html>
