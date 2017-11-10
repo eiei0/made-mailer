@@ -13,6 +13,7 @@ class CreateBusinesses < ActiveRecord::Migration[5.1]
       t.string :square_id
       t.datetime :last_contacted_at
       t.datetime :last_order_placed
+      t.string :mailer_selling_point
 
       t.timestamps
     end

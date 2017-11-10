@@ -81,6 +81,12 @@
       <%= f.text_field :last_order_placed, :class => 'form-control', data: { provide: "datepicker" } %>
     </div>
   </div>
+  <div class="form-group">
+    <%= f.label :mailer_selling_point, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_area :mailer_selling_point, :class => 'form-control' %>
+    </div>
+  </div>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

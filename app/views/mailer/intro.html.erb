@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= "Hi #{@first_name}!"%></p>
+    <p><%= "I wanted to send some information your way! Stacy mines the quartz she uses in her jewelry herself and uses an all-natural cleaning process with no chemicals. Each stone used is one of kind and carefully hand crafted into beautiful timeless jewelry." %></p>
+    </br>
+
+    <p>
+      <%= "We really would love to see our jewelry on the shelves at #{@business_name}" %>
+      <%= + "because #{@selling_point}" if @selling_point.present? %>
+    </p>
+    </br>
+
+    <p><%= "made. has been featured in some Arkansas and national publications like Local, Soiree, Southwest The Magazine and has recently been nominated by The Idle Class as one of the best jewelry makers in Arkansas. She has participated in AR Made – AR Proud, Madewell pop-up shop, and multiple Renegade Craft Fairs." %></p>
+    </br>
+
+    <p><%= "I have attached a few photographs as well as our website with login information so you can explore your wholesale opportunities. Please feel free to email or call me at #{@sender_contact_phone} with any questions you might have about made." %>
+    </p>
+    </br>
+
+    <p><%=
+      "Website: madelr.com\n
+      Wholesale: madelr.com/wholesale/products (Password: #{@made_wholesale_pw})\n
+      We look forward to hearing from you!" %>
+    </p>
+    </br>
+    </br>
+
+    <p><%= "We look forward to hearing from you!" %></p>
+    </br>
+    </br>
+
+    <p><%= "#{@sender_full_name}\n made. #{@sender_job_title}\n #{@sender_email}\n #{@sender_contact_phone}\n" %></p>
+  </body>
+</html>

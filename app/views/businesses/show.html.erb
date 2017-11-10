@@ -34,7 +34,7 @@
     :method => 'delete',
     :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
     :class => 'btn btn-default' %> |
-  <%= link_to "Send Followup Mailer", root_path, :method => :get, :class => 'btn btn-xs btn-default' %> |
-  <%= link_to "Send Intro Mailer", root_path, :method => :get, :class => 'btn btn-xs btn-default' %> |
+  <%= link_to "Send Followup Mailer", business_mailers_followup_path(@business), method: :post, class: 'btn btn-xs btn-default' %> |
+  <%= link_to "Send Intro Mailer", business_mailers_intro_path(@business), method: :post, class: 'btn btn-xs btn-default' %> |
   <%= link_to "Back", businesses_path, :class => 'btn btn-default' %>
 </main>

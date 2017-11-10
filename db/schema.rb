@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20171105152023) do
     t.string "square_id"
     t.datetime "last_contacted_at"
     t.datetime "last_order_placed"
+    t.string "mailer_selling_point"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -36,6 +37,8 @@ ActiveRecord::Schema.define(version: 20171105152023) do
     t.string "first", null: false
     t.string "last", null: false
     t.string "email", null: false
+    t.string "phone"
+    t.string "job_title"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
