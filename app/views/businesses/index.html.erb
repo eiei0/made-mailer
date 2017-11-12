@@ -1,36 +1,40 @@
 <%- model_class = Business -%>
 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
   <div class="page-header">
-    <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h2>
+    <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
   </div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th><%= model_class.human_attribute_name(:company_name) %></th>
-        <th><%= model_class.human_attribute_name(:email) %></th>
-        <th><%= model_class.human_attribute_name(:city) %></th>
-        <th><%= model_class.human_attribute_name(:state) %></th>
-        <th><%= model_class.human_attribute_name(:last_contacted_at) %></th>
-        <th><%= model_class.human_attribute_name(:last_order_placed) %></th>
-        <th>Send Followup Mailer</th>
-        <th>Send Intro Mailer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @businesses.each do |business| %>
-        <tr>
-          <td><%= link_to business.company_name, business_path(business) %></td>
-          <td><%= business.email %></td>
-          <td><%= business.city %></td>
-          <td><%= business.state %></td>
-          <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
-          <td><%= business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
-          <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
-          <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <%= link_to "Create a new Business", new_business_path, :class => 'btn btn-primary' %>
-  </main>
+  <div><h2>
+      <%= link_to "Create a new Business", new_business_path, class: 'btn btn-primary' %>
+      <%= link_to "Import Businesses from Square", import_businesses_path, method: :put, class: 'btn btn-success' %>
+      <h2></div>
+      <% if model_class.any? %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= model_class.human_attribute_name(:company_name) %></th>
+              <th><%= model_class.human_attribute_name(:email) %></th>
+              <th><%= model_class.human_attribute_name(:city) %></th>
+              <th><%= model_class.human_attribute_name(:state) %></th>
+              <th><%= model_class.human_attribute_name(:last_contacted_at) %></th>
+              <th><%= model_class.human_attribute_name(:last_order_placed) %></th>
+              <th>Send Followup Mailer</th>
+              <th>Send Intro Mailer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @businesses.each do |business| %>
+              <tr>
+                <td><%= link_to business.company_name, business_path(business) %></td>
+                <td><%= business.email %></td>
+                <td><%= business.city %></td>
+                <td><%= business.state %></td>
+                <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
+                <td><%= business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
+                <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
+                <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </main>
