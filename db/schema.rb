@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105152023) do
+ActiveRecord::Schema.define(version: 20171113032434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20171105152023) do
     t.string "mailer_selling_point"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.bigint "business_id"
+    t.integer "classification", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_emails_on_business_id"
   end
 
   create_table "users", force: :cascade do |t|

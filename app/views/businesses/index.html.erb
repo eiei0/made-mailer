@@ -1,8 +1,12 @@
 <%- model_class = Business -%>
 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-  <h1>Dashboard</h1>
-  <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>Overview</h1>
+
   <% if model_class.any? %>
+    <section>
+      <%= bar_chart Email.group(:classification).count(:created_at) %>
+    </section>
+    <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>

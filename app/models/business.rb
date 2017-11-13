@@ -1,4 +1,5 @@
 class Business < ApplicationRecord
+  has_many :emails
   validates :company_name, :email, presence: true
 
   def primary_contact_name

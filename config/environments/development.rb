@@ -30,7 +30,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: ENV["mailgun_api_key"],
-    domain: 'mail.madelr.com'
+    domain: 'sandboxc1b42435734c47fe8b132f60baf0f421.mailgun.org'
   }
 
   # Don't care if the mailer can't send.
