@@ -28,7 +28,8 @@ group :development, :test do
   gem 'pry-rails'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem "figaro"
+  gem 'figaro'
+  gem 'faker'
 end
 
 group :development do
