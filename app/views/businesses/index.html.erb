@@ -7,6 +7,9 @@
       <%= bar_chart Email.group(:classification).count(:created_at) %>
     </section>
     <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    <form action="<%= search_businesses_path %>">
+      <input type="text" class="form-control rounded-0 ser-input" id="business-search" placeholder="Search..." name="search">
+    </form>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -21,7 +24,7 @@
             <th>Send Intro Mailer</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="suggestions">
           <% @businesses.each do |business| %>
             <tr>
               <td><%= link_to business.company_name, business_path(business) %></td>

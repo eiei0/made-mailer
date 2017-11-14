@@ -108,6 +108,12 @@ class BusinessesController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def search
+    search_result = Business.all.search(params[:search])
+
+    render locals: { search_result: search_result }
+  end
+
   private
 
   def set_business
