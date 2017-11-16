@@ -7,9 +7,13 @@ class Business < ApplicationRecord
   end
 
   def self.search(search)
-    where(
-      'first ILIKE ? OR last ILIKE ? OR company_name ILIKE ? OR email ILIKE ?',
-      "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
-    )
+    if search
+      where(
+        'first ILIKE ? OR last ILIKE ? OR company_name ILIKE ? OR email ILIKE ?',
+        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
+      )
+    else
+      all
+    end
   end
 end

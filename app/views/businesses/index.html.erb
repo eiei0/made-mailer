@@ -1,55 +1,11 @@
-<%- model_class = Business -%>
 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
   <h1>Overview</h1>
 
-  <% if model_class.any? %>
-    <section>
-      <%= bar_chart Email.group(:classification).count(:created_at) %>
-    </section>
-    <h2><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-    <form action="<%= search_businesses_path %>">
-      <input type="text" class="form-control rounded-0 ser-input" id="business-search" placeholder="Search..." name="search">
-    </form>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th><%= model_class.human_attribute_name(:company_name) %></th>
-            <th><%= model_class.human_attribute_name(:email) %></th>
-            <th><%= model_class.human_attribute_name(:city) %></th>
-            <th><%= model_class.human_attribute_name(:state) %></th>
-            <th><%= model_class.human_attribute_name(:last_contacted_at) %></th>
-            <th><%= model_class.human_attribute_name(:last_order_placed) %></th>
-            <th>Send Followup Mailer</th>
-            <th>Send Intro Mailer</th>
-          </tr>
-        </thead>
-        <tbody class="suggestions">
-          <% @businesses.each do |business| %>
-            <tr>
-              <td><%= link_to business.company_name, business_path(business) %></td>
-              <td><%= business.email %></td>
-              <td><%= business.city %></td>
-              <td><%= business.state %></td>
-              <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
-              <td><%= business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
-              <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
-              <td class="checkbox"><%= check_box_tag("name", "value", false, class: "checkbox") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+  <% if Business.any? %>
+    <%= render partial: 'chart' %>
+    <h2><%=t '.title', default: Business.model_name.human.pluralize.titleize %></h1>
+    <%= render partial: 'search_bar', locals: { businesses: businesses } %>
   <% else %>
-    <h3>No data present</h3>
-    <p>To add client data, see the following options:</p>
-    <ul>
-      <li>
-        <p><%= link_to("Create", new_business_path) %> a new client</p>
-      </li>
-      <li>
-        <p><%= link_to("Import", import_businesses_path, method: :put) %> any new client(s) directly from Square.</p>
-      </li>
-    </ul>
+    <%= render partial: 'no_data' %>
   <% end %>
 </main>

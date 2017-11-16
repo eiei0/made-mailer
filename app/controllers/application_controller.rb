@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :disable_top_bar, :disable_side_bar
+
   protect_from_forgery prepend: true
+
+  helper_method :sort_column, :sort_direction
 
   protected
 
@@ -15,5 +18,15 @@ class ApplicationController < ActionController::Base
 
   def disable_side_bar
     @disable_side_bar = current_user.present?
+  end
+
+  private
+
+  def sort_column
+    Business.column_names.include?(params[:sort]) ? params[:sort] : "last_contacted_at"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 end

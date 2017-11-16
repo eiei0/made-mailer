@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     post 'mailers/followup'
     collection do
       put 'import'
-      get 'search'
     end
   end
 

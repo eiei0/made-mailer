@@ -23,6 +23,8 @@ gem 'square_connect', '~>2.5.0.180'
 gem 'bootstrap-datepicker-rails'
 gem 'chartkick', '~> 1.4.2'
 gem 'groupdate', '~> 2.5.3'
+gem 'will_paginate', '~> 3.1.0'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'pry-rails'

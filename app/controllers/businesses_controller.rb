@@ -3,7 +3,11 @@ class BusinessesController < ApplicationController
   before_action :set_business, only: [:show, :edit, :update, :destroy]
 
   def index
-    @businesses = Business.all
+    businesses = Business.search(params[:search])
+      .order(sort_column + " " + sort_direction)
+      .paginate(page: params[:page], per_page: 15)
+
+    render locals: { businesses: businesses }
   end
 
   def show
@@ -106,12 +110,6 @@ class BusinessesController < ApplicationController
     flash[:notice] = "There was an error while importing data from Square: #{e}"
   ensure
     redirect_back(fallback_location: root_path)
-  end
-
-  def search
-    search_result = Business.all.search(params[:search])
-
-    render locals: { search_result: search_result }
   end
 
   private
