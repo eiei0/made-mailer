@@ -1,24 +1,21 @@
 class MailersController < ApplicationController
-  def intro
-    business = Business.find(params[:business_id])
-    Mailer.intro(business, current_user).deliver_now
-    business.emails.create!(classification: 0)
-
-    flash[:notice] = "Intro mailer to #{business.company_name} sent!"
+  def create
+    if params[:business_id].present?
+      business = Business.find(params[:business_id])
+      MailerBuilder.new(business, current_user, params[:type]).build
+      flash[:notice] = "#{params[:type].capitalize} mailer to #{business.company_name} sent successfully!"
+    elsif params[:business_ids].present?
+      ids = params[:business_ids].split(",").map(&:to_i)
+      businesses = Business.where(id: ids)
+      businesses.each do |business|
+        MailerBuilder.new(business, current_user, params[:type]).build
+      end
+      flash[:notice] = "#{businesses.count} mailers have been sent successfully!"
+    else
+      raise "Please select a business before sending a mailer."
+    end
   rescue => e
-    flash[:notice] = "Unable to send mailer because of an error: #{e.inspect}"
-  ensure
-    redirect_back(fallback_location: root_path)
-  end
-
-  def followup
-    business = Business.find(params[:business_id])
-    Mailer.followup(business, current_user).deliver_now
-    business.emails.create!(classification: 1)
-
-    flash[:notice] = "Followup mailer to #{business.company_name} sent!"
-  rescue => e
-    flash[:notice] = "Unable to send mailer because of an error: #{e.inspect}"
+    flash[:notice] = "#{e}"
   ensure
     redirect_back(fallback_location: root_path)
   end

@@ -3,7 +3,6 @@
 
   <% if Business.any? %>
     <%= render partial: 'chart' %>
-    <h2><%=t '.title', default: Business.model_name.human.pluralize.titleize %></h1>
     <%= render partial: 'search_bar', locals: { businesses: businesses } %>
   <% else %>
     <%= render partial: 'no_data' %>

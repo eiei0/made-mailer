@@ -1,4 +1,16 @@
+<h2><%=t '.title', default: Business.model_name.human.pluralize.titleize %></h1>
+<div class="btn-toolbar">
+  <div class="button-group">
+    <%= button_to "Send Intro Mailer", mailers_path, method: :post, params: { type: :intro }, class: "btn btn-primary btn-sm", form: { id: "intro-button" } %>
+  </div>
+  <div class="button-group">
+    <%= button_to "Send Followup Mailer", mailers_path, method: :post, params: { type: :followup }, class: "btn btn-secondary btn-sm", form: { id: "followup-button" } %>
+  </div>
+</div>
+
 <%= form_tag businesses_path, method: 'get', id: "products_search" do %>
-  <%= text_field_tag :search, params[:search], class: "form-control rounded-0 ser-input", placeholder: "Search...", id: "business-search" %>
+  <div class="input-group">
+    <%= text_field_tag :search, params[:search], class: "form-control rounded-0 ser-input", placeholder: "Search...", id: "business-search" %>
+  </div>
   <%= render partial: 'table', locals: { businesses: businesses } %>
 <% end %>
