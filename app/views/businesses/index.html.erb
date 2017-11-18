@@ -2,7 +2,6 @@
   <h1>Overview</h1>
 
   <% if Business.any? %>
-    <%= render partial: 'chart' %>
     <%= render partial: 'search_bar', locals: { businesses: businesses } %>
   <% else %>
     <%= render partial: 'no_data' %>

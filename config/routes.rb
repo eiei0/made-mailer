@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
   end
   resources :mailers, only: [:create]
+  resources :reports, only: [:index]
 
   root to: 'businesses#index'
 end
