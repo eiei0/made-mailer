@@ -8,6 +8,7 @@ end
 
 Business.destroy_all
 Email.destroy_all
+Product.destroy_all
 
 50.times do |index|
   Business.create!(
@@ -39,3 +40,27 @@ end
 followups = Email.where(classification: "followup")
 intros = Email.where(classification: "intro")
 puts "Seeded #{followups.count} followup Emails and #{intros.count} intro Emails"
+
+products = [{ name: "Signature 26” Necklace - Gold", price: 9.59 },
+            { name: "Signature 26” Necklace - Rose Gold", price: 11.85 },
+            { name: "Signature 26” Necklace - Sterling", price: 6.81 },
+            { name: "Classic 16” Necklace - Gold", price: 6.03 },
+            { name: "Classic 16” Necklace - Rose Gold", price: 7.73 },
+            { name: "Classic 16” Necklace - Sterling", price: 4.65 },
+            { name: "Lariat - Gold Filled", price: 10.54 },
+            { name: "Lariat - Mixed Metal w/ Sterling", price: 8.33 },
+            { name: "Cluster Necklace", price: 5.99 },
+            { name: "Cord & Chain Necklace", price: 11.45 },
+            { name: "Bracelet - Gold", price: 5.69 },
+            { name: "Bracelet - Rose Gold", price: 7.22 },
+            { name: "Bracelet - Sterling", price: 4.43 },
+            { name: "Threads - Sterling", price: 4.78},
+            { name: "Studs - Brass", price: 3.77 },
+            { name: "Dangles - Gold Plated Brass", price: 3.92 },
+            { name: "Dangles - Silver Plated Brass", price: 3.88 },
+            { name: "Echo Earrings - Large Gold Plated Brass", price: 1.94 },
+            { name: "Echo Earrings - Large Silver Plated Brass", price: 1.94 },
+            { name: "Echo Earrings - Small Gold Plated Brass", price: 1.94 },
+            { name: "Echo Earrings - Small Silver Plated Brass", price: 1.94 }]
+Product.create!(products)
+puts "Seeded #{products.count} products"

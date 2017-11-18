@@ -1,3 +1,4 @@
+<h2 class="text-center">Mailers Sent</h2>
 <section>
   <%= bar_chart Email.group(:classification).count(:created_at) %>
 </section>

@@ -1,6 +1,5 @@
 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
   <h1>Reports</h1>
-
-  <h2>Mailers Sent</h2>
+  <%= render partial: 'cost_of_goods', locals: { products: products, months: months } %>
   <%= render partial: 'mailer_chart' %>
 </main>
