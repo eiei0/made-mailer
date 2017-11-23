@@ -26,6 +26,7 @@ gem 'groupdate', '~> 2.5.3'
 gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate'
 gem 'money-rails', '~> 1.7.0'
+gem 'sidekiq', '~> 5.0.5'
 
 group :development, :test do
   gem 'pry-rails'
