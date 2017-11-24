@@ -19,7 +19,7 @@
     </header>
     <div class="container-fluid">
       <div class="row">
-        <%= render 'layouts/shared/side_bar' if @disable_side_bar %>
+        <%= render_side_bar if @disable_side_bar %>
         <%= yield %>
       </div>
     </div>
