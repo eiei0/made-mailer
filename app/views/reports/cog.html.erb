@@ -1,0 +1,59 @@
+<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+  <h2 class="text-center">Cost of Goods</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-fit" id="mainTable">
+      <thead>
+        <tr>
+          <th class="col-md-2 drk-head"></th>
+          <th class="col-md-2 drk-head">COG</th>
+          <% months.each do |month| %>
+            <th class="col-md-2 drk-head"><%= month %></th>
+          <% end %>
+          <th class="col-md-2 drk-head">TOTAL</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% products.each do |product| %>
+          <tr>
+            <th class="col-md-2 light-head"><%= product.name %></th>
+            <th class="col-md-2 light-head price"><%= product.price.format %></th>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2"><%= rand(1..15) %></td>
+            <td class="col-md-2 total-product"></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <th class="col-md-2 side-header"></th>
+          <th class="col-md-2 side-header"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</main>
