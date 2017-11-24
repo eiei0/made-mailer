@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     end
   end
   resources :mailers, only: [:create]
-  resources :reports, only: [:index]
+  get 'reports/cog'
+  get 'reports/mailers_sent'
 
   mount Sidekiq::Web, at: '/sidekiq'
 

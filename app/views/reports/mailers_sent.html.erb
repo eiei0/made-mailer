@@ -1,0 +1,6 @@
+<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+  <h2 class="text-center">Mailers Sent</h2>
+  <section>
+    <%= bar_chart Email.group(:classification).count(:created_at) %>
+  </section>
+</main>
