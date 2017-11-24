@@ -12,5 +12,5 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq'
 
-  root to: 'businesses#index'
+  root to: redirect('/businesses')
 end
