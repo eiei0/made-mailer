@@ -8,7 +8,9 @@
   </div>
   <div class="my-2 my-sm-0">
     <ul class="navbar-nav mr-auto">
-      <%= create_nav_link "Account Settings", edit_user_registration_path %>
+      <div class='account-settings'>
+        <%= create_nav_link "Account Settings", edit_user_registration_path %>
+      </div>
       <li class="nav-item">
         <%= link_to "Sign Out", destroy_user_session_path, class: "btn btn-outline-success", method: :delete %>
       </li>
