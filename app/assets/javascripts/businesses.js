@@ -24,7 +24,7 @@ $(document).on('click', '#select-all', function () {
     $(':checkbox').each(function() {
       this.checked = true;
     });
-    $('#intro-button, #followup-button').append("<input type='hidden' name='business_ids' id='appended-ids' value='" + arr + "'>");
+    $('#initial-intro-button, #one-week-intro-button, #two-week-intro-button, #one-month-followup-button').append("<input type='hidden' name='business_ids' id='appended-ids' value='" + arr + "'>");
   } else {
     $(':checkbox').each(function() {
       this.checked = false;
@@ -37,8 +37,8 @@ $(document).on('click', '#select-all', function () {
 $(document).on('click', '#single-checkbox', function () {
   value = $(this).val();
   if(this.checked) {
-    $('#intro-button, #followup-button').append("<input type='hidden' name='business_id' id='appended-id-" + value + "' value='" + value +"'>");
+    $('#initial-intro-button, #one-week-intro-button, #two-week-intro-button, #one-month-followup-button').append("<input type='hidden' name='business_id' id='appended-id-" + value + "' value='" + value +"'>");
   } else {
-    $('#intro-button, #followup-button').find("#appended-id-"+ value + "").remove()
+    $('#initial-intro-button, #one-week-intro-button, #two-week-intro-button, #one-month-followup-button').find("#appended-id-"+ value + "").remove()
   }
 });
