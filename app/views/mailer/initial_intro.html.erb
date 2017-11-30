@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= "Hi #{@business_name} team!"%></p>
+    <p>
+      <%= "My name is Stacy MacDonald & I am the Owner, Designer, Miner & Maker of made. I create " %>
+      <%= "unique Quartz jewelry that I think your customers would love!" %>
+    </p>
+
+    <p>
+      <%= "All of the Quartz & Quartz crystals I use I have personally mined out of the Ouchita " %>
+      <%= "Mountains in Arkansas. I put them through a series of washes & then wrap them simply " %>
+      <%= "to allow their unique characteristics to show off. The result is a beautiful contrast " %>
+      <%= "of raw, organic nature & clean, minimalist lines." %>
+    </p>
+
+    <p>
+      <%= "I am attaching a few pictures along with a linesheet for your consideration. I would be " %>
+      <%= "thrilled to add #{@business_name} to our growing list of stockists. Feel free to reach out " %>
+      <%= "to me if you have any questions!" %>
+    </p>
+
+    <p>
+      <%= "Grateful," %>
+    </p>
+
+    <p>
+      <%= "Stacy MacDonald"%>
+      <br />
+      <%= "made." %>
+      <br />
+      <%= "Owner, Designer, Miner, Maker" %>
+      <br />
+      <%= mail_to(@stacy_email, @stacy_email, subject: "made. Jewelry Inquiry") %>
+      <br />
+      <%= @stacy_phone %>
+      <br />
+      <%= link_to("www.madelr.com", "https://www.madelr.com") %>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= "Hi #{@business_name} team!"%></p>
+    <p>
+      <%= "Stacy here, just wanting to touch base to see how you & your customers are liking " %>
+      <%= "made.! I hope you've been pleased with the response you've received!" %>
+    </p>
+
+    <p>
+      <%= "Please let me know if there is any way that I can serve you! If there are pieces that " %>
+      <%= "you need restocked (remember we have no re-order minimum so you can reorder as much or " %>
+      <%= "as little as often as you'd like!), display or marketing ideas that would be helpful to " %>
+      <%= "you or if your shop has an event coming up that I can promote through my monthly" %>
+      <%= "newsletter, just let me know!" %>
+    </p>
+
+    <p>
+      <%= "Again, I am so excited to have #{@business_name} as a part of the made. family. Thank you!" %>
+    </p>
+
+    <p>
+      <%= "Grateful," %>
+    </p>
+
+    <p>
+      <%= "Stacy MacDonald"%>
+      <br />
+      <%= "made." %>
+      <br />
+      <%= "Owner, Designer, Miner, Maker" %>
+      <br />
+      <%= mail_to(@stacy_email, @stacy_email, subject: "made. Jewelry Inquiry") %>
+      <br />
+      <%= @stacy_phone %>
+      <br />
+      <%= link_to("www.madelr.com", "https://www.madelr.com") %>
+    </p>
+  </body>
+</html>

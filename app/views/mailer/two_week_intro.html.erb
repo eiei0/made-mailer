@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= "Hello again #{@business_name} team!"%></p>
+    <p>
+      <%= "Are you still wondering if made. is a good fit for your store? The incredible thing " %>
+      <%= "that I have found to be true with this jewelry is how it signifies & resonates with " %>
+      <%= "the part of all of us that wants to be found & treasured. It represents how our " %>
+      <%= "imperfections are actually what make us distinct & extraordinary. It's tangible proof " %>
+      <%= "that even something pulled from a muddy mountain has the potential to be a beautiful & " %>
+      <%= "gift - either to ourself or to those around us who need that reminder. That's what it " %>
+      <%= "has personally meant for me." %>
+    </p>
+
+    <p>
+      <%= "I so appreciate you taking the time to read my emails. I am sure your inbux gets inundated. " %>
+      <%= "I am attaching my linesheet for you to look over as you decide if made. would resonate with your " %>
+      <%= "own customers. I look forward to hearing from you." %>
+    </p>
+
+    <p>
+      <%= "Grateful," %>
+    </p>
+
+    <p>
+      <%= "Stacy MacDonald"%>
+      <br />
+      <%= "made." %>
+      <br />
+      <%= "Owner, Designer, Miner, Maker" %>
+      <br />
+      <%= mail_to(@stacy_email, @stacy_email, subject: "made. Jewelry Inquiry") %>
+      <br />
+      <%= @stacy_phone %>
+      <br />
+      <%= link_to("www.madelr.com", "https://www.madelr.com") %>
+    </p>
+  </body>
+</html>
