@@ -1,4 +1,5 @@
 class Business < ApplicationRecord
+  belongs_to :organization
   has_many :emails
   validates :company_name, :email, presence: true
 
