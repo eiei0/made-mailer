@@ -1,12 +1,7 @@
 class MailerBuilder
-  attr_accessor :initial_intro, :one_week_intro, :two_week_intro,
-    :one_month_followup, :business, :type
+  attr_accessor :business, :type
 
   def initialize(business, type)
-    @initial_intro = Mailer.initial_intro(business)
-    @one_week_intro = Mailer.one_week_intro(business)
-    @two_week_intro = Mailer.two_week_intro(business)
-    @one_month_followup = Mailer.one_month_followup(business)
     @business = business
     @type = type
   end
@@ -14,27 +9,35 @@ class MailerBuilder
   def build
     case type
     when "initial_intro"
-      IntroBuilder.build(initial_intro, business, 0)
+      Email.schedule!(business, {
+        classification: 0,
+        scheduled: true,
+        business_id: business.id,
+        deliver_date: DateTime.now.end_of_day
+      })
     when "one_week_intro"
-      IntroBuilder.build(one_week_intro, business, 1)
+      last_email = business.emails.where(classification: 0).last
+      Email.schedule!(business, {
+        classification: 1,
+        scheduled: true,
+        business_id: business.id,
+        deliver_date: last_email.deliver_date + 7.days
+      })
     when "two_week_intro"
-      IntroBuilder.build(two_week_intro, business, 2)
+      last_email = business.emails.where(classification: 1).last
+      Email.schedule!(business, {
+        classification: 2,
+        scheduled: true,
+        business_id: business.id,
+        deliver_date: last_email.deliver_date + 14.days,
+      })
     when "one_month_followup"
-      FollowupBuilder.build(one_month_followup, business, 3)
-    end
-  end
-
-  class IntroBuilder < MailerBuilder
-    def self.build(intro, business, classification)
-      intro.deliver_now!
-      business.emails.create!(classification: classification)
-    end
-  end
-
-  class FollowupBuilder < MailerBuilder
-    def self.build(followup, business, classification)
-      followup.deliver_now!
-      business.emails.create!(classification: classification)
+      Email.schedule!(business, {
+        classification: 3,
+        scheduled: true,
+        business_id: business.id,
+        deliver_date: business.last_order_placed + 30.days,
+      })
     end
   end
 end

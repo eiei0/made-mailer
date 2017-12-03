@@ -33,12 +33,14 @@ puts "Seeded #{Business.count} Businesses"
   business = Business.find(id)
   Email.create!(
     business_id: id,
-    classification: ["followup", "intro"].sample,
+    classification: [3, 0].sample,
+    scheduled: true,
+    deliver_date: rand(30).days.from_now,
     created_at: business.last_contacted_at
   )
 end
-followups = Email.where(classification: "followup")
-intros = Email.where(classification: "intro")
+followups = Email.where(classification: 3)
+intros = Email.where(classification: 0)
 puts "Seeded #{followups.count} followup Emails and #{intros.count} intro Emails"
 
 products = [{ name: "Signature 26” Necklace - Gold", price: 9.59 },
