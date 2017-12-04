@@ -27,6 +27,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate'
 gem 'money-rails', '~> 1.7.0'
 gem 'sidekiq', '~> 5.0.5'
+gem 'browser-timezone-rails', '~> 1.0.1'
 
 group :development, :test do
   gem 'pry-rails'
