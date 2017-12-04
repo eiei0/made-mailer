@@ -18,17 +18,24 @@ class Email < ApplicationRecord
   def deliver!
     case classification
     when "initial_intro"
-      Mailer.initial_intro(business).deliver!
-      update_attribute(:scheduled, false)
+      mailer = Mailer.initial_intro(business).deliver!
+      update_records if mailer.present?
     when "one_week_intro"
       Mailer.one_week_intro(business).deliver!
-      update_attribute(:scheduled, false)
+      update_records if mailer.present?
     when "two_week_intro"
       Mailer.two_week_intro(business).deliver!
-      update_attribute(:scheduled, false)
+      update_records if mailer.present?
     when "one_month_followup"
       Mailer.one_month_followup(business).deliver!
-      update_attribute(:scheduled, false)
+      update_records if mailer.present?
     end
+  end
+
+  private
+
+  def update_records
+    update_attribute(:scheduled, false)
+    business.update_attribute(:last_contacted_at, DateTime.now)
   end
 end
