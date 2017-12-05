@@ -29,6 +29,8 @@ gem 'money-rails', '~> 1.7.0'
 gem 'sidekiq', '~> 5.0.5'
 gem 'browser-timezone-rails', '~> 1.0.1'
 
+gem 'sentry-raven'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'capybara', '~> 2.13'
