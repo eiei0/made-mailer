@@ -4,8 +4,6 @@ class BusinessesController < ApplicationController
 
   def index
     businesses = Business.search(params[:search])
-      .order(sort_column + " " + sort_direction)
-      .paginate(page: params[:page], per_page: 15)
 
     render locals: { businesses: businesses }
   end
@@ -110,6 +108,42 @@ class BusinessesController < ApplicationController
     flash[:notice] = "There was an error while importing data from Square: #{e}"
   ensure
     redirect_back(fallback_location: root_path)
+  end
+
+  def blank
+  end
+
+  def buttons
+  end
+
+  def flot
+  end
+
+  def forms
+  end
+
+  def grid
+  end
+
+  def icons
+  end
+
+  def login
+  end
+
+  def morris
+  end
+
+  def notifications
+  end
+
+  def panelswells
+  end
+
+  def tables
+  end
+
+  def typography
   end
 
   private

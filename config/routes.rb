@@ -5,6 +5,18 @@ Rails.application.routes.draw do
   resources :businesses do
     collection do
       put 'import'
+      get 'blank'
+      get 'buttons'
+      get 'flot'
+      get 'forms'
+      get 'grid'
+      get 'icons'
+      get 'login'
+      get 'morris'
+      get 'notifications'
+      get 'panelswells'
+      get 'tables'
+      get 'typography'
     end
   end
   resources :mailers, only: [:create]
