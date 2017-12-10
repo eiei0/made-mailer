@@ -77,12 +77,25 @@
         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
       </a>
       <ul class="dropdown-menu dropdown-user">
-        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+        <li>
+          <%= link_to edit_user_registration_path do %>
+            <%= content_tag(:i, "", {class: "fa fa-user fa-fw"}) %>
+            User Profile
+          <% end %>
         </li>
-        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+        </li>
+        <li>
+          <%= link_to settings_path do %>
+            <%= content_tag(:i, "", {class: "fa fa-gear fa-fw"}) %>
+            Settings
+          <% end %>
         </li>
         <li class="divider"></li>
-        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        <li>
+          <%= link_to destroy_user_session_path do %>
+            <%= content_tag(:i, "", {class: "fa fa-sign-out fa-fw"}) %>
+            Logout
+          <% end %>
         </li>
       </ul>
       <!-- /.dropdown-user -->

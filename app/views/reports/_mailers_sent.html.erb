@@ -1,0 +1,3 @@
+<div id="morris-donut-chart">
+  <%= bar_chart Email.group(:classification).count(:created_at) %>
+</div>

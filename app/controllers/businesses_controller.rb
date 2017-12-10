@@ -1,6 +1,7 @@
 class BusinessesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_business, only: [:show, :edit, :update, :destroy]
+  before_action :set_business_controller
 
   def index
     businesses = Business.search(params[:search])
@@ -110,42 +111,6 @@ class BusinessesController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
-  def blank
-  end
-
-  def buttons
-  end
-
-  def flot
-  end
-
-  def forms
-  end
-
-  def grid
-  end
-
-  def icons
-  end
-
-  def login
-  end
-
-  def morris
-  end
-
-  def notifications
-  end
-
-  def panelswells
-  end
-
-  def tables
-  end
-
-  def typography
-  end
-
   private
 
   def set_business
@@ -156,5 +121,9 @@ class BusinessesController < ApplicationController
     params.require(:business).permit(:company_name, :email, :first, :last, :address, :city,
                                      :state, :postal_code, :country, :last_contacted_at,
                                      :last_order_placed)
+  end
+
+  def set_business_controller
+    @business_controller = true
   end
 end
