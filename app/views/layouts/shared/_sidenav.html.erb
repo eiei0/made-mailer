@@ -15,101 +15,27 @@
       <li>
         <%= link_to root_path do %>
           <%= content_tag(:i, "", {class: "fa fa-dashboard fa-fw"}) %>
-          Dashboard 
+          Dashboard
         <% end %>
       </li>
       <li>
-        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+        <%= link_to tables_businesses_path do %>
+          <%= content_tag(:i, "", {class: "fa fa-briefcase"}) %>
+          Businesses
+        <% end %>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
         <ul class="nav nav-second-level">
           <li>
-            <%= link_to "Flot Charts", flot_businesses_path %>
-            <li>
-              <%= link_to "Morris.js Charts", morris_businesses_path %>
-            </li>
-          </ul>
-          <!-- /.nav-second-level -->
-        </li>
-        <li>
-          <%= link_to tables_businesses_path do %>
-            <%= content_tag(:i, "", {class: "fa fa-table fa-fw"}) %>
-            Tables 
-          <% end %>
-        </li>
-        <li>
-          <%= link_to forms_businesses_path do %>
-            <%= content_tag(:i, "", {class: "fa fa-edit fa-fw"}) %>
-            Forms 
-          <% end %>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level">
-            <li>
-              <%= link_to "Panels and Wells", panelswells_businesses_path %>
-            </li>
-            <li>
-              <%= link_to "Buttons", buttons_businesses_path %>
-            </li>
-            <li>
-              <%= link_to "Notifications", notifications_businesses_path %>
-            </li>
-            <li>
-              <%= link_to "Typography", typography_businesses_path %>
-            </li>
-            <li>
-              <%= link_to "Icons", icons_businesses_path %>
-            </li>
-            <li>
-              <%= link_to "Grid", grid_businesses_path %>
-            </li>
-          </ul>
-          <!-- /.nav-second-level -->
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level">
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Third Level <span class="fa arrow"></span></a>
-              <ul class="nav nav-third-level">
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-              </ul>
-              <!-- /.nav-third-level -->
-            </li>
-          </ul>
-          <!-- /.nav-second-level -->
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level">
-            <li>
-              <a href="blank.html">Blank Page</a>
-            </li>
-            <li>
-              <a href="login.html">Login Page</a>
-            </li>
-          </ul>
-          <!-- /.nav-second-level -->
-        </li>
-      </ul>
-    </div>
-    <!-- /.sidebar-collapse -->
+            <%= link_to "Cost of Goods Report", flot_businesses_path %>
+          </li>
+        </ul>
+        <!-- /.nav-second-level -->
+      </li>
+    </ul>
   </div>
-  <!-- /.navbar-static-side -->
+  <!-- /.sidebar-collapse -->
+</div>
+<!-- /.navbar-static-side -->
 </nav>
