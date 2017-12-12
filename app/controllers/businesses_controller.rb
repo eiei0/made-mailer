@@ -13,24 +13,22 @@ class BusinessesController < ApplicationController
   end
 
   def new
-    @business = Business.new
+    @business = BusinessForm.new
   end
 
   def edit
   end
 
   def create
-    @business = Business.new(business_params)
+    @business = BusinessForm.new(business_form_params)
 
-    respond_to do |format|
-      if @business.save
-        format.html { redirect_to @business, notice: "#{@business.company_name} was created successfully." }
-        format.json { render :show, status: :created, location: @business }
-      else
-        format.html { render :new }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
-      end
+    if business_record = @business.persist!
+      render_success_flashes(business_record)
+      redirect_to businesses_path
     end
+  rescue => e
+    flash[:notice] = "Unable to create business: #{e}"
+    redirect_back(fallback_location: new_business_path)
   end
 
   def update
@@ -123,7 +121,24 @@ class BusinessesController < ApplicationController
                                      :last_order_placed)
   end
 
+  def business_form_params
+    params.require(:business_form).permit(:company_name, :email, :first, :last, :delivery_date,
+                                          :deliver_now, :address, :city, :state, :postal_code,
+                                          :country)
+  end
+
   def set_business_controller
     @business_controller = true
+  end
+
+  def render_success_flashes(business)
+    name = business.company_name
+    date_time = business.emails.last.deliver_date.try(:strftime, "%m/%d/%Y at %I:%M%p")
+
+    if business.scheduled? 
+      flash[:notice] = "#{name} was created successfully and is scheduled to be contacted on #{date_time}."
+    else
+      flash[:notice] = "#{name} was created and a mailer was sent to them successfully."
+    end
   end
 end

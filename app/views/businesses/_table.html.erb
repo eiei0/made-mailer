@@ -5,7 +5,6 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th><%= check_box_tag("business_ids", businesses.ids, false, id: "select-all") %></th>
           <th><%= sortable :company_name, Business.human_attribute_name(:company_name) %></th>
           <th><%= sortable :email, Business.human_attribute_name(:email) %></th>
           <th><%= sortable :city, Business.human_attribute_name(:city) %></th>
@@ -17,7 +16,6 @@
       <tbody class="suggestions">
         <% businesses.each do |business| %>
           <tr>
-            <td><%= check_box_tag("business_id", business.id, false, class: "checkbox", id: "single-checkbox") %></td>
             <td><%= link_to business.company_name, business_path(business) %></td>
             <td><%= business.email %></td>
             <td><%= business.city %></td>

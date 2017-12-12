@@ -9,10 +9,15 @@
         <% end %>
       </li>
       <li>
-        <%= link_to businesses_path do %>
-          <%= content_tag(:i, "", {class: "fa fa-briefcase"}) %>
-          Businesses
-        <% end %>
+        <a href="#"><i class="fa fa-briefcase fa-fw"></i> Businesses<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+          <li>
+            <%= link_to "New", new_business_path %>
+          </li>
+          <li>
+            <%= link_to "Index", businesses_path %>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
