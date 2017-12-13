@@ -1,37 +1,79 @@
 <%- model_class = Business -%>
-<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-  <div class="page-header">
-    <h1><%= t '.title', default: model_class.model_name.human.titleize %></h1>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1><%= t '.title', default: model_class.model_name.human.titleize %></h1>
+    </div>
   </div>
-
-  <dl class="dl-horizontal">
-    <dt><strong><%= model_class.human_attribute_name(:company_name) %>:</strong></dt>
-    <dd><%= @business.company_name %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
-    <dd><%= @business.email %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:first) %>:</strong></dt>
-    <dd><%= @business.first %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:last) %>:</strong></dt>
-    <dd><%= @business.last %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
-    <dd><%= @business.address %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
-    <dd><%= @business.city %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
-    <dd><%= @business.state %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:postal_code) %>:</strong></dt>
-    <dd><%= @business.postal_code %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
-    <dd><%= @business.country %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:last_contacted_at) %>:</strong></dt>
-    <dd><%= @business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:last_order_placed) %>:</strong></dt>
-    <dd><%= @business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></dd>
-  </dl>
-
-  <%= link_to "Edit", edit_business_path(@business), class: 'btn btn-default' %>
-  <%= link_to "Delete", business_path(@business), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
-  <%= link_to "Send Followup Mailer", mailers_path(business_id: @business.id, type: "followup"), method: :post, class: 'btn btn-default' %>
-  <%= link_to "Send Intro Mailer", mailers_path(business_id: @business, type: "intro"), method: :post, class: 'btn btn-default' %>
-  <%= link_to "Back", businesses_path, class: 'btn btn-default' %>
-</main>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="col-lg-6">
+      <dl class="dl-horizontal">
+        <dt><strong><%= model_class.human_attribute_name(:company_name) %>:</strong></dt>
+        <dd><%= @business.company_name %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+        <dd><%= @business.email %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:first) %>:</strong></dt>
+        <dd><%= @business.first %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:last) %>:</strong></dt>
+        <dd><%= @business.last %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+        <dd><%= @business.address %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+        <dd><%= @business.city %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
+        <dd><%= @business.state %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:postal_code) %>:</strong></dt>
+        <dd><%= @business.postal_code %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
+        <dd><%= @business.country %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:last_contacted_at) %>:</strong></dt>
+        <dd><%= @business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:last_order_placed) %>:</strong></dt>
+        <dd><%= @business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></dd>
+      </dl>
+    </div>
+    <div class="col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Mailer Buttons
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-offset-1">
+              <%= link_to "Send Intro Mailer", mailers_path(business_id: @business, type: "initial_intro"), method: :post, class: 'btn btn-info' %>
+              <%= link_to "Send Followup Mailer", mailers_path(business_id: @business.id, type: "one_month_followup"), method: :post, class: 'btn btn-success' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-offset-1">
+          <%= link_to "Edit", edit_business_path(@business), class: 'btn btn-outline btn-warning' %>
+          <%= button_tag "Delete", class: 'btn btn-outline btn-danger', "data-toggle"=>"modal", 'data-target'=>'#myModal' %>
+          <%= link_to "Back", businesses_path, class: 'btn btn-outline btn-default' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">DANGER!!!</h4>
+      </div>
+      <div class="modal-body">
+        <%= "Are you sure you want to delete #{@business.company_name}?" %> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= link_to "Delete", business_path(@business), method: :delete, class: 'btn btn-danger' %>
+      </div>
+    </div>
+  </div>
+</div>

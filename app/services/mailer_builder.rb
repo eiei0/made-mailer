@@ -1,9 +1,10 @@
 class MailerBuilder
-  attr_accessor :business, :type
+  attr_accessor :business, :type, :email
 
-  def initialize(business, type)
+  def initialize(business, type, email=nil)
     @business = business
     @type = type
+    @email = email
   end
 
   def build
@@ -13,7 +14,7 @@ class MailerBuilder
         classification: 0,
         scheduled: true,
         business_id: business.id,
-        deliver_date: DateTime.now.end_of_day
+        deliver_date: (email.present? ? email.deliver_date : DateTime.now.end_of_day)
       })
     when "one_week_intro"
       last_email = business.emails.where(classification: 0).last
@@ -21,7 +22,7 @@ class MailerBuilder
         classification: 1,
         scheduled: true,
         business_id: business.id,
-        deliver_date: last_email.deliver_date + 7.days
+        deliver_date: (email.present? ? email.deliver_date : last_email.deliver_date + 7.days)
       })
     when "two_week_intro"
       last_email = business.emails.where(classification: 1).last
@@ -29,14 +30,14 @@ class MailerBuilder
         classification: 2,
         scheduled: true,
         business_id: business.id,
-        deliver_date: last_email.deliver_date + 14.days,
+        deliver_date: (email.present? ? email.deliver_date : last_email.deliver_date + 14.days)
       })
     when "one_month_followup"
       Email.schedule!(business, {
         classification: 3,
         scheduled: true,
         business_id: business.id,
-        deliver_date: business.last_order_placed + 30.days,
+        deliver_date: (email.present? ? email.deliver_date : business.last_order_placed + 30.days)
       })
     end
   end

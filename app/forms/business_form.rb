@@ -34,13 +34,12 @@ class BusinessForm
   end
 
   def create_email(business)
-    binding.pry
     Email.create!(email_params.merge(business_id: business.id))
   end
 
   def schedule_or_deliver_email(business, email)
-    if business.scheduled?
-      MailerBuilder.new(business, "initial_intro")
+    if email.scheduled?
+      MailerBuilder.new(business, "initial_intro", email).build
     else
       email.deliver!
     end

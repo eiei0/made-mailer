@@ -15,20 +15,24 @@ class Email < ApplicationRecord
     MailerWorker.perform_in(email.deliver_date, email.id)
   end
 
+  def scheduled?
+    deliver_date > DateTime.now
+  end
+
   def deliver!
     case classification
     when "initial_intro"
-      mailer = Mailer.initial_intro(business).deliver!
-      update_records if mailer.present?
+      mailer = Mailer.initial_intro(business)
+      update_records if mailer.deliver!
     when "one_week_intro"
-      Mailer.one_week_intro(business).deliver!
-      update_records if mailer.present?
+      Mailer.one_week_intro(business)
+      update_records if mailer.deliver!
     when "two_week_intro"
       Mailer.two_week_intro(business).deliver!
-      update_records if mailer.present?
+      update_records if mailer.deliver!
     when "one_month_followup"
       Mailer.one_month_followup(business).deliver!
-      update_records if mailer.present?
+      update_records if mailer.deliver!
     end
   end
 
