@@ -15,5 +15,11 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq'
 
-  root to: 'dashboard#index'
+  authenticated :user do
+    root to: 'dashboard#index', as: :authenticated_root
+  end
+
+  devise_scope :user do
+    root to: 'devise/sessions#new'
+  end
 end
