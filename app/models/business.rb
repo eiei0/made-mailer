@@ -1,9 +1,15 @@
 class Business < ApplicationRecord
   has_many :emails
+
   validates :company_name, :email, presence: true
+  validates :email, uniqueness: true
 
   def primary_contact_name
     "#{first} #{last}".strip
+  end
+
+  def scheduled?
+    emails.where('delivery_date > ?', DateTime.now).present?
   end
 
   def self.search(search)

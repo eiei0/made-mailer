@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   devise_for :users
+  resources :dashboard, only: [:index]
   resources :businesses do
     collection do
       put 'import'
@@ -10,8 +11,15 @@ Rails.application.routes.draw do
   resources :mailers, only: [:create]
   get 'reports/cog'
   get 'reports/mailers_sent'
+  resources :settings, only: [:index]
 
   mount Sidekiq::Web, at: '/sidekiq'
 
-  root to: redirect('/businesses')
+  authenticated :user do
+    root to: 'dashboard#index', as: :authenticated_root
+  end
+
+  devise_scope :user do
+    root to: 'devise/sessions#new'
+  end
 end

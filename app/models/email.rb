@@ -1,7 +1,8 @@
 class Email < ApplicationRecord
   belongs_to :business
 
-  validates :classification, :scheduled, :deliver_date, presence: true
+  validates :classification, :scheduled, presence: true
+  # TODO: Should validate presence of :delivery_date when :scheduled is true
 
   enum classification: {
     initial_intro: 0,
@@ -10,32 +11,32 @@ class Email < ApplicationRecord
     one_month_followup: 3
   }
 
-  def self.schedule!(business, email_params)
-    email = self.find_or_create_by!(email_params)
-    MailerWorker.perform_in(email.deliver_date, email.id)
+  def schedule!
+    MailerWorker.perform_in(delivery_date, id)
+  end
+
+  def scheduled?
+    return false if delivery_date.blank?
+    delivery_date > DateTime.now
   end
 
   def deliver!
-    case classification
-    when "initial_intro"
-      mailer = Mailer.initial_intro(business).deliver!
-      update_records if mailer.present?
-    when "one_week_intro"
-      Mailer.one_week_intro(business).deliver!
-      update_records if mailer.present?
-    when "two_week_intro"
-      Mailer.two_week_intro(business).deliver!
-      update_records if mailer.present?
-    when "one_month_followup"
-      Mailer.one_month_followup(business).deliver!
-      update_records if mailer.present?
+    mailer = Mailer.try(classification.to_sym, business)
+    update_records if mailer.deliver!
+  end
+
+  def schedule_or_deliver
+    if scheduled?
+      schedule!
+    else
+      deliver!
     end
   end
 
   private
 
   def update_records
-    update_attribute(:scheduled, false)
+    update_attributes(scheduled: false, delivery_date: DateTime.now)
     business.update_attribute(:last_contacted_at, DateTime.now)
   end
 end

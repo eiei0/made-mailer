@@ -14,12 +14,10 @@
   </head>
 
   <body>
-    <header>
-      <%= render 'layouts/shared/top_bar' if @disable_top_bar %>
-    </header>
-    <div class="container-fluid">
-      <div class="row">
-        <%= render_side_bar if @disable_side_bar %>
+    <div id=<%= current_user.present? ? "wrapper" : "container" %>>
+      <%= render "layouts/shared/topnav" if @disable_top_bar %>
+      <%= render "layouts/shared/sidenav" if @disable_side_bar %>
+      <div id=<%=current_user.present? ? "page-wrapper" : "" %>>
         <%= yield %>
       </div>
     </div>

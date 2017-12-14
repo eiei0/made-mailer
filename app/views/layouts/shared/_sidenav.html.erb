@@ -1,0 +1,39 @@
+<div class="navbar-default sidebar" role="navigation">
+  <div class="sidebar-nav navbar-collapse">
+    <ul class="nav" id="side-menu">
+      <%= render partial: 'layouts/shared/search_bar' %>
+      <li>
+        <%= link_to root_path do %>
+          <%= content_tag(:i, "", {class: "fa fa-dashboard fa-fw"}) %>
+          Dashboard
+        <% end %>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-briefcase fa-fw"></i> Businesses<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+          <li>
+            <%= link_to "New", new_business_path %>
+          </li>
+          <li>
+            <%= link_to "Index", businesses_path %>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+          <li>
+            <%= link_to "Cost of Goods", reports_cog_path %>
+          </li>
+          <li>
+            <%= link_to "Mailers Sent", reports_mailers_sent_path %>
+          </li>
+        </ul>
+        <!-- /.nav-second-level -->
+      </li>
+    </ul>
+  </div>
+  <!-- /.sidebar-collapse -->
+</div>
+<!-- /.navbar-static-side -->
+</nav>

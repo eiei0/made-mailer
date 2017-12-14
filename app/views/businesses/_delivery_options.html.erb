@@ -1,0 +1,23 @@
+<div class="col-lg-offset-1 col-lg-10">
+  <div class="well well-sm">
+    <h4>Delivery Options</h4>
+    <p>
+      When you save this business, it is required to either schedule an
+      intial contact email to be delivered or deliver one right away.
+      Please select one of the two options below:
+    </p>
+    <div class="form-group">
+      <%= f.label :delivery_date, class: 'control-label col-lg-2' %>
+      <div class="col-lg-8">
+        <%= f.datetime_local_field :delivery_date, class: 'form-control' %>
+      </div>
+    </div>
+    <p class="text-center"><b>OR</b></p>
+    <div class="form-group">
+      <%= f.label :deliver_now, class: 'control-label col-lg-2' %>
+      <div class="col-lg-8">
+        <%= f.check_box :deliver_now %>
+      </div>
+    </div>
+  </div>
+</div>

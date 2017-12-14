@@ -1,43 +1,29 @@
 class MailerBuilder
-  attr_accessor :business, :type
+  attr_accessor :business, :type, :deliver_now, :delivery_date
 
-  def initialize(business, type)
+  def initialize(business, type, deliver_now, delivery_date=nil)
     @business = business
     @type = type
+    @deliver_now = deliver_now
+    @delivery_date = delivery_date
   end
 
-  def build
-    case type
-    when "initial_intro"
-      Email.schedule!(business, {
-        classification: 0,
-        scheduled: true,
-        business_id: business.id,
-        deliver_date: DateTime.now.end_of_day
-      })
-    when "one_week_intro"
-      last_email = business.emails.where(classification: 0).last
-      Email.schedule!(business, {
-        classification: 1,
-        scheduled: true,
-        business_id: business.id,
-        deliver_date: last_email.deliver_date + 7.days
-      })
-    when "two_week_intro"
-      last_email = business.emails.where(classification: 1).last
-      Email.schedule!(business, {
-        classification: 2,
-        scheduled: true,
-        business_id: business.id,
-        deliver_date: last_email.deliver_date + 14.days,
-      })
-    when "one_month_followup"
-      Email.schedule!(business, {
-        classification: 3,
-        scheduled: true,
-        business_id: business.id,
-        deliver_date: business.last_order_placed + 30.days,
-      })
-    end
+  def build!
+    email = fetch_or_create_email!
+    email.schedule_or_deliver
+  end
+
+  private
+
+  def fetch_or_create_email!
+    business.emails.create!(email_params)
+  end
+
+  def email_params
+    {
+      classification: type,
+      scheduled: (deliver_now.present? ? 1 : 0),
+      delivery_date: delivery_date
+    }
   end
 end

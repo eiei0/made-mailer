@@ -1,7 +1,19 @@
-<%- model_class = Business -%>
-<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-  <div class="page-header">
-    <h1><%=t '.title', default: [:'helpers.titles.new', 'New %{model}'], model: model_class.model_name.human.titleize %></h1>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">New Business</h1>
   </div>
-  <%= render partial: 'form' %>
-</main>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Business Information
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <%= render partial: 'form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
