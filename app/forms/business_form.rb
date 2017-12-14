@@ -1,30 +1,24 @@
 class BusinessForm
   include ActiveModel::Model
 
-  attr_reader :business_params, :email_params
+  attr_reader :business_params, :deliver_now, :delivery_date, :company_name, :email
   attr_accessor :company_name, :email, :first, :last, :delivery_date,
     :deliver_now, :address, :city, :state, :postal_code, :country
 
-  # validates :company_name, presence: true # validates :email, presence: true
+  # validates :business_params, presence: true, if: :business_params_valid?
+  validates :delivery_date, presence: true, if: :scheduled?
 
   def initialize(attrs = {})
     @business_params = attrs.except(:delivery_date, :deliver_now)
-    @email_params = {
-      classification: 0,
-      scheduled: (attrs[:deliver_now].present? ? 1 : 0),
-      deliver_date: (attrs[:delivery_date].present? ? attrs[:delivery_date] : DateTime.now)
-    }
+    @deliver_now = attrs[:deliver_now]
+    @delivery_date = attrs[:delivery_date]
   end
 
   def persist!
-    if valid?
-      ActiveRecord::Base.transaction do
-        business = create_business
-        email = create_email(business)
-        schedule_or_deliver_email(business, email)
-        business
-      end
-    end
+    # if valid?
+    business = create_business
+    build_email(business)
+    business
   end
 
   private
@@ -33,15 +27,17 @@ class BusinessForm
     Business.create!(business_params)
   end
 
-  def create_email(business)
-    Email.create!(email_params.merge(business_id: business.id))
+  def build_email(business)
+    builder = MailerBuilder.new(business, 'initial_intro', deliver_now, delivery_date)
+    builder.build!
   end
 
-  def schedule_or_deliver_email(business, email)
-    if email.scheduled?
-      MailerBuilder.new(business, "initial_intro", email).build
-    else
-      email.deliver!
-    end
+  def scheduled?
+    deliver_now == false && delivery_date.present?
   end
+
+  # def business_params_valid?
+  #   required_keys = [:company_name, :email]
+  #   required_keys.all? { |k| business_params.key?(k) && business_params[k].present? }
+  # end
 end

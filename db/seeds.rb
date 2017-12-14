@@ -35,7 +35,7 @@ puts "Seeded #{Business.count} Businesses"
     business_id: id,
     classification: [3, 0].sample,
     scheduled: true,
-    deliver_date: rand(30).days.from_now,
+    delivery_date: rand(30).days.from_now,
     created_at: business.last_contacted_at
   )
 end

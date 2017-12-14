@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20171118024400) do
   create_table "emails", force: :cascade do |t|
     t.bigint "business_id"
     t.integer "classification", null: false
-    t.boolean "scheduled", null: false
-    t.datetime "deliver_date", null: false
+    t.boolean "scheduled", default: false, null: false
+    t.datetime "delivery_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_id"], name: "index_emails_on_business_id"

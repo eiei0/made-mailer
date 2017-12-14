@@ -9,7 +9,7 @@ class Business < ApplicationRecord
   end
 
   def scheduled?
-    emails.where('deliver_date > ?', DateTime.now).present?
+    emails.where('delivery_date > ?', DateTime.now).present?
   end
 
   def self.search(search)

@@ -133,9 +133,9 @@ class BusinessesController < ApplicationController
 
   def render_success_flashes(business)
     name = business.company_name
-    date_time = business.emails.last.deliver_date.try(:strftime, "%m/%d/%Y at %I:%M%p")
+    date_time = business.emails.last.delivery_date.try(:strftime, "%m/%d/%Y at %I:%M%p")
 
-    if business.scheduled? 
+    if business.scheduled?
       flash[:notice] = "#{name} was created successfully and is scheduled to be contacted on #{date_time}."
     else
       flash[:notice] = "#{name} was created and a mailer was sent to them successfully."

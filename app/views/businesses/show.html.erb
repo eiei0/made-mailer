@@ -42,8 +42,8 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-offset-1">
-              <%= link_to "Send Intro Mailer", mailers_path(business_id: @business, type: "initial_intro"), method: :post, class: 'btn btn-info' %>
-              <%= link_to "Send Followup Mailer", mailers_path(business_id: @business.id, type: "one_month_followup"), method: :post, class: 'btn btn-success' %>
+              <%= button_to "Send Intro Mailer", mailers_path(business_id: @business), { params: { type: "initial_intro", deliver_now: true }, class: 'btn btn-primary'} %>
+              <%= button_to "Send Followup Mailer", mailers_path(business_id: @business.id), { params: { type: "one_month_followup", deliver_now: true }, class: 'btn btn-success' } %>
             </div>
           </div>
         </div>
