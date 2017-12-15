@@ -33,6 +33,10 @@ class Email < ApplicationRecord
     end
   end
 
+  def self.mailers_delivered(start_date)
+    where(scheduled: false).where('delivery_date > ?', start_date)
+  end
+
   private
 
   def update_records

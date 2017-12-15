@@ -1,0 +1,13 @@
+<div class="col-lg-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-bell fa-fw"></i> Notifications
+    </div>
+    <div class="panel-body">
+      <div class="list-group">
+       <%= render partial: 'notification', collection: @notifications %>
+      </div>
+    </div>
+  </div>
+  <%= link_to "View All Alerts", root_path, class: "btn btn-default btn-block" %>
+</div>
