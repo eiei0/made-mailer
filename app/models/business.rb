@@ -22,4 +22,8 @@ class Business < ApplicationRecord
       all
     end
   end
+
+  def update_contacted_date
+    update_attribute(:last_contacted_at, DateTime.now)
+  end
 end

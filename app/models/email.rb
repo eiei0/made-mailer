@@ -21,7 +21,7 @@ class Email < ApplicationRecord
   end
 
   def deliver!
-    mailer = Mailer.try(classification.to_sym, business)
+    mailer = Mailer.public_send(classification.to_sym, business)
     update_records if mailer.deliver!
   end
 
@@ -41,6 +41,6 @@ class Email < ApplicationRecord
 
   def update_records
     update_attributes(scheduled: false, delivery_date: DateTime.now)
-    business.update_attribute(:last_contacted_at, DateTime.now)
+    business.update_contact_date
   end
 end
