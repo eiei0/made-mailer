@@ -9,13 +9,13 @@ class MailerBuilder
   end
 
   def build!
-    email = fetch_or_create_email!
+    email = create_email!
     email.schedule_or_deliver
   end
 
   private
 
-  def fetch_or_create_email!
+  def create_email!
     business.emails.create!(email_params)
   end
 
