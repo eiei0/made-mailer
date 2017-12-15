@@ -1,10 +1,11 @@
 <h3>No data present</h3>
-<p>To add client data, see the following options:</p>
-<ul>
-  <li>
-    <p><%= link_to("Create", new_business_path) %> a new client</p>
-  </li>
-  <li>
-    <p><%= link_to("Import", import_businesses_path, method: :put) %> any new client(s) directly from Square.</p>
-  </li>
-</ul>
+<p>To add client data, use the following options:</p>
+<br/>
+<div class="row">
+  <div class="col-xs-1">
+    <%= button_to "Create A New Client", new_business_path, method: :get, class: 'btn btn-primary' %>
+  </div>
+  <div class="col-xs-1">
+    <%= button_to "Import Businesses from Square", import_businesses_path, method: :put, class: 'btn btn-success' %>
+  </div>
+</div>
