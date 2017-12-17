@@ -36,7 +36,8 @@ ActiveRecord::Schema.define(version: 20171118024400) do
   create_table "emails", force: :cascade do |t|
     t.bigint "business_id"
     t.integer "classification", null: false
-    t.boolean "scheduled", default: false, null: false
+    t.boolean "scheduled", default: false
+    t.string "jid"
     t.datetime "delivery_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

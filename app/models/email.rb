@@ -1,8 +1,8 @@
 class Email < ApplicationRecord
   belongs_to :business
 
-  validates :classification, :scheduled, presence: true
-  # TODO: Should validate presence of :delivery_date when :scheduled is true
+  validates :classification, presence: true
+  validates :delivery_date, presence: true, if: :scheduled_attr_true?
 
   enum classification: {
     initial_intro: 0,
@@ -12,7 +12,8 @@ class Email < ApplicationRecord
   }
 
   def schedule!
-    MailerWorker.perform_in(delivery_date, id)
+    jid = MailerWorker.perform_in(delivery_date, id)
+    update_attribute(:jid, jid)
   end
 
   def scheduled?
@@ -21,6 +22,7 @@ class Email < ApplicationRecord
   end
 
   def deliver!
+    # consider switching this to MailerWorker.perform_async(classification.to_sym, id)
     mailer = Mailer.public_send(classification.to_sym, business)
     update_records if mailer.deliver!
   end
@@ -41,6 +43,10 @@ class Email < ApplicationRecord
 
   def update_records
     update_attributes(scheduled: false, delivery_date: DateTime.now)
-    business.update_contact_date
+    business.update_after_mailer_delivery(classification)
+  end
+
+  def scheduled_attr_true?
+    scheduled == true
   end
 end

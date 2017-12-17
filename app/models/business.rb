@@ -23,7 +23,16 @@ class Business < ApplicationRecord
     end
   end
 
-  def update_contacted_date
-    update_attribute(:last_contacted_at, DateTime.now)
+  def update_after_mailer_delivery(mailer_phase)
+    update_attributes(last_contacted_at: DateTime.now, mailer_phase: mailer_phase)
+  end
+
+  def is_brand_new?
+    last_email_delivered.present?
+  end
+
+  def last_email_delivered
+    emls = self.emails.where(classification: mailer_phase)
+    emls.select { |e| e.delivery_date.to_s == last_contacted_at.to_s }
   end
 end
