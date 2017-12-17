@@ -45,6 +45,7 @@ class BusinessesController < ApplicationController
 
   def destroy
     @business.destroy
+    @business.destroy_all_mailers
     respond_to do |format|
       format.html { redirect_to businesses_url, notice: "#{@business.company_name} was deleted successfully." }
       format.json { head :no_content }

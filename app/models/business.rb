@@ -35,4 +35,11 @@ class Business < ApplicationRecord
     emls = self.emails.where(classification: mailer_phase)
     emls.select { |e| e.delivery_date.to_s == last_contacted_at.to_s }
   end
+
+  def destroy_all_mailers
+    emails.each do |email|
+      MailerWorker.cancel!(email.jid)
+      email.destroy!
+    end
+  end
 end
