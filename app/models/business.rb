@@ -27,13 +27,8 @@ class Business < ApplicationRecord
     update_attributes(last_contacted_at: DateTime.now, mailer_phase: mailer_phase)
   end
 
-  def is_brand_new?
-    last_email_delivered.present?
-  end
-
-  def last_email_delivered
-    emls = self.emails.where(classification: mailer_phase)
-    emls.select { |e| e.delivery_date.to_s == last_contacted_at.to_s }
+  def is_new?
+    mailer_phase == "initial_intro"
   end
 
   def destroy_all_mailers

@@ -2,7 +2,6 @@ class Email < ApplicationRecord
   belongs_to :business
 
   validates :classification, presence: true
-  validates :delivery_date, presence: true, if: :scheduled_attr_true?
 
   enum classification: {
     initial_intro: 0,
@@ -11,14 +10,10 @@ class Email < ApplicationRecord
     one_month_followup: 3
   }
 
-  def schedule!
+  def schedule_mailer
     jid = MailerWorker.perform_in(delivery_date, id)
     update_attribute(:jid, jid)
-  end
-
-  def scheduled?
-    return false if delivery_date.blank?
-    delivery_date > DateTime.now
+    business.update_after_mailer_delivery(classification)
   end
 
   def deliver!
@@ -29,7 +24,7 @@ class Email < ApplicationRecord
 
   def schedule_or_deliver
     if scheduled?
-      schedule!
+      schedule_mailer
     else
       deliver!
     end
@@ -44,9 +39,5 @@ class Email < ApplicationRecord
   def update_records
     update_attributes(scheduled: false, delivery_date: DateTime.now)
     business.update_after_mailer_delivery(classification)
-  end
-
-  def scheduled_attr_true?
-    scheduled == true
   end
 end

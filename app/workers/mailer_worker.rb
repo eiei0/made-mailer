@@ -8,6 +8,6 @@ class MailerWorker
 
   def self.cancel!(jid)
     job = Sidekiq::ScheduledSet.new.find_job(jid)
-    job.delete
+    job.delete if job.present?
   end
 end

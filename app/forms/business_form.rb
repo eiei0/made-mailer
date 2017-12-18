@@ -16,9 +16,11 @@ class BusinessForm
 
   def persist!
     # if valid?
-    business = create_business
-    build_email(business)
-    business
+    ActiveRecord::Base.transaction do
+      business = create_business
+      build_emails(business)
+      business
+    end
   end
 
   private
@@ -27,7 +29,7 @@ class BusinessForm
     Business.create!(business_params)
   end
 
-  def build_email(business)
+  def build_emails(business)
     builder = MailerBuilder.new(business, 'initial_intro', deliver_now, delivery_date)
     builder.build!
   end
