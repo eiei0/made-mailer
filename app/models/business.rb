@@ -1,5 +1,6 @@
 class Business < ApplicationRecord
   has_many :emails
+  has_many :notifications
 
   validates :company_name, :email, presence: true
   validates :email, uniqueness: true

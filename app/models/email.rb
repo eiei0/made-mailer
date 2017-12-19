@@ -1,5 +1,6 @@
 class Email < ApplicationRecord
   belongs_to :business
+  has_many :notifications
 
   validates :classification, presence: true
 

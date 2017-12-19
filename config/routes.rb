@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
   end
   resources :mailers, only: [:create]
+  resources :notifications, only: [:create, :index]
   get 'reports/cog'
   get 'reports/mailers_sent'
   resources :settings, only: [:index]
