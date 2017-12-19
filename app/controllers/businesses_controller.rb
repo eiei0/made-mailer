@@ -23,7 +23,7 @@ class BusinessesController < ApplicationController
     @business = BusinessForm.new(business_form_params)
 
     if business_record = @business.persist!
-      render_success_flashes(business_record)
+      flash[:notice] = "#{business_record.company_name} was created successfully."
       redirect_to businesses_path
     end
   rescue => e
@@ -130,16 +130,5 @@ class BusinessesController < ApplicationController
 
   def set_business_controller
     @business_controller = true
-  end
-
-  def render_success_flashes(business)
-    name = business.company_name
-    date_time = business.emails.last.delivery_date.try(:strftime, "%m/%d/%Y at %I:%M%p")
-
-    if business.scheduled?
-      flash[:notice] = "#{name} was created successfully and is scheduled to be contacted on #{date_time}."
-    else
-      flash[:notice] = "#{name} was created and a mailer was sent to them successfully."
-    end
   end
 end
