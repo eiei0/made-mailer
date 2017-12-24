@@ -7,10 +7,12 @@
         <tr>
           <th><%= sortable :company_name, Business.human_attribute_name(:company_name) %></th>
           <th><%= sortable :email, Business.human_attribute_name(:email) %></th>
+          <th><%= sortable :url, Business.human_attribute_name(:website) %></th>
           <th><%= sortable :city, Business.human_attribute_name(:city) %></th>
           <th><%= sortable :state, Business.human_attribute_name(:state) %></th>
+          <th><%= sortable :status, Business.human_attribute_name(:status) %></th>
+          <th><%= sortable :mailer_phase, Business.human_attribute_name(:mailer_phase) %></th>
           <th><%= sortable :last_contacted_at, Business.human_attribute_name(:last_contacted_at) %></th>
-          <th><%= sortable :last_order_placed, Business.human_attribute_name(:last_order_placed) %></th>
         </tr>
       </thead>
       <tbody class="suggestions">
@@ -18,10 +20,12 @@
           <tr>
             <td><%= link_to business.company_name, business_path(business) %></td>
             <td><%= business.email %></td>
+            <td><%= link_to business.url, business.url, target: '_blank' %></td>
             <td><%= business.city %></td>
             <td><%= business.state %></td>
+            <td><%= business.status.humanize.titleize %></td>
+            <td><%= business.mailer_phase.humanize.titleize %></td>
             <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
-            <td><%= business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
           </tr>
         <% end %>
       </tbody>

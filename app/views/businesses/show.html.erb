@@ -14,6 +14,8 @@
         <dd><%= @business.company_name %></dd>
         <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
         <dd><%= @business.email %></dd>
+        <dt><strong>Website:</strong></dt>
+        <dd><%= link_to @business.url, @business.url, target: '_blank' %></dd>
         <dt><strong><%= model_class.human_attribute_name(:first) %>:</strong></dt>
         <dd><%= @business.first %></dd>
         <dt><strong><%= model_class.human_attribute_name(:last) %>:</strong></dt>
@@ -28,6 +30,10 @@
         <dd><%= @business.postal_code %></dd>
         <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
         <dd><%= @business.country %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+        <dd><%= @business.status.humanize.titleize %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:mailer_phase) %>:</strong></dt>
+        <dd><%= @business.mailer_phase.humanize.titleize %></dd>
         <dt><strong><%= model_class.human_attribute_name(:last_contacted_at) %>:</strong></dt>
         <dd><%= @business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></dd>
         <dt><strong><%= model_class.human_attribute_name(:last_order_placed) %>:</strong></dt>

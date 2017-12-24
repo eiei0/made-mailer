@@ -119,13 +119,13 @@ class BusinessesController < ApplicationController
   def business_params
     params.require(:business).permit(:company_name, :email, :first, :last, :address, :city,
                                      :state, :postal_code, :country, :last_contacted_at,
-                                     :last_order_placed)
+                                     :last_order_placed, :url, :notes, :status, :phone)
   end
 
   def business_form_params
     params.require(:business_form).permit(:company_name, :email, :first, :last, :delivery_date,
                                           :deliver_now, :address, :city, :state, :postal_code,
-                                          :country)
+                                          :country, :url, :notes, :status, :phone)
   end
 
   def set_business_controller

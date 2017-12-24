@@ -2,8 +2,8 @@ class BusinessForm
   include ActiveModel::Model
 
   attr_reader :business_params, :deliver_now, :delivery_date, :company_name, :email
-  attr_accessor :company_name, :email, :first, :last, :delivery_date,
-    :deliver_now, :address, :city, :state, :postal_code, :country
+  attr_accessor :company_name, :email, :first, :last, :url, :delivery_date, :notes,
+    :deliver_now, :address, :city, :state, :postal_code, :country, :status, :phone
 
   # validates :business_params, presence: true, if: :business_params_valid?
   validates :delivery_date, presence: true, if: :scheduled?
@@ -26,7 +26,7 @@ class BusinessForm
   private
 
   def create_business
-    Business.create!(business_params)
+    Business.create!(business_params.merge("status"=>business_params[:status].underscore))
   end
 
   def build_emails(business)

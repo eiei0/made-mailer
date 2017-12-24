@@ -5,6 +5,16 @@ class Business < ApplicationRecord
   validates :company_name, :email, presence: true
   validates :email, uniqueness: true
 
+  enum status: {
+    pending: 0,
+    current_wholesale_vendor: 1,
+    current_consignment_vendor: 2,
+    declined: 3,
+    followup_later: 4
+  }
+
+  before_validation :smart_add_url_protocol
+
   def primary_contact_name
     "#{first} #{last}".strip
   end
@@ -36,6 +46,14 @@ class Business < ApplicationRecord
     emails.each do |email|
       MailerWorker.cancel!(email.jid)
       email.destroy!
+    end
+  end
+
+  private
+
+  def smart_add_url_protocol
+    unless self.url[/\Ahttp:\/\//] || self.url[/\Ahttps:\/\//]
+      self.url = "http://#{self.url}"
     end
   end
 end

@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 20171219050717) do
   create_table "businesses", force: :cascade do |t|
     t.string "company_name", null: false
     t.string "email", null: false
+    t.string "url"
     t.string "first"
     t.string "last"
+    t.string "phone"
     t.string "address"
     t.string "city"
     t.string "state"
@@ -27,6 +29,8 @@ ActiveRecord::Schema.define(version: 20171219050717) do
     t.string "country"
     t.string "square_id"
     t.string "mailer_phase"
+    t.string "notes"
+    t.integer "status"
     t.datetime "last_contacted_at"
     t.datetime "last_order_placed"
     t.datetime "created_at", null: false
