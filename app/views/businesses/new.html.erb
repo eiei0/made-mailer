@@ -11,7 +11,9 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <%= render partial: 'form' %>
+          <%= form_for @business, url: businesses_path, method: :post, html: { class: "form-horizontal business" } do |f| %>
+            <%= render partial: 'form', locals: { f: f } %>
+          <% end %>
         </div>
       </div>
     </div>

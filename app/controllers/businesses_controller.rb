@@ -32,15 +32,12 @@ class BusinessesController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @business.update(business_params)
-        format.html { redirect_to @business, notice: "#{@business.company_name} was updated successfully." }
-        format.json { render :show, status: :ok, location: @business }
-      else
-        format.html { render :edit }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to(@business, notice: "#{@business.company_name} was updated successfully.") if @business.update(
+      business_params.merge("status"=>business_params[:status].split(" ").join.underscore)
+    )
+  rescue => e
+    flash[:notice] = "Unable to update business: #{e}"
+    redirect_back(fallback_location: business_path(params[:id]))
   end
 
   def destroy
