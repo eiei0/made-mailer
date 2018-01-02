@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       put 'import'
     end
   end
-  resources :mailers, only: [:create]
+  resources :mailers, only: [:create, :destroy], param: :business_id
   resources :notifications, only: [:create, :index]
   get 'reports/cog'
   get 'reports/mailers_sent'

@@ -24,7 +24,7 @@
             <td><%= business.city %></td>
             <td><%= business.state %></td>
             <td><%= business.status.humanize.titleize %></td>
-            <td><%= business.mailer_phase.humanize.titleize %></td>
+            <td><%= business.mailer_phase.try(:humanize).try(:titleize) %></td>
             <td><%= business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></td>
           </tr>
         <% end %>

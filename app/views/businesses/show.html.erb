@@ -33,7 +33,7 @@
         <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
         <dd><%= @business.status.humanize.titleize %></dd>
         <dt><strong><%= model_class.human_attribute_name(:mailer_phase) %>:</strong></dt>
-        <dd><%= @business.mailer_phase.humanize.titleize %></dd>
+        <dd><%= @business.mailer_phase.try(:humanize).try(:titleize) %></dd>
         <dt><strong><%= model_class.human_attribute_name(:last_contacted_at) %>:</strong></dt>
         <dd><%= @business.last_contacted_at.try(:strftime, "%m/%d/%Y at %I:%M%p") %></dd>
         <dt><strong><%= model_class.human_attribute_name(:last_order_placed) %>:</strong></dt>
@@ -48,8 +48,8 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-offset-1">
-              <%= button_to "Send Intro Mailer", mailers_path(business_id: @business), { params: { type: "initial_intro", deliver_now: true }, class: 'btn btn-primary'} %>
-              <%= button_to "Send Followup Mailer", mailers_path(business_id: @business.id), { params: { type: "one_month_followup", deliver_now: true }, class: 'btn btn-success' } %>
+              <%= button_to "Send Followup Mailer", mailers_path(business_id: @business.id), { params: { type: "one_month_followup", deliver_now: true }, class: 'btn btn-info' } %>
+              <%= button_tag "Stop All Automated Mailers", class: 'btn btn-danger', "data-toggle"=>"modal", 'data-target'=>'#stopBusinessMailers' %>
             </div>
           </div>
         </div>
@@ -59,14 +59,14 @@
       <div class="row">
         <div class="col-lg-offset-1">
           <%= link_to "Edit", edit_business_path(@business), class: 'btn btn-outline btn-warning' %>
-          <%= button_tag "Delete", class: 'btn btn-outline btn-danger', "data-toggle"=>"modal", 'data-target'=>'#myModal' %>
+          <%= button_tag "Delete", class: 'btn btn-outline btn-danger', "data-toggle"=>"modal", 'data-target'=>'#deleteBusiness' %>
           <%= link_to "Back", businesses_path, class: 'btn btn-outline btn-default' %>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="deleteBusiness" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -74,11 +74,28 @@
         <h4 class="modal-title" id="myModalLabel">DANGER!!!</h4>
       </div>
       <div class="modal-body">
-        <%= "Are you sure you want to delete #{@business.company_name}?" %> 
+        <%= "Are you sure you want to delete #{@business.company_name}? This cannot be undone!" %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <%= link_to "Delete", business_path(@business), method: :delete, class: 'btn btn-danger' %>
+        <%= link_to "", business_path(@business), method: :delete, class: 'btn btn-danger' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="stopBusinessMailers" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">WARNING</h4>
+      </div>
+      <div class="modal-body">
+        <%= "Are you sure you want to stop all future automated emails to #{@business.company_name} from being sent?" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= link_to "Continue", mailer_path(business_id: @business.id), method: :delete, class: 'btn btn-danger' %>
       </div>
     </div>
   </div>
