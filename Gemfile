@@ -15,6 +15,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'browser-timezone-rails', '~> 1.0.1'
+gem 'bootsnap', require: false
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-jquery'

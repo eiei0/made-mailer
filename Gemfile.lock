@@ -44,6 +44,8 @@ GEM
     arel (8.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootsnap (1.1.7)
+      msgpack (~> 1.0)
     browser-timezone-rails (1.0.1)
       js_cookie_rails
       jstz-rails3-plus
@@ -135,6 +137,7 @@ GEM
       monetize (~> 1.4.0)
       money (~> 6.7)
       railties (>= 3.0)
+    msgpack (1.2.0)
     multi_json (1.12.2)
     multipart-post (2.0.0)
     netrc (0.11.0)
@@ -309,6 +312,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootsnap
   browser-timezone-rails (~> 1.0.1)
   capybara (~> 2.13)
   chartkick (~> 1.4.2)
