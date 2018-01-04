@@ -3,6 +3,10 @@ FactoryBot.define do
     classification "initial_intro"
     jid SecureRandom.hex(12)
 
+    factory :email_with_business do
+      business
+    end
+
     trait :unscheduled do
       scheduled false
       delivery_date nil 
