@@ -36,7 +36,6 @@ gem 'sentry-raven'
 
 gem 'devise', '~> 4.3.0'
 gem 'sidekiq', '~> 5.0.5'
-gem 'mailgun-ruby', '~>1.1.6'
 
 gem 'square_connect', '~>2.5.0.180'
 

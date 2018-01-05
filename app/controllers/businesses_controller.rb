@@ -26,9 +26,9 @@ class BusinessesController < ApplicationController
       flash[:notice] = "#{business_record.company_name} was created successfully."
       redirect_to businesses_path
     end
-  rescue => e
-    flash[:notice] = "Unable to create business: #{e}"
-    redirect_back(fallback_location: new_business_path)
+  # rescue => e
+  #   flash[:notice] = "Unable to create business: #{e}"
+  #   redirect_back(fallback_location: new_business_path)
   end
 
   def update

@@ -27,10 +27,21 @@ Rails.application.configure do
   end
 
   config.action_mailer.default_url_options = { host: 'localhost' }
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key: ENV["mailgun_api_key"],
-    domain: 'mail.madelr.com'
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:                              'smtp.zoho.com',
+    port:                                 465,
+    user_name:                            ENV['stacy_email'],
+    domain:                               'madelr.com',
+    password:                             ENV['zoho_password'],
+    authentication:                       'plain',
+    authentication:                       'plain',
+    ssl:                                  true,
+    tls:                                  true,
+    enable_starttls_auto:                 true
+  }
+  config.action_mailer.default_options = {
+    from: ENV['stacy_email']
   }
 
   # Don't care if the mailer can't send.

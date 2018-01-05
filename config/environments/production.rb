@@ -66,10 +66,21 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { host: 'made-assistant.heroku.com' }
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key: ENV["mailgun_api_key"],
-    domain: 'mail.madelr.com'
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:                              'smtp.zoho.com',
+    port:                                 465,
+    user_name:                            ENV['stacy_email'],
+    domain:                               'madelr.com',
+    password:                             ENV['zoho_password'],
+    authentication:                       'plain',
+    authentication:                       'plain',
+    ssl:                                  true,
+    tls:                                  true,
+    enable_starttls_auto:                 true
+  }
+  config.action_mailer.default_options = {
+    from: ENV['stacy_email']
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
