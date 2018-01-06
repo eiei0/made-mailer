@@ -41,8 +41,11 @@ class BusinessesController < ApplicationController
   end
 
   def destroy
-    @business.destroy
-    @business.destroy_all_mailers
+    ActiveRecord::Base.transaction do
+      @business.destroy
+      @business.destroy_all_mailers
+      @business.notifications.destroy_all
+    end
     respond_to do |format|
       format.html { redirect_to businesses_url, notice: "#{@business.company_name} was deleted successfully." }
       format.json { head :no_content }

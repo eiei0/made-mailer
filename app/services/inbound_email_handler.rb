@@ -10,12 +10,12 @@ class InboundEmailHandler
 
     if businesses.present?
       businesses.each do |biz|
-        stop_emails(biz) if biz.scheduled?
-        biz.update!(status: "response_received")
+        email = create_incoming_email(biz)
+        stop_emails_and_notify(biz, email) if biz.scheduled?
       end
     end
   rescue => e
-    raise "Authentication failed: #{e}"
+    raise "#{e}"
   end
 
   private
@@ -24,8 +24,27 @@ class InboundEmailHandler
     Business.where(email: new_messages.flat_map(&:from))
   end
 
-  def stop_emails(business)
+  def create_incoming_email(business)
+    business.emails.create!(
+      classification: "inbound",
+      scheduled: false,
+      jid: nil,
+      delivery_date: nil
+    )
+  end
+
+  def stop_emails_and_notify(business, email)
     business.stop_email_flow
+    notify!(business, email)
+  end
+
+  def notify!(business, email)
     Email.notify_admin(business)
+    business.notifications.create!(
+      body: "New email from #{business.company_name}",
+      icon: "fa-envelope",
+      email_id: email.id
+    )
+    business.update!(status: "response_received")
   end
 end

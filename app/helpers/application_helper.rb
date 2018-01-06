@@ -31,4 +31,19 @@ module ApplicationHelper
       link_to text, path, { class: class_name }
     end
   end
+
+  def render_notification(path, notification)
+    link_to path, class: "list-group-item" do
+      concat(content_tag :i, "",class: "fa #{notification.icon} fa-fw")
+      concat(" #{notification.business.company_name.truncate(23)}")
+      concat(
+        content_tag :span,
+        (content_tag :em, render_time(notification.created_at),
+         class: "pull-right text-muted small"), class: "pull-right text-muted small")
+    end
+  end
+
+  def render_time(created_at)
+    "#{time_ago_in_words(created_at, include_seconds: true)} ago"
+  end
 end

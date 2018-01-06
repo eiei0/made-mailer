@@ -3,5 +3,6 @@ class NotificationsController < ApplicationController
   end
 
   def index
+    @notifications = Notification.all
   end
 end

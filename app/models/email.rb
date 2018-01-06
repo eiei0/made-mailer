@@ -10,7 +10,8 @@ class Email < ApplicationRecord
     initial_intro: 0,
     one_week_intro: 1,
     two_week_intro: 2,
-    one_month_followup: 3
+    one_month_followup: 3,
+    inbound: 4
   }
 
   def schedule_mailer

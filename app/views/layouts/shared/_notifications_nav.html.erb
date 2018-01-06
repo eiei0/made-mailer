@@ -3,7 +3,7 @@
     <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
   </a>
   <ul class="dropdown-menu dropdown-alerts">
-    <%= render partial: 'layouts/shared/notification_nav' %>
+    <%= render partial: 'layouts/shared/notification_nav', collection: @notifications %>
     <%= render partial: 'layouts/shared/notifications_footer_nav' %>
   </ul>
 </li>
