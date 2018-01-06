@@ -4,6 +4,8 @@ class Email < ApplicationRecord
 
   validates :classification, presence: true
 
+  scope :scheduled, -> { where('delivery_date > ?', DateTime.now) }
+
   enum classification: {
     initial_intro: 0,
     one_week_intro: 1,
@@ -33,6 +35,10 @@ class Email < ApplicationRecord
 
   def self.mailers_delivered(start_date)
     where(scheduled: false).where('delivery_date > ?', start_date)
+  end
+
+  def self.notify_admin(business)
+    Mailer.admin_response_notification(business).deliver!
   end
 
   private

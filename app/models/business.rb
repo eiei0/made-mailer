@@ -10,7 +10,8 @@ class Business < ApplicationRecord
     current_wholesale_vendor: 1,
     current_consignment_vendor: 2,
     declined: 3,
-    followup_later: 4
+    followup_later: 4,
+    response_received: 5
   }
 
   before_validation :smart_add_url_protocol
@@ -20,7 +21,7 @@ class Business < ApplicationRecord
   end
 
   def scheduled?
-    emails.where('delivery_date > ?', DateTime.now).present?
+    emails.scheduled.present?
   end
 
   def self.search(search)

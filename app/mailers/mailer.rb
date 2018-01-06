@@ -33,4 +33,10 @@ class Mailer < ApplicationMailer
 
     mail(to: business.email, subject: "Order Followup")
   end
+
+  def admin_response_notification(business)
+    @business_name = business.company_name
+
+    mail(to: ENV['stacy_email'], subject: "#{@business_name} response notification")
+  end
 end
