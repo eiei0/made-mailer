@@ -1,3 +1,5 @@
+require 'sidekiq-scheduler'
+
 class ImapWorker
   include Sidekiq::Worker
 
