@@ -5,6 +5,8 @@ class Business < ApplicationRecord
   validates :company_name, :email, presence: true
   validates :email, uniqueness: true
 
+  before_save :downcase_email
+
   enum status: {
     pending: 0,
     current_wholesale_vendor: 1,
@@ -65,5 +67,9 @@ class Business < ApplicationRecord
     unless self.url[/\Ahttp:\/\//] || self.url[/\Ahttps:\/\//]
       self.url = "http://#{self.url}"
     end
+  end
+
+  def downcase_email
+    self.email.downcase!
   end
 end

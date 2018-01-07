@@ -21,7 +21,7 @@ class InboundEmailHandler
   private
 
   def fetch_businesses
-    Business.where(email: new_messages.flat_map(&:from))
+    Business.where(email: new_messages.flat_map { |msg| msg.from.first.downcase})
   end
 
   def create_incoming_email(business)
