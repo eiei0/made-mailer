@@ -37,6 +37,6 @@ class Mailer < ApplicationMailer
   def admin_response_notification(business)
     @business_name = business.company_name
 
-    mail(to: ENV['stacy_email'], subject: "#{@business_name} response notification")
+    mail(to: ENV['wholesale_email'], subject: "#{@business_name} response notification")
   end
 end

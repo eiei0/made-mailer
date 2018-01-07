@@ -17,17 +17,19 @@ class ZohoImap
   private
 
   def connect!
-    client.authenticate('PLAIN', ENV['stacy_email'], ENV['zoho_password'])
+    client.authenticate('PLAIN', ENV['wholesale_email'], ENV['zoho_password'])
   end
 
   def fetch_new_messages
     messages = []
     client.select('INBOX')
     unread_message_ids = client.search(["UNSEEN"])
-    unread_message_ids.each do |id|
-      raw_message = client.fetch(id,'RFC822').first.attr['RFC822']
-      message = Mail.read_from_string raw_message
-      messages << message
+    if unread_message_ids.present?
+      unread_message_ids.each do |id|
+        raw_message = client.fetch(id,'RFC822').first.attr['RFC822']
+        message = Mail.read_from_string raw_message
+        messages << message
+      end
     end
     messages
   end

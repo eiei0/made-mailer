@@ -70,17 +70,16 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:                              'smtp.zoho.com',
     port:                                 465,
-    user_name:                            ENV['stacy_email'],
+    user_name:                            ENV['wholesale_email'],
     domain:                               'madelr.com',
     password:                             ENV['zoho_password'],
-    authentication:                       'plain',
     authentication:                       'plain',
     ssl:                                  true,
     tls:                                  true,
     enable_starttls_auto:                 true
   }
   config.action_mailer.default_options = {
-    from: ENV['stacy_email']
+    from: ENV['wholesale_email']
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

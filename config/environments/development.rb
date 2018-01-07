@@ -31,7 +31,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:                              'smtp.zoho.com',
     port:                                 465,
-    user_name:                            ENV['stacy_email'],
+    user_name:                            ENV['wholesale_email'],
     domain:                               'madelr.com',
     password:                             ENV['zoho_password'],
     authentication:                       'plain',
@@ -41,7 +41,7 @@ Rails.application.configure do
     enable_starttls_auto:                 true
   }
   config.action_mailer.default_options = {
-    from: ENV['stacy_email']
+    from: ENV['wholesale_email']
   }
 
   # Don't care if the mailer can't send.
