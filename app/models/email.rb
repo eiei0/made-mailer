@@ -17,7 +17,6 @@ class Email < ApplicationRecord
   def schedule_mailer
     jid = MailerWorker.perform_in(delivery_date, id)
     update_attribute(:jid, jid)
-    business.update_after_mailer_delivery(classification)
   end
 
   def deliver!
