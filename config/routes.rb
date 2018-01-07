@@ -14,10 +14,10 @@ Rails.application.routes.draw do
   get 'reports/mailers_sent'
   resources :settings, only: [:index]
 
-  mount Sidekiq::Web, at: '/sidekiq'
 
-  authenticated :user do
+  authenticate :user do
     root to: 'dashboard#index', as: :authenticated_root
+    mount Sidekiq::Web, at: '/sidekiq'
   end
 
   devise_scope :user do
