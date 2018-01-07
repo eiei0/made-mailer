@@ -11,6 +11,10 @@
 .form-signin .checkbox {
   font-weight: 400;
 }
+.checkbox input[type="checkbox"] {
+  position: relative;
+}
+
 .form-signin .form-control {
   position: relative;
   box-sizing: border-box;
