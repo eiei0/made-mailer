@@ -13,7 +13,8 @@ class Business < ApplicationRecord
     current_consignment_vendor: 2,
     declined: 3,
     followup_later: 4,
-    response_received: 5
+    response_received: 5,
+    unresponsive: 6
   }
 
   before_validation :smart_add_url_protocol
