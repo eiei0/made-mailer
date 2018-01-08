@@ -22,4 +22,29 @@ module BusinessesHelper
   def show_buttons?(business)
     business.last_order_placed.present? || !business.responded?
   end
+
+  def render_status_type(business)
+    if business.status?
+      button_to "#{business.status.humanize.titleize}", business_path(business), method: :get, class: "btn btn-sm btn-outline #{status_type(business)}"
+    end
+  end
+
+  def status_type(business)
+    case business.status
+    when "pending"
+      "btn-warning"
+    when "current_wholesale_vendor"
+      "btn-success"
+    when "current_consignment_vendor"
+      "btn-success"
+    when "declined"
+      "btn-danger"
+    when "followup_later"
+      "btn-primary"
+    when "response_received"
+      "btn-info"
+    when "unresponsive"
+      "btn-danger"
+    end
+  end
 end
