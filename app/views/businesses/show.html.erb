@@ -8,7 +8,7 @@
 </div>
 <div class="row">
   <div class="col-lg-12">
-    <div class="col-lg-6">
+    <div class='col-lg-6'>
       <dl class="dl-horizontal">
         <dt><strong><%= model_class.human_attribute_name(:company_name) %>:</strong></dt>
         <dd><%= @business.company_name %></dd>
@@ -40,21 +40,7 @@
         <dd><%= @business.last_order_placed.try(:strftime, "%m/%d/%Y at %I:%M%p") %></dd>
       </dl>
     </div>
-    <div class="col-lg-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          Mailer Buttons
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-lg-offset-1">
-              <%= button_to "Send Followup Mailer", mailers_path(business_id: @business.id), { params: { type: "one_month_followup", deliver_now: true }, class: 'btn btn-info' } %>
-              <%= button_tag "Stop All Automated Mailers", class: 'btn btn-danger', "data-toggle"=>"modal", 'data-target'=>'#stopBusinessMailers' %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render_buttons_panel(@business) %>
     <div class="col-lg-6">
       <div class="row">
         <div class="col-lg-offset-1">
