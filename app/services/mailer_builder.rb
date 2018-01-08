@@ -43,8 +43,8 @@ class MailerBuilder
 
   def scheduled_delivery_dates(email)
     {
-      one_week_intro: email.delivery_date + 1.weeks,
-      two_week_intro: email.delivery_date + 2.weeks
+      first_follow_up: email.delivery_date + 1.weeks,
+      second_follow_up: email.delivery_date + 2.weeks
     }
   end
 end

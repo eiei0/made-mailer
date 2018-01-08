@@ -9,7 +9,7 @@ module BusinessesHelper
 
   def render_followup_mailer_button(business)
     if business.last_order_placed.present?
-      button_to "send followup mailer", mailers_path(business_id: business.id), { params: { type: "one_month_followup", deliver_now: true }, class: 'btn btn-info' }
+      button_to "send followup mailer", mailers_path(business_id: business.id), { params: { type: "post_purchase_check_in", deliver_now: true }, class: 'btn btn-info' }
     end
   end
 

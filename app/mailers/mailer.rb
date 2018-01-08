@@ -10,7 +10,7 @@ class Mailer < ApplicationMailer
     mail(to: business.email, subject: "Arkansas Quartz Jewelry")
   end
 
-  def one_week_intro(business)
+  def first_follow_up(business)
     @business_name = business.company_name
     @stacy_email = ENV["stacy_email"]
     @stacy_phone = ENV["stacy_phone"]
@@ -19,7 +19,7 @@ class Mailer < ApplicationMailer
     mail(to: business.email, subject: "Arkansas Quartz Jewelry")
   end
 
-  def two_week_intro(business)
+  def second_follow_up(business)
     @business_name = business.company_name
     @stacy_email = ENV["stacy_email"]
     @stacy_phone = ENV["stacy_phone"]
@@ -28,7 +28,7 @@ class Mailer < ApplicationMailer
     mail(to: business.email, subject: "Arkansas Quartz Jewelry")
   end
 
-  def one_month_followup(business)
+  def post_purchase_check_in(business)
     @business_name = business.company_name
     @stacy_email = ENV["stacy_email"]
     @stacy_phone = ENV["stacy_phone"]

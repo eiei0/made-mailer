@@ -90,9 +90,9 @@ RSpec.describe Business do
 
     it 'updates the business record' do
       business = create(:business, last_contacted_at: 2.days.ago, mailer_phase: "initial_intro")
-      expect{ business.update_after_mailer_delivery("one_week_intro") }
+      expect{ business.update_after_mailer_delivery("first_follow_up") }
         .to change { business.last_contacted_at }.from(2.days.ago).to(DateTime.now)
-        .and change { business.mailer_phase }.from("initial_intro").to("one_week_intro")
+        .and change { business.mailer_phase }.from("initial_intro").to("first_follow_up")
     end
   end
 
@@ -106,7 +106,7 @@ RSpec.describe Business do
 
     context 'when business is not new' do
       it 'returns false' do
-        business = build_stubbed(:business, mailer_phase: "one_week_intro")
+        business = build_stubbed(:business, mailer_phase: "first_follow_up")
         expect(business.is_new?).to be false
       end
     end
