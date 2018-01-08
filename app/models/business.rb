@@ -26,6 +26,10 @@ class Business < ApplicationRecord
     emails.scheduled.present?
   end
 
+  def responded?
+    status == "response_received"
+  end
+
   def self.search(search)
     if search
       where(

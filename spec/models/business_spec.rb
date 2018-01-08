@@ -24,6 +24,13 @@ RSpec.describe Business do
     end
   end
 
+  describe '#responded?' do
+    it '' do
+      business = build(:business, status: "response_received")
+      expect(business.responded?).to be true
+    end
+  end
+
   describe '#search' do
     let (:tim) { create(:business, first: "Tiny", last: "Tim", company_name: "The Golden Crutch", email: "tim@thegoldencrutch.com") }
     let (:betty) { create(:business, first: "Betty", last: "Boop", company_name: "Bangup Betty", email: "betty@bangupbetty.com") }
