@@ -1,4 +1,6 @@
 class Mailer < ApplicationMailer
+  default from: 'wholesale@madelr.com'
+
   def initial_intro(business)
     @business_name = business.company_name
     @stacy_email = ENV["stacy_email"]
