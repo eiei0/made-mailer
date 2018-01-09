@@ -2,3 +2,6 @@
   imap_worker:
     every: 1m
     class: ImapWorker
+  unresponsive_business_worker:
+    cron: '0 0 * * *'
+    class: UnresponsiveBusinessWorker

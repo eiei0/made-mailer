@@ -8,10 +8,11 @@ class Email < ApplicationRecord
 
   enum classification: {
     initial_intro: 0,
-    one_week_intro: 1,
-    two_week_intro: 2,
-    one_month_followup: 3,
-    inbound: 4
+    first_follow_up: 1,
+    second_follow_up: 2,
+    retry_intro: 3,
+    inbound: 4,
+    post_purchase_check_in: 5,
   }
 
   def schedule_mailer

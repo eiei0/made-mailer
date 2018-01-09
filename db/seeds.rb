@@ -16,11 +16,14 @@ Product.destroy_all
     email: Faker::Internet.safe_email("#{Faker::Hipster.words(2).join(" ").parameterize}"),
     first: Faker::Name.first_name,
     last: Faker::Name.last_name,
+    url: Faker::Internet.url,
     address: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state_abbr,
     postal_code: Faker::Address.zip_code,
     country: "United States",
+    status: Business.statuses.keys.sample,
+    mailer_phase: Email.classifications.keys.sample,
     last_contacted_at: rand(60.days).seconds.ago,
     last_order_placed: rand(60.days).seconds.ago
   )
