@@ -31,6 +31,22 @@
   </div>
 </div>
 <div class="col-lg-3 col-md-6">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-3">
+          <i class="fa fa-reply-all fa-5x"></i>
+        </div>
+        <div class="col-xs-9 text-right">
+          <div class="huge"><%= @new_responses %></div>
+          <div>New Responses</div>
+        </div>
+      </div>
+    </div>
+    <%= render_panel_footer(notifications_path) %>
+  </div>
+</div>
+<div class="col-lg-3 col-md-6">
   <div class="panel panel-yellow">
     <div class="panel-heading">
       <div class="row">
@@ -55,7 +71,7 @@
         </div>
         <div class="col-xs-9 text-right">
           <div class="huge"><%= @unresponsive %></div>
-          <div>Unresponsive Businesses</div>
+          <div>Unresponsive</div>
         </div>
       </div>
     </div>
