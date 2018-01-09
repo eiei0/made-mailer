@@ -19,22 +19,6 @@
     <div class="panel-heading">
       <div class="row">
         <div class="col-xs-3">
-          <i class="fa fa-clock-o fa-5x"></i>
-        </div>
-        <div class="col-xs-9 text-right">
-          <div class="huge"><%= @mailers_scheduled %></div>
-          <div>Mailers Scheduled</div>
-        </div>
-      </div>
-    </div>
-    <%= render_panel_footer(notifications_path) %>
-  </div>
-</div>
-<div class="col-lg-3 col-md-6">
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-xs-3">
           <i class="fa fa-reply-all fa-5x"></i>
         </div>
         <div class="col-xs-9 text-right">
@@ -51,11 +35,11 @@
     <div class="panel-heading">
       <div class="row">
         <div class="col-xs-3">
-          <i class="fa fa-shopping-cart fa-5x"></i>
+          <i class="fa fa-clock-o fa-5x"></i>
         </div>
         <div class="col-xs-9 text-right">
-          <div class="huge"><%= @new_orders %></div>
-          <div>New Orders</div>
+          <div class="huge"><%= @mailers_scheduled %></div>
+          <div>Mailers Scheduled</div>
         </div>
       </div>
     </div>
