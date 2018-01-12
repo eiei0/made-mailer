@@ -1,6 +1,5 @@
 class Email < ApplicationRecord
   belongs_to :business
-  has_many :notifications
 
   validates :classification, presence: true
 
@@ -18,12 +17,17 @@ class Email < ApplicationRecord
   def schedule_mailer
     jid = MailerWorker.perform_in(delivery_date, id)
     update_attribute(:jid, jid)
+    business.create_notification!(business.company_name, "fa-clock-o")
   end
 
   def deliver!
     # consider switching this to MailerWorker.perform_async(classification.to_sym, id)
     mailer = Mailer.public_send(classification.to_sym, business)
-    update_records if mailer.deliver!
+
+    if mailer.deliver!
+      update_records
+      business.create_notification!(business.company_name, "fa-envelope")
+    end
   end
 
   def schedule_or_deliver

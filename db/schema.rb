@@ -51,12 +51,10 @@ ActiveRecord::Schema.define(version: 20171219050717) do
   create_table "notifications", force: :cascade do |t|
     t.string "body", null: false
     t.string "icon", null: false
-    t.bigint "email_id"
     t.bigint "business_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_id"], name: "index_notifications_on_business_id"
-    t.index ["email_id"], name: "index_notifications_on_email_id"
   end
 
   create_table "products", force: :cascade do |t|

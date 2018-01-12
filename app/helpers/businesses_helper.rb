@@ -14,7 +14,7 @@ module BusinessesHelper
   end
 
   def render_stop_mailers_button(business)
-    unless business.responded?
+    unless business.scheduled? || business.responded?
       button_tag "Stop All Automated Mailers", class: 'btn btn-danger', "data-toggle"=>"modal", 'data-target'=>'#stopBusinessMailers'
     end
   end

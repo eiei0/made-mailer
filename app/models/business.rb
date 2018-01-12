@@ -56,17 +56,25 @@ class Business < ApplicationRecord
   end
 
   def stop_email_flow
-    cancel_mailers(emails.map(&:jid))
+    cancel_mailers(all_jids)
     emails.where(scheduled: true).destroy_all
   end
 
-  private
+  def create_notification!(body, icon)
+    notifications.create!(body: body, icon: icon)
+  end
 
   def cancel_mailers(jids)
     jids.each do |jid|
       MailerWorker.cancel!(jid)
     end
   end
+
+  def all_jids
+    emails.map(&:jid)
+  end
+
+  private
 
   def smart_add_url_protocol
     unless self.url[/\Ahttp:\/\//] || self.url[/\Ahttps:\/\//]

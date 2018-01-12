@@ -8,11 +8,12 @@ class InboundEmailHandler
   def process!
     businesses = fetch_businesses
 
-    if businesses.present?
-      businesses.each do |biz|
-        email = create_incoming_email(biz)
-        stop_emails_and_notify(biz, email) if biz.scheduled?
-      end
+    businesses.each do |biz|
+      email = create_incoming_email(biz)
+
+      biz.cancel_mailers(biz.all_jids) if biz.scheduled?
+      notify!(biz, email) unless biz.responded?
+      biz.update!(status: "response_received") unless biz.mailer_phase.present?
     end
   rescue => e
     raise "#{e}"
@@ -35,18 +36,8 @@ class InboundEmailHandler
     )
   end
 
-  def stop_emails_and_notify(business, email)
-    business.stop_email_flow
-    notify!(business, email)
-  end
-
   def notify!(business, email)
     Email.notify_admin(business)
-    business.notifications.create!(
-      body: "New email from #{business.company_name}",
-      icon: "fa-envelope",
-      email_id: email.id
-    )
-    business.update!(status: "response_received")
+    business.create_notification!(business.company_name, "fa-reply-all")
   end
 end
