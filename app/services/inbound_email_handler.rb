@@ -22,9 +22,13 @@ class InboundEmailHandler
   private
 
   def fetch_businesses
-    sender_domains = new_messages.flat_map { |msg| "@" + Mail::Address.new(msg.from.first.downcase).domain }
-    domains_with_percentage_signs = sender_domains.map { |val| "%#{val}%" }
-    Business.where("email ILIKE ANY ( array[?] )", domains_with_percentage_signs)
+    search = new_messages.flat_map do |msg|
+      email_address = Mail::Address.new(msg.from.first.downcase)
+      domain = email_address.domain
+      Email::COMMON_DOMAINS.include?(domain) ? "%#{email_address}%" : "%@#{domain}%"
+    end
+
+    Business.where("email ILIKE ANY ( array[?] )", search)
   end
 
   def create_incoming_email(business)
