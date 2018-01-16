@@ -31,6 +31,10 @@ class Business < ApplicationRecord
     status == "response_received"
   end
 
+  def notified?
+    notifications.where(icon: "fa-reply-all").present?
+  end
+
   def self.search(search)
     if search
       where(
@@ -47,7 +51,7 @@ class Business < ApplicationRecord
   end
 
   def is_new?
-    mailer_phase == "initial_intro"
+    [nil, "initial_intro"].include?(mailer_phase)
   end
 
   def destroy_all_mailers
