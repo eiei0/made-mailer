@@ -12,8 +12,8 @@ class InboundEmailHandler
       email = create_incoming_email(biz)
 
       biz.cancel_mailers(biz.all_jids) if biz.scheduled?
-      notify!(biz, email) unless biz.responded?
-      biz.update!(status: "response_received") unless biz.mailer_phase.present?
+      biz.update!(status: "response_received") if biz.mailer_phase.present?
+      notify!(biz, email) if biz.responded?
     end
   rescue => e
     raise "#{e}"
