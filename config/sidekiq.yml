@@ -1,3 +1,7 @@
+:concurrency: 1
+:queues:
+  - default
+  - [critical, 100]
 :schedule:
   imap_worker:
     every: 1m
