@@ -9,3 +9,6 @@ AllCops:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/DateTime:
+  Enabled: false
