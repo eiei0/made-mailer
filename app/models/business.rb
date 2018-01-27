@@ -1,3 +1,4 @@
+# Stores information about a business.
 class Business < ApplicationRecord
   has_many :emails
   has_many :notifications
@@ -28,30 +29,30 @@ class Business < ApplicationRecord
   end
 
   def responded?
-    status == "response_received"
+    status == 'response_received'
   end
 
   def notified?
-    notifications.where(icon: "fa-reply-all").present?
+    notifications.where(icon: 'fa-reply-all').present?
   end
 
   def self.search(search)
-    if search
-      where(
-        'first ILIKE ? OR last ILIKE ? OR company_name ILIKE ? OR email ILIKE ?',
-        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
-      )
-    else
-      all
-    end
+    return all unless search
+    where(
+      'first ILIKE ? OR last ILIKE ? OR company_name ILIKE ? OR email ILIKE ?',
+      "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
+    )
   end
 
   def update_after_mailer_delivery(mailer_phase)
-    update_attributes(last_contacted_at: DateTime.now, mailer_phase: mailer_phase)
+    update_attributes(
+      last_contacted_at: DateTime.now,
+      mailer_phase: mailer_phase
+    )
   end
 
-  def is_new?
-    [nil, "initial_intro"].include?(mailer_phase)
+  def new?
+    [nil, 'initial_intro'].include?(mailer_phase)
   end
 
   def destroy_all_mailers
@@ -81,12 +82,11 @@ class Business < ApplicationRecord
   private
 
   def smart_add_url_protocol
-    unless self.url[/\Ahttp:\/\//] || self.url[/\Ahttps:\/\//]
-      self.url = "http://#{self.url}"
-    end
+    match = url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
+    self.url = "http://#{url}" unless match
   end
 
   def downcase_email
-    self.email.downcase!
+    email.downcase!
   end
 end

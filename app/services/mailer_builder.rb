@@ -12,7 +12,7 @@ class MailerBuilder
     ActiveRecord::Base.transaction do
       email = create_email!
       email.schedule_or_deliver
-      schedule_recurring_mailers(email) if business.is_new?
+      schedule_recurring_mailers(email) if business.new?
     end
   end
 
