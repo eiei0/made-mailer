@@ -62,6 +62,7 @@ group :development do
 end
 
 group :test do
+  gem 'rake'
   gem 'rspec-rails'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'timecop'
