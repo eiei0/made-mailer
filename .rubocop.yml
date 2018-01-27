@@ -1,0 +1,11 @@
+AllCops:
+  TargetRubyVersion: 2.3.4
+  DisplayCopNames: true
+  Exclude:
+    - 'config/puma.rb'
+    - 'db/**/*.rb'
+  Rails:
+    Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
