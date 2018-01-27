@@ -1,7 +1,7 @@
 <div class="navbar-default sidebar" role="navigation">
   <div class="sidebar-nav navbar-collapse">
     <ul class="nav" id="side-menu">
-      <%= render partial: 'layouts/shared/search_bar' %>
+      <%= render partial: 'layouts/shared/search_bar' if Business.any? %>
       <li>
         <%= link_to root_path do %>
           <%= content_tag(:i, "", {class: "fa fa-dashboard fa-fw"}) %>
