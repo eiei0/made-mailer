@@ -47,6 +47,7 @@ gem 'money-rails', '~> 1.7.0'
 
 group :development, :test do
   gem 'pry-rails'
+  gem 'rubocop', require: false
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'figaro'
