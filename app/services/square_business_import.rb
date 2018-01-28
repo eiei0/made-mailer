@@ -6,47 +6,64 @@ class SquareBusinessImport
     @transactions_api ||= SquareConnect::TransactionsApi.new
   end
 
+  attr_accessor :locations_api, :customers_api, :transactions_api
+
   def run
-    location_id = locations_api.list_locations.locations.first.id
-
-    opts = { begin_time: DateTime.now - 2.year, end_time: DateTime.now }
-    transactions_result = transactions_api.list_transactions(location_id, opts)
-
-    invoices = transactions_result.transactions.select { |t| t.product == "INVOICES" }
-    customer_ids = []
-    invoices.each do |i|
-      customer_ids << i.tenders.map(&:customer_id)
-    end
-    customer_ids.flatten!
-
-    business_count_before_import = Business.count
     customer_ids.each do |customer_id|
-      customers_result = customers_api.retrieve_customer(customer_id)
-
-      if customers_result.present?
-        customers_result.customer.tap { |customer|
-          last_order_placed = invoices.select { |i| i.tenders.map(&:customer_id).include?(customer_id) }.map(&:created_at).first
-
-          if Business.where(email: customer.email_address, square_id: customer.id).empty?
-            business = Business.create!(company_name: customer.company_name || "#{customer.given_name} #{customer.family_name}",
-                                        email: customer.email_address,
-                                        first: customer.given_name,
-                                        last: customer.family_name,
-                                        address: customer.address.try(:address_line_1),
-                                        city: customer.address.try(:locality),
-                                        state: customer.address.try(:administrative_district_level_1),
-                                        postal_code: customer.address.try(:postal_code),
-                                        country: nil,
-                                        square_id: customer.id,
-                                        last_order_placed: last_order_placed,
-                                        created_at: customer.created_at
-                                       )
-            puts "Created #{business.company_name}"
-          end
-        }
-      else
-        next
+      next unless customers_result(customer_id).present?
+      customers_result.customer.tap do |customer|
+        Business.find_or_create!(business_params(customer, customer_id))
       end
     end
+  end
+
+  private
+
+  def company_name
+    customer.company_name || "#{customer.given_name} #{customer.family_name}"
+  end
+
+  def location_id
+    locations_api.list_locations.locations.first.id
+  end
+
+  def transactions_result
+    opts = { begin_time: DateTime.now - 2.year, end_time: DateTime.now }
+    transactions_api.list_transactions(location_id, opts)
+  end
+
+  def invoices
+    transactions_result.transactions.select do |t|
+      t.product == 'INVOICES'
+    end
+  end
+
+  def customer_ids
+    ids = []
+    invoices.each do |i|
+      ids << i.tenders.map(&:customer_id)
+    end
+    ids.flatten!
+  end
+
+  def customer_result(customer_id)
+    customers_api.retrieve_customer(customer_id)
+  end
+
+  def last_order_placed(customer_id)
+    invoices.select do |i|
+      i.tenders.map(&:customer_id).include?(customer_id)
+    end.map(&:created_at).first
+  end
+
+  def business_params(customer, customer_id)
+    { company_name: company_name, email: customer.email_address,
+      first: customer.given_name, last: customer.family_name,
+      address: customer.address.try(:address_line_1),
+      city: customer.address.try(:locality),
+      state: customer.address.try(:administrative_district_level_1),
+      postal_code: customer.address.try(:postal_code), country: nil,
+      square_id: customer.id, last_order_placed: last_order_placed(customer_id),
+      created_at: customer.created_at }
   end
 end
