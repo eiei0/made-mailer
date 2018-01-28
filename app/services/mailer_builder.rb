@@ -2,7 +2,7 @@
 class MailerBuilder
   attr_accessor :business, :type, :deliver_now, :delivery_date
 
-  def initialize(business, type, deliver_now, delivery_date=nil)
+  def initialize(business, type, deliver_now, delivery_date = nil)
     @business = business
     @type = type
     @deliver_now = deliver_now
@@ -43,9 +43,11 @@ class MailerBuilder
   end
 
   def scheduled_delivery_dates(email)
+    # first_follow_up is 1.5 weeks from initial_intro
+    # second_follow_up is 3.5 weeks from initial_intro
     {
-      first_follow_up: email.delivery_date + 10.days,   # 1.5 weeks from initial_intro
-      second_follow_up: email.delivery_date + 24.days,  # 3.5 weeks from initial_intro
+      first_follow_up: email.delivery_date + 10.days,
+      second_follow_up: email.delivery_date + 24.days
     }
   end
 end
