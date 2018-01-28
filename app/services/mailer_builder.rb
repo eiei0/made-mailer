@@ -1,3 +1,4 @@
+# Handles the scheduling and delivery of emails
 class MailerBuilder
   attr_accessor :business, :type, :deliver_now, :delivery_date
 

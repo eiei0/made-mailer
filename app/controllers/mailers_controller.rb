@@ -1,3 +1,4 @@
+# Http requests for all mailers
 class MailersController < ApplicationController
   before_action :fetch_business, only: [:create, :destroy]
 

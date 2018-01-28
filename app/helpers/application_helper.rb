@@ -1,3 +1,4 @@
+# Global view helpers
 module ApplicationHelper
   def sortable(column, title = nil)
     title ||= column.titleize

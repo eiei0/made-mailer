@@ -1,5 +1,7 @@
 require 'sidekiq-scheduler'
 
+# Responsible for marking businesses as unresponsive if we have
+#   not recieved any emails from them.
 class UnresponsiveBusinessWorker
   include Sidekiq::Worker
 

@@ -1,3 +1,4 @@
+# Responsible for delivering and canceling emails
 class MailerWorker
   include Sidekiq::Worker
 

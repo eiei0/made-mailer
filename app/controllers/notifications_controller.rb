@@ -1,3 +1,4 @@
+# Http requests for all notifications
 class NotificationsController < ApplicationController
   def create
   end

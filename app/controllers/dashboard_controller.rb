@@ -1,3 +1,4 @@
+# Http requests for the dashboard
 class DashboardController < ApplicationController
   def index
     @mailers_count = Email.mailers_delivered(1.week.ago).count

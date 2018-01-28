@@ -1,3 +1,4 @@
+# View helpers for business templates
 module BusinessesHelper
   def render_buttons_panel(business)
     if show_buttons?(business)

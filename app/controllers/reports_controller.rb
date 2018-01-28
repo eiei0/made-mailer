@@ -1,3 +1,4 @@
+# Http requests for all reports
 class ReportsController < ApplicationController
   def cog
     months = Date::MONTHNAMES.compact

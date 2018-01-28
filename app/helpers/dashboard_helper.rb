@@ -1,3 +1,4 @@
+# View helpers for dashboard templates
 module DashboardHelper
   def render_panel_footer(path)
     link_to path do

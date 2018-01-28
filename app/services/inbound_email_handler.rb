@@ -1,3 +1,6 @@
+# Queries the business table for matching email
+#   addresses from the sender and stops the
+#   automated email flow for that business.
 class InboundEmailHandler
   attr_reader :new_messages
 

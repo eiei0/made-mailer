@@ -1,5 +1,7 @@
 require 'sidekiq-scheduler'
 
+# Used to fetch new messages and send them
+#   to the inbound email handler.
 class ImapWorker
   include Sidekiq::Worker
 

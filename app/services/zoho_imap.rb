@@ -1,5 +1,8 @@
 require 'net/imap'
 
+# Responsible for establishing a connection to the
+#   configured Zoho account inbox and fetching any
+#   new messages
 class ZohoImap
   attr_reader :client
 
