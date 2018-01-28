@@ -1,7 +1,7 @@
 # Http requests for Businesses
 class BusinessesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_business, only: [:show, :edit, :update, :destroy]
+  before_action :set_business, only: %i[show edit update destroy]
   before_action :set_business_controller
 
   def index
@@ -10,32 +10,29 @@ class BusinessesController < ApplicationController
     render locals: { businesses: businesses }
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @business = BusinessForm.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @business = BusinessForm.new(business_form_params)
 
-    if business_record = @business.persist!
-      flash[:notice] = "#{business_record.company_name} was created successfully."
-      redirect_to businesses_path
-    end
+    return unless (business_record = @business.persist!)
+    flash[:notice] = "#{business_record.company_name} was created successfully."
+    redirect_to businesses_path
   rescue => e
     flash[:notice] = "Unable to create business: #{e}"
     redirect_back(fallback_location: new_business_path)
   end
 
   def update
-    redirect_to(@business, notice: "#{@business.company_name} was updated successfully.") if @business.update(
-      business_params.merge("status"=>business_params[:status].split(" ").join.underscore)
-    )
+    return unless @business.update(business_update_params)
+    redirect_to(@business)
+    flash[:notice] = "#{@business.company_name} was updated successfully."
   rescue => e
     flash[:notice] = "Unable to update business: #{e}"
     redirect_back(fallback_location: business_path(params[:id]))
@@ -47,64 +44,17 @@ class BusinessesController < ApplicationController
       @business.destroy_all_mailers
       @business.notifications.destroy_all
     end
-    respond_to do |format|
-      format.html { redirect_to businesses_url, notice: "#{@business.company_name} was deleted successfully." }
-      format.json { head :no_content }
-    end
+    redirect_to businesses_url, notice:
+      "#{@business.company_name} was deleted successfully."
   end
 
   def import
-    locations_api = SquareConnect::LocationsApi.new
-    customers_api = SquareConnect::CustomersApi.new
-    transactions_api = SquareConnect::TransactionsApi.new
-
-    location_id = locations_api.list_locations.locations.first.id
-
-    opts = { begin_time: DateTime.now - 2.year, end_time: DateTime.now }
-    transactions_result = transactions_api.list_transactions(location_id, opts)
-
-    invoices = transactions_result.transactions.select { |t| t.product == "INVOICES" }
-    customer_ids = []
-    invoices.each do |i|
-      customer_ids << i.tenders.map(&:customer_id)
-    end
-    customer_ids.flatten!
-
-    business_count_before_import = Business.count
-    customer_ids.each do |customer_id|
-      customers_result = customers_api.retrieve_customer(customer_id)
-
-      if customers_result.present?
-        customers_result.customer.tap { |customer|
-          last_order_placed = invoices.select { |i| i.tenders.map(&:customer_id).include?(customer_id) }.map(&:created_at).first
-
-          if Business.where(email: customer.email_address, square_id: customer.id).empty?
-            business = Business.create!(company_name: customer.company_name || "#{customer.given_name} #{customer.family_name}",
-                                        email: customer.email_address,
-                                        first: customer.given_name,
-                                        last: customer.family_name,
-                                        address: customer.address.try(:address_line_1),
-                                        city: customer.address.try(:locality),
-                                        state: customer.address.try(:administrative_district_level_1),
-                                        postal_code: customer.address.try(:postal_code),
-                                        country: nil,
-                                        square_id: customer.id,
-                                        last_order_placed: last_order_placed,
-                                        created_at: customer.created_at
-                                       )
-            puts "Created #{business.company_name}"
-          end
-        }
+    flash[:notice] =
+      if SquareBusinessImport.new.run < Business.count
+        'Business data was successfully imported from Square.'
       else
-        next
+        'There waas no new business data to import from Square.'
       end
-    end
-
-    if business_count_before_import < Business.count
-      flash[:notice] = "Business data was successfully imported from Square."
-    else
-      flash[:notice] = "There waas no new business data to import from Square."
-    end
   rescue => e
     flash[:notice] = "There was an error while importing data from Square: #{e}"
   ensure
@@ -118,18 +68,28 @@ class BusinessesController < ApplicationController
   end
 
   def business_params
-    params.require(:business).permit(:company_name, :email, :first, :last, :address, :city,
-                                     :state, :postal_code, :country, :last_contacted_at,
-                                     :last_order_placed, :url, :notes, :status, :phone)
+    params.require(:business).permit(:company_name, :email, :first, :last,
+                                     :address, :city, :state, :postal_code,
+                                     :country, :last_contacted_at,
+                                     :last_order_placed, :url, :notes, :status,
+                                     :phone)
   end
 
   def business_form_params
-    params.require(:business_form).permit(:company_name, :email, :first, :last, :delivery_date,
-                                          :deliver_now, :address, :city, :state, :postal_code,
-                                          :country, :url, :notes, :status, :phone)
+    params.require(:business_form).permit(:company_name, :email, :first, :last,
+                                          :delivery_date, :deliver_now,
+                                          :address, :city, :state, :postal_code,
+                                          :country, :url, :notes, :status,
+                                          :phone)
   end
 
   def set_business_controller
     @business_controller = true
+  end
+
+  def business_update_params
+    business_params
+      .merge('status': business_params[:status]
+      .split(' ').join.underscore)
   end
 end
