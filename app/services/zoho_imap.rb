@@ -7,7 +7,7 @@ class ZohoImap
   attr_reader :client
 
   def initialize
-    @client ||= Net::IMAP.new("imap.zoho.com", 993, true)
+    @client ||= Net::IMAP.new('imap.zoho.com', 993, true)
   end
 
   def poll
@@ -26,12 +26,11 @@ class ZohoImap
   def fetch_new_messages
     messages = []
     client.select('INBOX')
-    unread_message_ids = client.search(["UNSEEN"])
+    unread_message_ids = client.search(['UNSEEN'])
     if unread_message_ids.present?
       unread_message_ids.each do |id|
-        raw_message = client.fetch(id,'RFC822').first.attr['RFC822']
-        message = Mail.read_from_string raw_message
-        messages << message
+        raw_message = client.fetch(id, 'RFC822').first.attr['RFC822']
+        messages << Mail.read_from_string(raw_message)
       end
     end
     messages
