@@ -7,6 +7,5 @@ class ReportsController < ApplicationController
     render locals: { products: products, months: months }
   end
 
-  def mailers_sent
-  end
+  def mailers_sent; end
 end

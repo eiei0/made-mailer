@@ -1,7 +1,6 @@
 # Http requests for all notifications
 class NotificationsController < ApplicationController
-  def create
-  end
+  def create; end
 
   def index
     @notifications = Notification.all
