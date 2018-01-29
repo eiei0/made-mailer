@@ -42,24 +42,15 @@ module BusinessesHelper
     )
   end
 
-  # rubocop:disable Metrics/MethodLength
   def status_type(business)
-    case business.status
-    when 'pending'
-      'btn-warning'
-    when 'current_wholesale_vendor'
-      'btn-success'
-    when 'current_consignment_vendor'
-      'btn-success'
-    when 'declined'
-      'btn-danger'
-    when 'followup_later'
-      'btn-primary'
-    when 'response_received'
-      'btn-info'
-    when 'unresponsive'
-      'btn-danger'
-    end
+    types = Hash[
+      pending: 'btn-warning',
+      current_wholesale_vendor: 'btn-success',
+      current_consignment_vendor: 'btn-success',
+      declined: 'btn-danger',
+      followup_later: 'btn-primary',
+      response_received: 'btn-info',
+      unresponsive: 'btn-danger']
+    types[business.status.to_sym]
   end
-  # rubocop:enable Metrics/MethodLength
 end
