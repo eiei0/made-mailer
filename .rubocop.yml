@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - 'config/puma.rb'
     - 'db/**/*.rb'
+    - 'bin/*'
   Rails:
     Enabled: true
 
