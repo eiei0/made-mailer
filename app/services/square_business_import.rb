@@ -10,7 +10,7 @@ class SquareBusinessImport
 
   def run
     customer_ids.each do |customer_id|
-      next unless customers_result(customer_id).present?
+      next if customers_result(customer_id).blank?
       customers_result.customer.tap do |customer|
         Business.find_or_create!(business_params(customer, customer_id))
       end
@@ -28,7 +28,9 @@ class SquareBusinessImport
   end
 
   def transactions_result
-    opts = { begin_time: DateTime.now - 2.year, end_time: DateTime.now }
+    opts =
+      { begin_time: DateTime.now.in_time_zone - 2.years,
+        end_time: DateTime.now.in_time_zone }
     transactions_api.list_transactions(location_id, opts)
   end
 

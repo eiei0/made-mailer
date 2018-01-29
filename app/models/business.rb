@@ -1,7 +1,7 @@
 # Stores information about a business.
 class Business < ApplicationRecord
-  has_many :emails
-  has_many :notifications
+  has_many :emails, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :company_name, :email, presence: true
   validates :email, uniqueness: true
@@ -46,7 +46,7 @@ class Business < ApplicationRecord
 
   def update_after_mailer_delivery(mailer_phase)
     update_attributes(
-      last_contacted_at: DateTime.now,
+      last_contacted_at: DateTime.now.in_time_zone,
       mailer_phase: mailer_phase
     )
   end

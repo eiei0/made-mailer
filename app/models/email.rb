@@ -14,7 +14,7 @@ class Email < ApplicationRecord
 
   validates :classification, presence: true
 
-  scope :scheduled, -> { where('delivery_date > ?', DateTime.now) }
+  scope :scheduled, -> { where('delivery_date > ?', DateTime.now.in_time_zone) }
 
   enum classification: {
     initial_intro: 0,
@@ -27,7 +27,7 @@ class Email < ApplicationRecord
 
   def schedule_mailer
     jid = MailerWorker.perform_in(delivery_date, id)
-    update_attribute(:jid, jid)
+    update_attributes(jid: jid)
     business.create_notification!(business.company_name, 'fa-clock-o')
   end
 
@@ -59,7 +59,8 @@ class Email < ApplicationRecord
   private
 
   def update_records
-    update_attributes(scheduled: false, delivery_date: DateTime.now)
+    update_attributes(scheduled: false,
+                      delivery_date: DateTime.now.in_time_zone)
     business.update_after_mailer_delivery(classification)
   end
 end

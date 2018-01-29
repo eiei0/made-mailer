@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Business do
+  it { should have_many(:emails).dependent(:destroy) }
+  it { should have_many(:notifications).dependent(:destroy) }
+
   describe '#primary_contact_name' do
     it 'returns a string with the users first and last name included' do
       business = build(:business, first: "Test", last: "User")

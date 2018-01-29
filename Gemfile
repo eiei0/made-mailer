@@ -48,6 +48,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rubocop', require: false
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
 end
 
 group :development do

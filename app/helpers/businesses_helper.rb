@@ -9,7 +9,7 @@ module BusinessesHelper
   end
 
   def render_followup_mailer_button(business)
-    return unless business.last_order_placed.present?
+    return if business.last_order_placed.blank?
     button_to(
       'send followup mailer',
       mailers_path(business_id: business.id),

@@ -2,7 +2,7 @@
 module DeviseHelper
   def devise_error_messages!
     return '' if resource.errors.empty?
-    html.html_safe
+    html
   end
 
   private

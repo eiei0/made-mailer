@@ -7,7 +7,7 @@ class ImapWorker
 
   def perform
     new_messages = ZohoImap.new.poll
-    return unless new_messages.present?
+    return if new_messages.blank?
 
     InboundEmailHandler.new(new_messages).process!
   end
