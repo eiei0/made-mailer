@@ -6,6 +6,7 @@ AllCops:
     - 'db/**/*.rb'
     - 'bin/*'
     - 'spec/**/*.rb'
+    - 'bundler_stubs/*'
 
 Rails:
   Enabled: true
