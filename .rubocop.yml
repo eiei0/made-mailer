@@ -5,8 +5,10 @@ AllCops:
     - 'config/puma.rb'
     - 'db/**/*.rb'
     - 'bin/*'
-  Rails:
-    Enabled: true
+    - 'spec/**/*.rb'
+
+Rails:
+  Enabled: true
 
 Style/FrozenStringLiteralComment:
   Enabled: false
