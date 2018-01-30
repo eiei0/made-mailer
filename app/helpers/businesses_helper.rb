@@ -33,7 +33,7 @@ module BusinessesHelper
   end
 
   def render_status_type(business)
-    return if business.status?
+    return unless business.status?
     button_to(
       business.status.humanize.titleize.to_s,
       business_path(business),
