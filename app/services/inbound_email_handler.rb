@@ -24,11 +24,11 @@ class InboundEmailHandler
 
   def fetch_businesses
     search = new_messages.flat_map do |msg|
-      if Email::COMMON_DOMAINS.include?(domain)
-        email_address = Mail::Address.new(msg.from.first.downcase)
+      email_address = Mail::Address.new(msg.from.first.downcase)
+      if Email::COMMON_DOMAINS.include?(email_address.domain)
         "%#{email_address}%"
       else
-        "%@#{domain}%"
+        "%@#{email_address.domain}%"
       end
     end
 
