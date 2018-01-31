@@ -37,7 +37,10 @@ class Business < ApplicationRecord
   end
 
   def self.search(search)
-    return all unless search
+    search ? Business.query_for(search) : all
+  end
+
+  def self.query_for(search)
     where(
       'first ILIKE ? OR last ILIKE ? OR company_name ILIKE ? OR email ILIKE ?',
       "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
