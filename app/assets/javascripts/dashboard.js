@@ -8,10 +8,21 @@ $(function(){
     };
   });
 
-  // Trigger search controller action on keypress
-  $(document).on('keyup', '#business-search', function () {
-    var form = $("#business-search").parents('form');
-    $.get(form.attr('action'), form.serialize(), null, "script");
-    return false
+  $(document).on('input', '#business-search', function () {
+    // Define delay
+    var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+
+    // Trigger search controller action
+    delay(function(){
+      var form = $("#business-search").parents('form');
+      $.get(form.attr('action'), form.serialize(), null, "script");
+      return false
+    }, 400 );
   });
 });
