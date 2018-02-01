@@ -25,7 +25,7 @@ class MailerBuilder
   def email_params
     {
       classification: type,
-      scheduled: (deliver_now == "1" ? 0 : 1),
+      scheduled: deliver_now.to_i,
       delivery_date: delivery_date
     }
   end
