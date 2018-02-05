@@ -4,40 +4,56 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p><%= "Hi #{@business_name} team!"%></p>
+    <p>Hi <%= @contact_first || @business_name + " team" %>!</p>
     <p>
-      <%= "Stacy here, just wanting to touch base to see how you & your customers are liking " %>
-      <%= "made.! I hope you've been pleased with the response you've received!" %>
+      Stacy here, Owner, Designer, Miner & Maker of <b>made.</b> I am looking forward to how I can
+      continue to serve you and your customers in 2018 whether that is:
     </p>
 
     <p>
-      <%= "Please let me know if there is any way that I can serve you! If there are pieces that " %>
-      <%= "you need restocked (remember we have no re-order minimum so you can reorder as much or " %>
-      <%= "as little as often as you'd like!), display or marketing ideas that would be helpful to " %>
-      <%= "you or if your shop has an event coming up that I can promote through my monthly" %>
-      <%= "newsletter, just let me know!" %>
+      <ul>
+        <li>
+          Restocking items that you are low on (no minimum purchase required on reorders!
+          Just email <%= @wholesale_email %>)
+        </li>
+        <li>
+          Promoting a special event you may be having through our bi-monthly newsletter, or
+
+        </li>
+        <li>
+          Sending you marketing materials to have displayed with the jewelry to help your
+          customers get to know <b>made.</b> better.
+        </li>
+      </ul>
     </p>
 
     <p>
-      <%= "Again, I am so excited to have #{@business_name} as a part of the made. family. Thank you!" %>
+      Whatever I can do to help this be the best year for you guys, just let me know! I am
+      attaching a PDF with a line sheet to make your next reorder quick and easy.
     </p>
 
-    <p>
-      <%= "Grateful," %>
+    <p style='font-style: italic;'>
+      Psst: be sure to check out our Top Selling items, the Lariat Necklace and Thread Earrings!
     </p>
 
+    <p>I look forward to hearing from you!</p>
+
     <p>
-      <%= "Stacy MacDonald"%>
+      Grateful,
       <br />
-      <%= "made." %>
+      Stacy
+    </p>
+
+    <p>
+      Stacy MacDonald
       <br />
-      <%= "Owner, Designer, Miner, Maker" %>
+      Owner, Designer, Miner, & Maker
+      <br />
+      <%= link_to "made.", "https://www.madelr.com" %>
       <br />
       <%= mail_to(@stacy_email, @stacy_email, subject: "made. Jewelry Inquiry") %>
       <br />
       <%= @stacy_phone %>
-      <br />
-      <%= link_to("www.madelr.com", "https://www.madelr.com") %>
     </p>
   </body>
 </html>

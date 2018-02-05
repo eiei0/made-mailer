@@ -4,38 +4,37 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p><%= "Hi #{@business_name} team!"%></p>
-    <p>
-      <%= "Hand mined. Hand made. That's our companies tagline because from the Quartz mines " %>
-      <%= "in the Quachita Mountains of Arkansas to my home studio in Little Rock, that is " %>
-      <%= "exactly what my hands are doing. Mining & making Quartz jewelry that is as naturally " %>
-      <%= "beautifuly & remarkably different as each one of us." %>
-    </p>
+    <p>Hello again <%= @contact_first || @business_name + " team" %>!</p>
+
+    <p>I hope your day is going great!</p>
 
     <p>
-      <%= "I would be honored to get the opportunity to share made. jewelry with your customers. " %>
-      <%= "Please take some time to look over my linesheet and reach out to me directly. I've " %>
-      <%= "attached my linesheet for you to look over & am available via email at " %>
-      <%= mail_to(@stacy_email, @stacy_email, subject: "made. Jewelry Inquiry") %>
-      <%= "or by phone at #{@stacy_phone} if you have any questions." %>
+      I just wanted to send a quick follow up regarding the email I sent a couple of
+      weeks ago introducing you to my line of <span style='font-style: italic;'>hand-mined and handmade Quartz jewelry</span>.
+      I am attaching the original email along with my linesheet and a few photos for you
+      to take a look at it again.
     </p>
 
-    <p>
-      <%= "Grateful," %>
-    </p>
+    <p>I would be honored to get the opportunity to share made. jewelry with your customers!</p>
+
+    <p>Thank your for your time!</p>
 
     <p>
-      <%= "Stacy MacDonald"%>
+      Grateful,
       <br />
-      <%= "made." %>
+      Stacy
+    </p>
+
+    <p>
+      Stacy MacDonald
       <br />
-      <%= "Owner, Designer, Miner, Maker" %>
+      Owner, Designer, Miner, & Maker
+      <br />
+      <%= link_to "made.", "https://www.madelr.com" %>
       <br />
       <%= mail_to(@stacy_email, @stacy_email, subject: "made. Jewelry Inquiry") %>
       <br />
       <%= @stacy_phone %>
-      <br />
-      <%= link_to("www.madelr.com", "https://www.madelr.com") %>
     </p>
   </body>
 </html>
