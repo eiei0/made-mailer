@@ -9,7 +9,10 @@ class Mailer < ApplicationMailer
     @stacy_phone = ENV['stacy_phone']
 
     attachments['made_linesheet.pdf'] = File.read('db/data/made_linesheet.pdf')
-    mail(to: business.email, subject: 'I mine Quartz from the ground and turn it into jewelry!')
+    mail(
+      to: business.email,
+      subject: 'I mine Quartz from the ground and turn it into jewelry!'
+    )
   end
 
   def first_follow_up(business)
@@ -19,7 +22,10 @@ class Mailer < ApplicationMailer
     @stacy_phone = ENV['stacy_phone']
 
     attachments['made_linesheet.pdf'] = File.read('db/data/made_linesheet.pdf')
-    mail(to: business.email, subject: 'Touching base about Arkansas Quartz jewelry')
+    mail(
+      to: business.email,
+      subject: 'Touching base about Arkansas Quartz jewelry'
+    )
   end
 
   def second_follow_up(business)
@@ -29,7 +35,10 @@ class Mailer < ApplicationMailer
     @stacy_phone = ENV['stacy_phone']
 
     attachments['made_linesheet.pdf'] = File.read('db/data/made_linesheet.pdf')
-    mail(to: business.email, subject: 'Hand mined, Handmade Quartz jewelry follow-up')
+    mail(
+      to: business.email,
+      subject: 'Hand mined, Handmade Quartz jewelry follow-up'
+    )
   end
 
   def post_purchase_check_in(business)
@@ -38,13 +47,18 @@ class Mailer < ApplicationMailer
     @stacy_email = ENV['stacy_email']
     @stacy_phone = ENV['stacy_phone']
 
-    mail(to: business.email, subject: "Is it time to restock your made. display?")
+    mail(
+      to: business.email,
+      subject: 'Is it time to restock your made. display?'
+    )
   end
 
   def admin_response_notification(business)
     @business_name = business.company_name
 
-    mail(to: ENV['wholesale_email'],
-         subject: "#{@business_name} response notification")
+    mail(
+      to: ENV['wholesale_email'],
+      subject: "#{@business_name} response notification"
+    )
   end
 end
