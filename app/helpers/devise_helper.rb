@@ -1,20 +1,27 @@
+# View helpers that interact with devise
 module DeviseHelper
   def devise_error_messages!
     return '' if resource.errors.empty?
+    html
+  end
 
-    messages = resource.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
-    html = <<-HTML
+  private
+
+  def html
+    <<-HTML
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <button type="button" class="close" data-dismiss="alert">
         <span aria-hidden="true">&times;</span>
       </button>
       <strong>
-       #{pluralize(resource.errors.count, "error")} must be fixed
+       #{pluralize(resource.errors.count, 'error')} must be fixed
       </strong>
       #{messages}
     </div>
     HTML
+  end
 
-    html.html_safe
+  def messages
+    resource.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
   end
 end

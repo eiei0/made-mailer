@@ -8,12 +8,11 @@ Rails.application.routes.draw do
       put 'import'
     end
   end
-  resources :mailers, only: [:create, :destroy], param: :business_id
-  resources :notifications, only: [:create, :index]
+  resources :mailers, only: %i[create destroy], param: :business_id
+  resources :notifications, only: %i[create index]
   get 'reports/cog'
   get 'reports/mailers_sent'
   resources :settings, only: [:index]
-
 
   authenticate :user do
     root to: 'dashboard#index', as: :authenticated_root

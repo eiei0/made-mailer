@@ -1,0 +1,24 @@
+AllCops:
+  TargetRubyVersion: 2.3.4
+  DisplayCopNames: true
+  Exclude:
+    - 'config/puma.rb'
+    - 'db/**/*.rb'
+    - 'bin/*'
+    - 'spec/**/*.rb'
+    - 'bundler_stubs/*'
+
+Rails:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/DateTime:
+  Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false

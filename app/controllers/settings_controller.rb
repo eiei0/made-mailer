@@ -1,4 +1,4 @@
+# Global app settings pane
 class SettingsController < ApplicationController
-  def index
-  end
+  def index; end
 end

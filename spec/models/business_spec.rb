@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Business do
+  it { should have_many(:emails).dependent(:destroy) }
+  it { should have_many(:notifications).dependent(:destroy) }
+
   describe '#primary_contact_name' do
     it 'returns a string with the users first and last name included' do
       business = build(:business, first: "Test", last: "User")
@@ -96,18 +99,18 @@ RSpec.describe Business do
     end
   end
 
-  describe '#is_new?' do
+  describe '#new?' do
     context 'when business is new' do
       it 'returns true' do
         business = build_stubbed(:business, mailer_phase: "initial_intro")
-        expect(business.is_new?).to be true
+        expect(business.new?).to be true
       end
     end
 
     context 'when business is not new' do
       it 'returns false' do
         business = build_stubbed(:business, mailer_phase: "first_follow_up")
-        expect(business.is_new?).to be false
+        expect(business.new?).to be false
       end
     end
   end
