@@ -25,6 +25,8 @@
       about the process <%= link_to "here", "https://www.madelr.com/the-process" %>.
     </p>
 
+    <%= content_tag :p, @connection_point if @connection_point.present? %>
+
     <p>
       I am attaching a few pictures along with a linesheet for your consideration. I would be
       thrilled to add <%= @business_name %> to our growing list of stockists! Feel free to reach out

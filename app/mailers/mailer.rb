@@ -5,6 +5,7 @@ class Mailer < ApplicationMailer
   def initial_intro(business)
     @business_name = business.company_name
     @contact_first = business.first
+    @connection_point = business.connection_point
     @stacy_email = ENV['stacy_email']
     @stacy_phone = ENV['stacy_phone']
 
