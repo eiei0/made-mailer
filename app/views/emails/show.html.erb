@@ -1,0 +1,18 @@
+<div class="col-lg-12">
+  <div class="row">
+    <div class="page-header">
+      <h3><%= business.company_name %></h3>
+      <p>Email: <%= business.email %></p>
+      <p>Subject: <%= email.subject %></p>
+      <p>Status: <%= email.classification.humanize %></p>
+      <p>Delivery Date: <%= email.delivery_date.try(:strftime, "%m/%d/%Y at %I:%M%p") %></p>
+    </div>
+    <%= email.body.html_safe %>
+  </div>
+</div>
+<div class="col-lg-12">
+  <div class="row">
+    <hr />
+    <%= link_to "Back", business_path(business), class: 'btn btn-outline btn-default' %>
+  </div>
+</div>
