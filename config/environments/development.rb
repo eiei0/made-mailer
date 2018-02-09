@@ -8,6 +8,7 @@ MAILER_SETTINGS = Hash[
   ssl: true,
   tls: true,
   enable_starttls_auto: true]
+PREVIEW_PATH = Rails.root.join('spec', 'mailers', 'previews')
 
 Rails.application.configure do
   config.cache_classes = false
@@ -28,6 +29,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = MAILER_SETTINGS
   config.action_mailer.default_options = { from: ENV['wholesale_email'] }
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.preview_path = PREVIEW_PATH
   config.action_mailer.perform_caching = false
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
