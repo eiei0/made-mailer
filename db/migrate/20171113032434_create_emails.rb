@@ -5,6 +5,8 @@ class CreateEmails < ActiveRecord::Migration[5.1]
       t.column :classification, :integer, null: false
       t.boolean :scheduled, default: false
       t.string :jid
+      t.string :subject
+      t.text :body
       t.datetime :delivery_date
 
       t.timestamps

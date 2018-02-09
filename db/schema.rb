@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20171219050717) do
     t.integer "classification", null: false
     t.boolean "scheduled", default: false
     t.string "jid"
+    t.string "subject"
+    t.text "body"
     t.datetime "delivery_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
