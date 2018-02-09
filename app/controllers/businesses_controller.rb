@@ -72,7 +72,7 @@ class BusinessesController < ApplicationController
                                      :address, :city, :state, :postal_code,
                                      :country, :last_contacted_at,
                                      :last_order_placed, :url, :notes, :status,
-                                     :phone)
+                                     :connection_point, :phone)
   end
 
   def business_form_params
@@ -80,7 +80,7 @@ class BusinessesController < ApplicationController
                                           :delivery_date, :deliver_now,
                                           :address, :city, :state, :postal_code,
                                           :country, :url, :notes, :status,
-                                          :phone)
+                                          :connection_point, :phone)
   end
 
   def set_business_controller

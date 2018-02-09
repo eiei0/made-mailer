@@ -30,6 +30,10 @@
         <dd><%= @business.postal_code %></dd>
         <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
         <dd><%= @business.country %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+        <dd><%= @business.notes%></dd>
+        <dt><strong><%= model_class.human_attribute_name(:connection_point) %>:</strong></dt>
+        <dd><%= @business.connection_point %></dd>
         <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
         <dd><%= @business.status.humanize.titleize %></dd>
         <dt><strong><%= model_class.human_attribute_name(:mailer_phase) %>:</strong></dt>

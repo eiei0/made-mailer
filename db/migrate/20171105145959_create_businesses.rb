@@ -14,7 +14,8 @@ class CreateBusinesses < ActiveRecord::Migration[5.1]
       t.string :country
       t.string :square_id
       t.string :mailer_phase
-      t.string :notes
+      t.text   :notes
+      t.text   :connection_point
       t.column :status, :integer
       t.datetime :last_contacted_at
       t.datetime :last_order_placed
