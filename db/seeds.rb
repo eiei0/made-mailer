@@ -22,6 +22,8 @@ Product.destroy_all
     state: Faker::Address.state_abbr,
     postal_code: Faker::Address.zip_code,
     country: "United States",
+    notes: Faker::Hipster.sentence,
+    connection_point: Faker::Hipster.paragraph,
     status: Business.statuses.keys.sample,
     mailer_phase: Email.classifications.keys.sample,
     last_contacted_at: rand(60.days).seconds.ago,
