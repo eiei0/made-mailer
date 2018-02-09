@@ -62,7 +62,7 @@ class Email < ApplicationRecord
     update_attributes(scheduled: false,
                       delivery_date: DateTime.now.in_time_zone,
                       subject: email.subject,
-                      body: ''.html_safe.concat(email.parts.first.body.to_s))
+                      body: email.parts.first.body.to_s.html_safe)
     business.update_after_mailer_delivery(classification)
   end
 end
