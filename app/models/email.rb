@@ -34,9 +34,9 @@ class Email < ApplicationRecord
   def deliver!
     # consider switch to MailerWorker.perform_async(classification.to_sym, id)
     mailer = Mailer.public_send(classification.to_sym, business)
-    return unless mailer.deliver!
+    return unless (email = mailer.deliver!)
 
-    update_records
+    update_records(Mail.new(email))
     business.create_notification!(business.company_name, 'fa-envelope')
   end
 
@@ -58,9 +58,11 @@ class Email < ApplicationRecord
 
   private
 
-  def update_records
+  def update_records(email)
     update_attributes(scheduled: false,
-                      delivery_date: DateTime.now.in_time_zone)
+                      delivery_date: DateTime.now.in_time_zone,
+                      subject: email.subject,
+                      body: ''.html_safe.concat(email.parts.first.body.to_s))
     business.update_after_mailer_delivery(classification)
   end
 end
