@@ -1,0 +1,5 @@
+<tr>
+  <td><%= link_to email.delivery_date.try(:strftime, '%m/%d/%Y at %I:%M%p'), email_path(email), remote: true %></td>
+  <td><%= link_to email.classification.humanize, email_path(email), remote: true %></td>
+  <td><%= link_to email.subject, email_path(email), remote: true %></td>
+</tr>

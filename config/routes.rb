@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
   end
   resources :mailers, only: %i[create destroy], param: :business_id
+  resources :emails, only: [:show]
   resources :notifications, only: %i[create index]
   get 'reports/cog'
   get 'reports/mailers_sent'

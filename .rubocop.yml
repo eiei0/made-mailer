@@ -22,3 +22,6 @@ Style/DateTime:
 
 Style/RescueStandardError:
   Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
