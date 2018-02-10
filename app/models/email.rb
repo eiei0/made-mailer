@@ -30,10 +30,10 @@ class Email < ApplicationRecord
   end
 
   def color
-    if delivery_date > Time.now
-      "#f0ad4e"
+    if delivery_date > Time.zone.now
+      '#f0ad4e'
     else
-      "#337ab7"
+      '#337ab7'
     end
   end
 
