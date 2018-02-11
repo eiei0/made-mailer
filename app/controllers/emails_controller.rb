@@ -1,7 +1,7 @@
 # Http requests for all emails
 class EmailsController < ApplicationController
   def index
-    @emails = Email.all
+    @emails = Email.for_calendar
   end
 
   def show
