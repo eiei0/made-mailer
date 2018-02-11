@@ -2,7 +2,7 @@
 class BusinessesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_business, only: %i[show edit update destroy]
-  before_action :set_business_controller
+  before_action :detect_index_action
 
   def index
     businesses = Business.search(params[:search])
@@ -83,8 +83,8 @@ class BusinessesController < ApplicationController
                                           :status, :connection_point, :phone)
   end
 
-  def set_business_controller
-    @business_controller = true
+  def detect_index_action
+    @business_index = (action_name == 'index')
   end
 
   def business_update_params

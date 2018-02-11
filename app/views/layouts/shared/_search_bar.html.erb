@@ -1,7 +1,7 @@
 <li class="sidebar-search">
   <%= form_tag businesses_path, method: 'get', id: "products_search" do %>
     <div class="input-group">
-      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Businesses...", id: (@business_controller ? 'business-search' : '')  %>
+      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Businesses...", id: (@business_index ? 'business-search' : '')  %>
     </div>
   <% end %>
 </li>
