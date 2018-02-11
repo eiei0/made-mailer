@@ -4,12 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Hello again <%= @contact_first || @business_name + " team" %>!</p>
+    <p>Hello again <%= @business.first || @business.company_name + " team" %>!</p>
 
     <p>
       Stacy, here, from <b>made.</b> I just wanted to follow up once more to see if you are
       interested in adding my raw Quartz jewelry that I mine and make to your selection at
-      <%= @business_name %>? I am attaching my line sheet along with a few photos again for
+      <%= @business.company_name %>? I am attaching my line sheet along with a few photos again for
       your consideration.
     </p>
 

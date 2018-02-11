@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Hi <%= @contact_first || @business_name + " team" %> !</p>
+    <p>Hi <%= @business.first || @business.company_name + " team" %> !</p>
 
     <p>
       My name is Stacy MacDonald and I am the Owner, Designer, Miner & Maker of Arkansas based
@@ -25,11 +25,11 @@
       about the process <%= link_to "here", "https://www.madelr.com/the-process" %>.
     </p>
 
-    <%= content_tag :p, @connection_point if @connection_point.present? %>
+    <%= content_tag :p, @business.connection_point if @business.connection_point.present? %>
 
     <p>
       I am attaching a few pictures along with a linesheet for your consideration. I would be
-      thrilled to add <%= @business_name %> to our growing list of stockists! Feel free to reach out
+      thrilled to add <%= @business.company_name %> to our growing list of stockists! Feel free to reach out
       either by email or phone if you have any questions.
     </p>
 
