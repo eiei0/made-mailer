@@ -25,6 +25,18 @@ class Email < ApplicationRecord
     post_purchase_check_in: 5
   }
 
+  def business_name
+    business.company_name
+  end
+
+  def color
+    if delivery_date > Time.zone.now
+      '#f0ad4e'
+    else
+      '#337ab7'
+    end
+  end
+
   def schedule_mailer
     jid = MailerWorker.perform_in(delivery_date, id)
     update_attributes(jid: jid)

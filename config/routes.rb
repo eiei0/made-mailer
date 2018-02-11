@@ -8,8 +8,9 @@ Rails.application.routes.draw do
       put 'import'
     end
   end
+  resources :business_calendars, only: [:index]
   resources :mailers, only: %i[create destroy], param: :business_id
-  resources :emails, only: [:show]
+  resources :emails, only: %i[index show]
   resources :notifications, only: %i[create index]
   get 'reports/cog'
   get 'reports/mailers_sent'
