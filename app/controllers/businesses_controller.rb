@@ -69,8 +69,8 @@ class BusinessesController < ApplicationController
 
   def business_params
     params.require(:business).permit(:company_name, :email, :first, :last,
-                                     :address, :city, :state, :postal_code,
-                                     :country, :last_contacted_at,
+                                     :address_1, :address_2, :city, :state,
+                                     :postal_code, :country, :last_contacted_at,
                                      :last_order_placed, :url, :notes, :status,
                                      :connection_point, :phone)
   end
@@ -78,9 +78,9 @@ class BusinessesController < ApplicationController
   def business_form_params
     params.require(:business_form).permit(:company_name, :email, :first, :last,
                                           :delivery_date, :deliver_now,
-                                          :address, :city, :state, :postal_code,
-                                          :country, :url, :notes, :status,
-                                          :connection_point, :phone)
+                                          :address_1, :address_2, :city, :state,
+                                          :postal_code, :country, :url, :notes,
+                                          :status, :connection_point, :phone)
   end
 
   def set_business_controller

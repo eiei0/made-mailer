@@ -7,7 +7,8 @@ class CreateBusinesses < ActiveRecord::Migration[5.1]
       t.string :first
       t.string :last
       t.string :phone
-      t.string :address
+      t.string :address_1
+      t.string :address_2
       t.string :city
       t.string :state
       t.string :postal_code
