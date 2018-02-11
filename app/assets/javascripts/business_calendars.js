@@ -6,7 +6,6 @@ $('#calendar').fullCalendar({
   },
   allDaySlot: false,
   agendaEventMinHeight: 800,
-  defaultView: 'agendaWeek',
   agendaEventMinHeight: 25,
   events: '/emails.json'
 });
