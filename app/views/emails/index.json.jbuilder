@@ -1,6 +1,7 @@
 json.array!(@emails) do |email|
   json.id email.id
-  json.title "#{email.business_name} - #{email.classification}"
+  json.title email.business_name
+  json.description email.classification.humanize.downcase
   json.start email.delivery_date
   json.end email.delivery_date + 10.minutes
   json.color email.color
