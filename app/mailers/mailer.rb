@@ -21,6 +21,9 @@ class Mailer < ApplicationMailer
     @contact_first = business.first
     @stacy_email = ENV['stacy_email']
     @stacy_phone = ENV['stacy_phone']
+    @intial_intro_body = business.emails.select do |e|
+      e.classification == 'initial_intro'
+    end.first.body.html_safe
 
     attachments['made_linesheet.pdf'] = File.read('db/data/made_linesheet.pdf')
     mail(
@@ -34,6 +37,9 @@ class Mailer < ApplicationMailer
     @contact_first = business.first
     @stacy_email = ENV['stacy_email']
     @stacy_phone = ENV['stacy_phone']
+    @first_followup_body = business.emails.select do |e|
+      e.classification == 'first_follow_up'
+    end.first.body.html_safe
 
     attachments['made_linesheet.pdf'] = File.read('db/data/made_linesheet.pdf')
     mail(
