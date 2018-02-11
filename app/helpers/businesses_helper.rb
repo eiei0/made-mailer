@@ -17,6 +17,11 @@ module BusinessesHelper
            locals: { business: business }
   end
 
+  def render_email_table(business)
+    return if business.emails.blank?
+    render partial: 'email_table', locals: { business: business }
+  end
+
   def render_followup_mailer_button(business)
     return if business.last_order_placed.blank?
     button_to(
