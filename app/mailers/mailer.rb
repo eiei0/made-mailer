@@ -1,9 +1,7 @@
 # Handles the delivery of mailers
 class Mailer < ApplicationMailer
   default from: 'wholesale@madelr.com'
-  before_action :add_all_attachments,
-                only: %i[initial_intro first_follow_up second_follow_up]
-  before_action :attach_linesheet, only: :post_purchase_check_in
+  before_action :attach_linesheet, except: :admin_response_notification
 
   def initial_intro(business)
     @business = business
@@ -56,15 +54,6 @@ class Mailer < ApplicationMailer
   end
 
   private
-
-  def add_all_attachments
-    attachments['made_linesheet.pdf'] = File.read('db/data/made_linesheet.pdf')
-    attachments['1.jpg'] = File.read('db/data/1.jpg')
-    attachments['2.jpg'] = File.read('db/data/2.jpg')
-    attachments['3.jpg'] = File.read('db/data/3.jpg')
-    attachments['4.jpg'] = File.read('db/data/4.jpg')
-    attachments['5.jpg'] = File.read('db/data/5.jpg')
-  end
 
   def attach_linesheet
     attachments['made_linesheet.pdf'] = File.read('db/data/made_linesheet.pdf')
