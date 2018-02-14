@@ -4,9 +4,11 @@ class Business < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   validates :company_name, :email, presence: true
-  validates :email, uniqueness: true
+  validates :email, unique_custom_domain: true, if: :custom_domain?
 
-  before_save :downcase_email, :default_values
+  before_save :downcase_email
+  before_create :default_status
+  before_validation :smart_add_url_protocol
 
   enum status: {
     pending: 0,
@@ -18,9 +20,9 @@ class Business < ApplicationRecord
     unresponsive: 6
   }
 
-  before_validation :smart_add_url_protocol
+  scope :email_like, ->(search) { where('email ILIKE ANY (array[?])', search) }
 
-  def default_values
+  def default_status
     self.status = 0
   end
 
@@ -38,6 +40,21 @@ class Business < ApplicationRecord
 
   def notified?
     notifications.where(icon: 'fa-reply-all').present?
+  end
+
+  def already_notified?
+    responded? && !notified?
+  end
+
+  def notify_admin
+    return unless already_notified?
+    Mailer.admin_response_notification(self).deliver!
+    create_notification!(company_name, 'fa-reply-all')
+  end
+
+  def transition
+    cancel_mailers(all_jids) if scheduled?
+    update!(status: 'response_received')
   end
 
   def self.search(search)
@@ -86,6 +103,10 @@ class Business < ApplicationRecord
     emails.map(&:jid)
   end
 
+  def email_domain
+    email.split('@')[1]
+  end
+
   private
 
   def smart_add_url_protocol
@@ -95,5 +116,9 @@ class Business < ApplicationRecord
 
   def downcase_email
     email.downcase!
+  end
+
+  def custom_domain?
+    Email::COMMON_DOMAINS.exclude?(email_domain)
   end
 end

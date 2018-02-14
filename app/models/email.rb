@@ -17,6 +17,7 @@ class Email < ApplicationRecord
   scope :scheduled, -> { where('delivery_date > ?', DateTime.now.in_time_zone) }
   scope :for_calendar, -> { where(classification: 0..2) }
   scope :with_subject, -> { select { |e| e.subject.present? } }
+  scope :where_inbound, -> { where(classification: 4) }
 
   enum classification: {
     initial_intro: 0,
@@ -86,8 +87,16 @@ class Email < ApplicationRecord
     where(scheduled: false).where('delivery_date > ?', start_date)
   end
 
-  def self.notify_admin(business)
-    Mailer.admin_response_notification(business).deliver!
+  def self.create_inbound_email!(msg)
+    return if where_inbound.present?
+    create!(
+      classification: 'inbound',
+      scheduled: false,
+      jid: nil,
+      delivery_date: msg.date,
+      subject: msg.subject,
+      body: msg.text_part&.body&.decoded&.split('>')&.first&.html_safe
+    )
   end
 
   private

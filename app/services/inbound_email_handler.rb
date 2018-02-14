@@ -1,6 +1,5 @@
-# Queries the business table for matching email
-#   addresses from the sender and stops the
-#   automated email flow for that business.
+# Queries the business table for matching email addresses from the sender and
+# stops the automated email flow for that business.
 class InboundEmailHandler
   attr_reader :new_messages
 
@@ -9,12 +8,11 @@ class InboundEmailHandler
   end
 
   def process!
-    businesses = fetch_businesses
-
-    businesses.each do |biz|
-      biz.cancel_mailers(biz.all_jids) if biz.scheduled?
-      biz.update!(status: 'response_received') if biz.mailer_phase.present?
-      notify!(biz) if already_notified?(biz)
+    new_messages.flat_map do |msg|
+      next unless (business = fetch_business(msg)) && !business&.responded?
+      business.emails.create_inbound_email!(msg)
+      business.transition
+      business.notify_admin
     end
   rescue => e
     raise e.to_s
@@ -22,34 +20,15 @@ class InboundEmailHandler
 
   private
 
-  def fetch_businesses
-    search = new_messages.flat_map do |msg|
-      email_address = Mail::Address.new(msg.from.first.downcase)
+  def fetch_business(msg)
+    email_address = Mail::Address.new(msg.from.first.downcase)
+    search =
       if Email::COMMON_DOMAINS.include?(email_address.domain)
         "%#{email_address}%"
       else
         "%@#{email_address.domain}%"
       end
-    end
 
-    Business.where('email ILIKE ANY ( array[?] )', search)
-  end
-
-  def create_incoming_email(business)
-    business.emails.create!(
-      classification: 'inbound',
-      scheduled: false,
-      jid: nil,
-      delivery_date: nil
-    )
-  end
-
-  def notify!(business)
-    Email.notify_admin(business)
-    business.create_notification!(business.company_name, 'fa-reply-all')
-  end
-
-  def already_notified?(biz)
-    biz.responded? && !biz.notified?
+    Business.email_like(search).first
   end
 end
