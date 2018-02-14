@@ -62,6 +62,26 @@ class Email < ApplicationRecord
     end
   end
 
+  def scheduled_delivery_dates
+    # first_follow_up is 1.5 weeks from initial_intro
+    # second_follow_up is 3.5 weeks from initial_intro
+    {
+      first_follow_up: delivery_date + 10.days,
+      second_follow_up: delivery_date + 24.days
+    }
+  end
+
+  def schedule_recurring_mailers
+    scheduled_delivery_dates.each do |phase|
+      e = business.emails.create!(
+        classification: phase[0],
+        delivery_date: phase[1],
+        scheduled: true
+      )
+      e.schedule_mailer
+    end
+  end
+
   def self.mailers_delivered(start_date)
     where(scheduled: false).where('delivery_date > ?', start_date)
   end

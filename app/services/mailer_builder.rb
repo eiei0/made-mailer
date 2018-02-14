@@ -13,7 +13,7 @@ class MailerBuilder
     ActiveRecord::Base.transaction do
       email = create_email!
       email.schedule_or_deliver
-      schedule_recurring_mailers(email) if business.new?
+      email.schedule_recurring_mailers if business.new?
     end
   end
 
@@ -28,26 +28,6 @@ class MailerBuilder
       classification: type,
       scheduled: deliver_now.to_i,
       delivery_date: delivery_date
-    }
-  end
-
-  def schedule_recurring_mailers(email)
-    scheduled_delivery_dates(email).each do |phase|
-      email = business.emails.create!(
-        classification: phase[0],
-        delivery_date: phase[1],
-        scheduled: true
-      )
-      email.schedule_mailer
-    end
-  end
-
-  def scheduled_delivery_dates(email)
-    # first_follow_up is 1.5 weeks from initial_intro
-    # second_follow_up is 3.5 weeks from initial_intro
-    {
-      first_follow_up: email.delivery_date + 10.days,
-      second_follow_up: email.delivery_date + 24.days
     }
   end
 end
