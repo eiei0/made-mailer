@@ -41,8 +41,8 @@ class BusinessesController < ApplicationController
   def destroy
     ActiveRecord::Base.transaction do
       # Destroys notifications through dependant: :destroy callback
-      @business.destroy
       @business.destroy_all_mailers
+      @business.destroy
     end
     redirect_to businesses_url, notice:
       "#{@business.company_name} was deleted successfully."
