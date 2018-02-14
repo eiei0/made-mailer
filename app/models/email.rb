@@ -67,8 +67,8 @@ class Email < ApplicationRecord
     # first_follow_up is 1.5 weeks from initial_intro
     # second_follow_up is 3.5 weeks from initial_intro
     {
-      first_follow_up: delivery_date + 10.days,
-      second_follow_up: delivery_date + 24.days
+      first_follow_up: delivery_date + 2.minutes,
+      second_follow_up: delivery_date + 3.minutes
     }
   end
 
