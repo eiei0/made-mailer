@@ -9,16 +9,14 @@ module BusinessesHelper
   end
 
   def render_emails(business)
-    emails_with_subject = business.emails.select { |e| e.subject.present? }
-    return unless emails_with_subject.any?
     render partial: 'email_links',
-           collection: emails_with_subject,
+           collection: business.emails.with_subject,
            as: :email,
            locals: { business: business }
   end
 
   def render_email_table(business)
-    return if business.emails.blank?
+    return unless business.emails.with_subject.any?
     render partial: 'email_table', locals: { business: business }
   end
 

@@ -16,6 +16,7 @@ class Email < ApplicationRecord
 
   scope :scheduled, -> { where('delivery_date > ?', DateTime.now.in_time_zone) }
   scope :for_calendar, -> { where(classification: 0..2) }
+  scope :with_subject, -> { select { |e| e.subject.present? } }
 
   enum classification: {
     initial_intro: 0,
