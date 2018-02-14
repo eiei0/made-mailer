@@ -6,7 +6,7 @@ class Business < ApplicationRecord
   validates :company_name, :email, presence: true
   validates :email, uniqueness: true
 
-  before_save :downcase_email
+  before_save :downcase_email, :default_values
 
   enum status: {
     pending: 0,
@@ -19,6 +19,10 @@ class Business < ApplicationRecord
   }
 
   before_validation :smart_add_url_protocol
+
+  def default_values
+    self.status = 0
+  end
 
   def primary_contact_name
     "#{first} #{last}".strip
