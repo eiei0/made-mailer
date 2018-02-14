@@ -40,8 +40,11 @@ class BusinessForm
     builder.build!
   end
 
+  # In delivery_options, the check_box form object's
+  # checked value is inverted becuse of the MailerBuilder
+  # uses this for the value of Email#scheduled.
   def scheduled?
-    deliver_now == false && delivery_date.present?
+    deliver_now == '1'
   end
 
   def business_params_valid?
