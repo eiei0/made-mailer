@@ -4,7 +4,7 @@ class Business < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   validates :company_name, :email, presence: true
-  validates :email, uniqueness: true
+  validates :email, unique_custom_domain: true, if: :custom_domain?
 
   before_save :downcase_email
   before_create :default_status
@@ -116,5 +116,9 @@ class Business < ApplicationRecord
 
   def downcase_email
     email.downcase!
+  end
+
+  def custom_domain?
+    Email::COMMON_DOMAINS.exclude?(email_domain)
   end
 end
