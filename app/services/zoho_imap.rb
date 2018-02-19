@@ -13,6 +13,7 @@ class ZohoImap
   def poll
     connect!
     fetch_new_messages
+    client.disconnect
   rescue => e
     raise "Authentication failed: #{e}"
   end
