@@ -17,5 +17,6 @@
 //= require browser_timezone_rails/set_time_zone
 //= require moment
 //= require fullcalendar
+//= require business
 //= require business_calendars
 //= require_tree .
