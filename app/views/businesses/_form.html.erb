@@ -2,7 +2,7 @@
     <div class="form-group">
       <%= f.label :company_name, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :company_name, placeholder: "Enter Business Name...", class: 'form-control' %>
+        <%= f.text_field :company_name, placeholder: 'Enter Business Name...', class: 'form-control autocomplete', id: 'autocomplete' %>
       </div>
     </div>
     <div class="form-group">
@@ -26,13 +26,13 @@
     <div class="form-group">
       <%= f.label :website, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :url, placeholder: "Enter Last Name of Business Contact...", class: 'form-control' %>
+        <%= f.text_field :url, placeholder: "Enter Last Name of Business Contact...", class: 'form-control', id: 'url' %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :phone, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :phone, placeholder: "Enter Phone Number of Business Contact...", class: 'form-control' %>
+        <%= f.text_field :phone, placeholder: "Enter Phone Number of Business Contact...", class: 'form-control', id: 'phone' %>
       </div>
     </div>
     <% if f.object.class == BusinessForm %>
@@ -49,37 +49,37 @@
     <div class="form-group">
       <%= f.label :address_one, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :address_1, placeholder: "Enter Business Street Address...", class: 'form-control' %>
+        <%= f.text_field :address_1, placeholder: "Enter Business Street Address...", class: 'form-control', id: 'street_number' %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :address_two, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :address_2, placeholder: "Apartment, suite, unit, building, floor, etc...", class: 'form-control' %>
+        <%= f.text_field :address_2, placeholder: "Apartment, suite, unit, building, floor, etc...", class: 'form-control', id: 'subpremise' %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :city, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :city, placeholder: "Enter a City...", class: 'form-control' %>
+        <%= f.text_field :city, placeholder: "Enter a City...", class: 'form-control', id: 'locality' %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :state, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :state, placeholder: "Enter a State...", class: 'form-control' %>
+        <%= f.text_field :state, placeholder: "Enter a State...", class: 'form-control', id: 'administrative_area_level_1' %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :zip, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :postal_code, placeholder: "Enter a Postal Code...", class: 'form-control' %>
+        <%= f.text_field :postal_code, placeholder: "Enter a Postal Code...", class: 'form-control', id: 'postal_code' %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :country, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.text_field :country, placeholder: "Enter a Country...", class: 'form-control' %>
+        <%= f.text_field :country, placeholder: "Enter a Country...", class: 'form-control', id: 'country' %>
       </div>
     </div>
     <div class="form-group">

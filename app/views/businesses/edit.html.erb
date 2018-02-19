@@ -7,3 +7,7 @@
     <%= render partial: 'form', locals: { f: f } %>
   <% end %>
 </main>
+<%= content_for(:footer) do %>
+  <script src='<%= "https://maps.googleapis.com/maps/api/js?key=#{ENV["google_api_key"]}&libraries=places&callback=initAutocomplete" %>'>
+  </script>
+<% end %>
