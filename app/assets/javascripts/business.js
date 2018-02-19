@@ -1,15 +1,17 @@
-// Location address autocomplete
 function initAutocomplete() {
   $('.autocomplete').each(function(i, el) {
     var autocomplete = new google.maps.places.Autocomplete(
       this, { types: ['geocode', 'establishment'] }
     );
 
-    // Format selected result that is placed into form
     autocomplete.addListener('place_changed', function() {
       var place = this.getPlace();
-      // street_number needs to always be before route because of the way
-      // it concatenates the value of the element
+      var fields = ["street_number", "subpremise", "phone", "url"];
+
+      for (var i = 0; i < fields.length; i++) {
+        window[fields[i]] = document.getElementById(fields[i]).value;
+      };
+
       var componentForm = {
         street_number: 'short_name',
         route: 'long_name',
@@ -20,30 +22,37 @@ function initAutocomplete() {
         postal_code: 'short_name'
       };
 
+      var fullAddress = [];
       for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
-        if (componentForm[addressType]) {
-          var val = place.address_components[i][componentForm[addressType]];
-
-          if (addressType === "street_number" || addressType === "route") {
-            var streetAddressId = "street_number"
-            if (addressType === "street_number") {
-              var val = val += " "
-            }
-            document.getElementById(streetAddressId).value += val;
-          } else {
-            document.getElementById(addressType).value = val;
+        if (addressType === "street_number" || addressType === "route") {
+          if (addressType === "street_number") {
+            var val = place.address_components[i][componentForm[addressType]];
+            fullAddress[0] = val;
+          } else if (addressType === "route") {
+            var val = place.address_components[i][componentForm[addressType]];
+            fullAddress[1] = val;
           };
+        } else if(componentForm[addressType]) {
+          var val = place.address_components[i][componentForm[addressType]];
+          document.getElementById(addressType).value = val;
         };
       };
 
+      document.getElementById('street_number').value = fullAddress.join(" ");
       document.getElementById("autocomplete").value = place.name
-      document.getElementById("phone").value = place.international_phone_number
+      document.getElementById("phone").value = place.formatted_phone_number
       document.getElementById("url").value = place.website
+
+      for (var i = 0; i < fields.length; i++) {
+        if (eval(fields[i]) == document.getElementById(fields[i]).value) {
+          document.getElementById(fields[i]).value = ""
+        }
+      };
     });
   });
 
-  // Disable return key from submitting form when selecting autocomplete result
+  // Disable return key
   $(document).on('keypress', '.autocomplete', function(e) {
     var code = (e.keyCode ? e.keyCode : e.which);
     if (code == 13) {
