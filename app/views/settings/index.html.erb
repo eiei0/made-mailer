@@ -7,7 +7,53 @@
   <div class="row">
     <div class="row">
       <div class="col-lg-4">
-        <div class="panel panel-info">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            New Feature/Issue Tracker
+          </div>
+          <div class="panel-body">
+            <h5>Filing a New Bug</h5>
+            <p>
+              If something is not functioning in the application as expected,
+              use this link to add a new issue to the Github repository.
+            </p>
+            <p>
+              When adding a bug, try to use this template in order for the
+              developer to reproduce the issue:
+            </p>
+            <ul>
+              <li>List all steps to reproduce in detail</li>
+              <li>What did you expect to happen after performing the steps you listed above?</li>
+              <li>What actually happend when you performed the steps you listed above?</li>
+            </ul>
+            <p>Please include one of the following priority levels:</p>
+            <ul>
+              <li>Low</li>
+              <li>Medium</li>
+              <li>High</li>
+              <li>Urgent</li>
+            </ul>
+            <h5>Requesting A New Feature</h5>
+            <p>
+              Explain in as much detail as possible, the feature that you wish
+              to be implemented and what part of the application you'd like to
+              see it in.
+            </p>
+            <p>Please include one of the following priority levels:</p>
+            <ul>
+              <li>Low</li>
+              <li>Medium</li>
+              <li>High</li>
+              <li>Urgent</li>
+            </ul>
+          </div>
+          <div class="panel-footer">
+            <%= link_to "Launch Gituhub", "https://github.com/eiei0/made_assistant/issues", target: '_blank' %>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="panel panel-danger">
           <div class="panel-heading">
             Sidekiq Admin
           </div>
