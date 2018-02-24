@@ -1,7 +1,7 @@
 # Http requests for all emails
 class EmailsController < ApplicationController
   def index
-    @emails = Email.for_calendar(params[:start], params[:end])
+    @emails = CalendarBuilder.new(params[:start], params[:end]).build
   end
 
   def show

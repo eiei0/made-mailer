@@ -18,7 +18,6 @@ class Email < ApplicationRecord
   scope :with_subject, -> { select { |e| e.subject.present? } }
   scope :where_inbound, -> { where(classification: 4) }
   scope :within, ->(from, to) { where('created_at BETWEEN ? AND ?', from, to) }
-  scope :for_calendar, ->(from, to) { to_include(from, to) - to_exclude(from, to) }
 
   enum classification: {
     initial_intro: 0,
@@ -28,20 +27,6 @@ class Email < ApplicationRecord
     inbound: 4,
     post_purchase_check_in: 5
   }
-
-  def self.to_exclude(from, to)
-    includes(:business)
-      .within(from, to)
-      .where(classification: 4)
-      .flat_map { |e| e.business.emails }
-      .select(&:scheduled)
-  end
-
-  def self.to_include(from, to)
-    includes(:business)
-      .within(from, to)
-      .where(classification: 0..2)
-  end
 
   def business_name
     business.company_name
