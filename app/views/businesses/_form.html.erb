@@ -43,7 +43,7 @@
     <div class="form-group">
       <%= f.label :status, class: 'control-label col-lg-2' %>
       <div class="col-lg-8">
-        <%= f.select :status, options_for_select(Business.statuses.keys.map(&:titleize), selected: f.object.status.try(:titleize)), { include_blank: true, class: 'form-control' } %>
+        <%= f.select :status, options_for_select(Business.statuses.keys.map(&:titleize), selected: selected_status(f.object)), { include_blank: true, class: 'form-control' } %>
       </div>
     </div>
     <div class="form-group">

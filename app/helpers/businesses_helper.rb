@@ -65,4 +65,8 @@ module BusinessesHelper
       unresponsive: 'btn-danger']
     types[business.status.to_sym]
   end
+
+  def selected_status(business)
+    business.persisted? ? business.status.try(:titleize) : 'Pending'
+  end
 end
