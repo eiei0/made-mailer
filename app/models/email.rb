@@ -15,9 +15,9 @@ class Email < ApplicationRecord
   validates :classification, presence: true
 
   scope :scheduled, -> { where('delivery_date > ?', DateTime.now.in_time_zone) }
-  scope :for_calendar, -> { where(classification: 0..2) }
   scope :with_subject, -> { select { |e| e.subject.present? } }
   scope :where_inbound, -> { where(classification: 4) }
+  scope :within, ->(from, to) { where('created_at BETWEEN ? AND ?', from, to) }
 
   enum classification: {
     initial_intro: 0,
