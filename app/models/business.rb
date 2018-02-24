@@ -8,7 +8,7 @@ class Business < ApplicationRecord
 
   before_save :downcase_email
   before_create :default_status
-  before_validation :smart_add_url_protocol
+  before_validation :smart_add_url_protocol, if: :url?
 
   enum status: {
     pending: 0,
