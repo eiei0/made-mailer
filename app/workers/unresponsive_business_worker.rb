@@ -14,7 +14,7 @@ class UnresponsiveBusinessWorker
 
     return if businesses.blank?
     businesses.map do |b|
-      b.update_attributes(status: 'unresponsive')
+      b.update(status: 'unresponsive')
       b.create_notification!(b.company_name, 'fa-thumbs-down')
     end
   end

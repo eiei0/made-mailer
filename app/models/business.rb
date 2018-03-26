@@ -20,6 +20,10 @@ class Business < ApplicationRecord
     unresponsive: 6
   }
 
+  enum mailer_option: { new_business: 'new_business',
+                        reintroduction: 'reintroduction',
+                        reorder_inquiry: 'reorder_inquiry' }
+
   scope :email_like, ->(search) { where('email ILIKE ANY (array[?])', search) }
 
   def default_status
@@ -69,7 +73,7 @@ class Business < ApplicationRecord
   end
 
   def update_after_mailer_delivery(mailer_phase)
-    update_attributes(
+    update(
       last_contacted_at: DateTime.now.in_time_zone,
       mailer_phase: mailer_phase
     )
