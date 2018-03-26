@@ -1,21 +1,67 @@
-<div class="col-lg-offset-1 col-lg-10">
-  <div class="well well-sm">
-    <h4>Delivery Options</h4>
-    <p>
-      When you save this business, it is required to either schedule an
-      intial contact email to be delivered or deliver one right away.
-      Please select one of the two options below:
-    </p>
-    <div class="form-group">
-      <%= f.label :delivery_date, class: 'control-label col-lg-2' %>
-      <div class="col-lg-4">
-        <%= f.datetime_local_field :delivery_date %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Delivery Options
+    <a class="pull-right pannel-toggle" id="delivery-options-header-toggle">Show</a>
+  </div>
+  <div class="panel-body" id="delivery-options-body" style="display: none;">
+    <div class="row">
+      <div class="col-lg-offset-1 col-lg-10">
+        <div class="well well-sm">
+          <p>
+            If you would like to send mailer(s) to this business on save,
+            please select what type of mailers you would like that best fits
+            the scenario. Then, choose if you would like to schedule the mailers
+            to be delivered at a later time, or if you'd prefer for the delivery
+            to happen as soon as you save the business.
+          </p>
+          <div class="form-group">
+            <%= f.label :schedule_mailer, class: 'control-label col-lg-2 send-mailer-label' %>
+            <div class="col-lg-4" id="mailer-options-toggle">
+              <%= f.check_box :schedule_mailer, class: 'form-check' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :deliver_now, class: 'control-label col-lg-2' %>
+            <div class="col-lg-8" id="deliver-now-toggle">
+              <%= f.check_box :deliver_now, {}, 0, 1 %>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <%= f.label :deliver_now, class: 'control-label col-lg-2' %>
-      <div class="col-lg-8">
-        <%= f.check_box :deliver_now, {}, 0, 1 %>
+      <div class="col-lg-11">
+        <div class="col-lg-offset-1">
+          <div class="form-group" id="business-mailer-options" style="display: none;">
+            <%= f.label :mailer_options, class: 'control-label col-lg-2' %>
+            <div class="col-lg-8">
+              <%= f.select :mailer_option,
+                options_for_select(
+                  Business.mailer_options.keys.map(&:titleize),
+                  selected: f.object.mailer_option.try(:titileize)),
+                { include_blank: true, class: 'form-control' }
+              %>
+            </div>
+          </div>
+          <div class="form-group" id="delivery-date" style="display: none;">
+            <%= f.label :delivery_date, class: 'control-label col-lg-2' %>
+            <div class="col-lg-4">
+              <%= f.datetime_local_field :delivery_date %>
+            </div>
+          </div>
+          <div class="form-group" id="connection-point" style="display: none;">
+            <%= f.label :connection_point, class: 'control-label col-lg-2' %>
+            <div class="col-lg-8">
+              <%= f.text_area :connection_point, placeholder: "Enter a connection point...", class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-12">
+              <%= f.submit "#{action_name == "new" ? "Create" : "Update"} Business", class: 'btn btn-primary' %>
+              <%= link_to "Cancel", businesses_path, class: 'btn btn-default' %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

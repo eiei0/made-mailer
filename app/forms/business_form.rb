@@ -5,7 +5,8 @@ class BusinessForm
   attr_reader   :business_params
   attr_accessor :company_name, :email, :first, :last, :url, :delivery_date,
                 :notes, :deliver_now, :address_1, :address_2, :city, :state,
-                :postal_code, :country, :status, :phone, :connection_point
+                :postal_code, :country, :status, :phone, :connection_point,
+                :schedule_mailer, :mailer_option
 
   # validates :business_params, presence: true, if: :business_params_valid?
   validates :delivery_date, presence: true, if: :scheduled?

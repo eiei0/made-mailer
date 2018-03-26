@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Business Information
+		<a class="pull-right pannel-toggle" id="business-info-header-toggle">Hide</a>
+  </div>
+  <div class="panel-body" id="business-information-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <%= f.label :company_name, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :company_name, placeholder: 'Enter Business Name...', class: 'form-control autocomplete', id: 'autocomplete' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :email, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :email, placeholder: "Enter Business Email Address...", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :first, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :first, placeholder: "Enter First Name of Business Contact...", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :last, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :last, placeholder: "Enter Last Name of Business Contact...", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :website, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :url, placeholder: "Enter Last Name of Business Contact...", class: 'form-control', id: 'url' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :phone, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :phone, placeholder: "Enter Phone Number of Business Contact...", class: 'form-control', id: 'phone' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :status, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.select :status,
+              options_for_select(Business.statuses.keys.map(&:titleize), selected: selected_status(f.object)),
+              { include_blank: true, class: 'form-control' }
+            %>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <%= f.label :address, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :address_1, placeholder: "Enter Business Street Address...", class: 'form-control', id: 'street_number' %>
+            <a id="toggle-second-address">Add second address field?</a>
+          </div>
+        </div>
+        <div class="form-group" style="display: none;" id="address-two-field">
+          <%= f.label :address_two, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :address_2, placeholder: "Apartment, suite, unit, building, floor, etc...", class: 'form-control', id: 'subpremise' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :city, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :city, placeholder: "Enter a City...", class: 'form-control', id: 'locality' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :state, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :state, placeholder: "Enter a State...", class: 'form-control', id: 'administrative_area_level_1' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :zip, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :postal_code, placeholder: "Enter a Postal Code...", class: 'form-control', id: 'postal_code' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :country, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_field :country, placeholder: "Enter a Country...", class: 'form-control', id: 'country' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :notes, class: 'control-label col-lg-2' %>
+          <div class="col-lg-8">
+            <%= f.text_area :notes, placeholder: "Enter any notes about the Business...", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-lg-10">
+          <a class="btn btn-primary pull-right pannel-toggle">Next</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
