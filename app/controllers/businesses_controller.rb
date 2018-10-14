@@ -40,7 +40,6 @@ class BusinessesController < ApplicationController
 
   def destroy
     ActiveRecord::Base.transaction do
-      # Destroys notifications through dependant: :destroy callback
       @business.destroy_all_mailers
       @business.destroy
     end

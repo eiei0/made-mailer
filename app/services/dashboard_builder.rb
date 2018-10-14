@@ -19,8 +19,4 @@ class DashboardBuilder
     @new_responses = Business.where(status: 'response_received')
                              .where('updated_at > ?', 1.week.ago).count
   end
-
-  def self.notifications
-    @notifications = Notification.last(8).reverse
-  end
 end

@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :disable_top_bar, :disable_side_bar
-  before_action :set_notifications
   before_action :set_raven_context
 
   helper_method :sort_column, :sort_direction
@@ -27,10 +26,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def set_notifications
-    @notifications = Notification.last(8)
-  end
 
   def sort_column
     return params[sort] if Business.column_names.include?(params[:sort])

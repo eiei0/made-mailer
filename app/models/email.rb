@@ -43,7 +43,6 @@ class Email < ApplicationRecord
   def schedule_mailer
     jid = MailerWorker.perform_in(delivery_date, id)
     update_attributes(jid: jid)
-    business.create_notification!(business.company_name, 'fa-clock-o')
   end
 
   def deliver!
@@ -52,7 +51,6 @@ class Email < ApplicationRecord
     return unless (email = mailer.deliver!)
 
     update_records(Mail.new(email))
-    business.create_notification!(business.company_name, 'fa-envelope')
   end
 
   def schedule_or_deliver

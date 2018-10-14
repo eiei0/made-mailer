@@ -1,7 +1,6 @@
 # Stores information about a business.
 class Business < ApplicationRecord
   has_many :emails, dependent: :destroy
-  has_many :notifications, dependent: :destroy
 
   validates :company_name, :email, presence: true
   validates :email, unique_custom_domain: true, if: :new_and_custom_domain?
@@ -38,18 +37,15 @@ class Business < ApplicationRecord
     status == 'response_received'
   end
 
-  def notified?
-    notifications.where(icon: 'fa-reply-all').present?
-  end
-
   def already_notified?
-    responded? && !notified?
+    # TODO: need to check admin_notified flag
+    responded? # && !notified?
   end
 
   def notify_admin
     return unless already_notified?
+    # TODO: need to update admin_notified flag
     Mailer.admin_response_notification(self).deliver!
-    create_notification!(company_name, 'fa-reply-all')
   end
 
   def transition
@@ -87,10 +83,6 @@ class Business < ApplicationRecord
   def stop_email_flow
     cancel_mailers(all_jids)
     emails.where(scheduled: true).destroy_all
-  end
-
-  def create_notification!(body, icon)
-    notifications.create!(body: body, icon: icon)
   end
 
   def cancel_mailers(jids)
