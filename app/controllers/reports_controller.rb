@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Http requests for all reports
 class ReportsController < ApplicationController
   def cog

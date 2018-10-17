@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -48,12 +50,12 @@ preload_app!
 # cannot share connections between processes.
 #
 on_worker_boot do
-  @sidekiq_pid ||= spawn('bundle exec sidekiq -t 1 -C config/sidekiq.yml')
+  @sidekiq_pid ||= spawn("bundle exec sidekiq -t 1 -C config/sidekiq.yml")
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 end
 
 on_restart do
-  Sidekiq.redis.shutdown { |conn| conn.close }
+  Sidekiq.redis.shutdown(&:close)
 end
 
 # Allow puma to be restarted by `rails restart` command.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Http requests for all emails
 class EmailsController < ApplicationController
   def index

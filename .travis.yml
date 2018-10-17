@@ -6,7 +6,6 @@ env:
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rubocop
   - bundle exec rspec spec/
 bundler_args:
   --without production
@@ -16,3 +15,7 @@ before_script:
   - cp config/database.yml.travis config/database.yml
 services:
   - postgresql
+after_script:
+  - ./cc-test-reporter format-coverage -t simplecov
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.json
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi

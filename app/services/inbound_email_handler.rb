@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Queries the business table for matching email addresses from the sender and
 # stops the automated email flow for that business.
 class InboundEmailHandler
@@ -10,11 +12,12 @@ class InboundEmailHandler
   def process!
     new_messages.flat_map do |msg|
       next unless (business = fetch_business(msg)) && !business&.responded?
+
       business.emails.create_inbound_email!(msg)
       business.transition
       business.notify_admin
     end
-  rescue => e
+  rescue StandardError => e
     raise e.to_s
   end
 

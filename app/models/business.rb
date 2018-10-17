@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # Stores information about a business.
 class Business < ApplicationRecord
   has_many :emails, dependent: :destroy
-  has_many :notifications, dependent: :destroy
 
   validates :company_name, :email, presence: true
   validates :email, unique_custom_domain: true, if: :new_and_custom_domain?
@@ -20,7 +21,7 @@ class Business < ApplicationRecord
     unresponsive: 6
   }
 
-  scope :email_like, ->(search) { where('email ILIKE ANY (array[?])', search) }
+  scope :email_like, ->(search) { where("email ILIKE ANY (array[?])", search) }
 
   def default_status
     self.status = 0
@@ -35,26 +36,24 @@ class Business < ApplicationRecord
   end
 
   def responded?
-    status == 'response_received'
-  end
-
-  def notified?
-    notifications.where(icon: 'fa-reply-all').present?
+    status == "response_received"
   end
 
   def already_notified?
-    responded? && !notified?
+    # TODO: need to check admin_notified flag
+    responded? # && !notified?
   end
 
   def notify_admin
     return unless already_notified?
+
+    # TODO: need to update admin_notified flag
     Mailer.admin_response_notification(self).deliver!
-    create_notification!(company_name, 'fa-reply-all')
   end
 
   def transition
     cancel_mailers(all_jids) if scheduled?
-    update!(status: 'response_received')
+    update!(status: "response_received")
   end
 
   def self.search(search)
@@ -63,20 +62,20 @@ class Business < ApplicationRecord
 
   def self.query_for(search)
     where(
-      'first ILIKE ? OR last ILIKE ? OR company_name ILIKE ? OR email ILIKE ?',
+      "first ILIKE ? OR last ILIKE ? OR company_name ILIKE ? OR email ILIKE ?",
       "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
     )
   end
 
   def update_after_mailer_delivery(mailer_phase)
-    update_attributes(
+    update(
       last_contacted_at: DateTime.now.in_time_zone,
       mailer_phase: mailer_phase
     )
   end
 
   def new?
-    [nil, 'initial_intro'].include?(mailer_phase)
+    [nil, "initial_intro"].include?(mailer_phase)
   end
 
   def destroy_all_mailers
@@ -87,10 +86,6 @@ class Business < ApplicationRecord
   def stop_email_flow
     cancel_mailers(all_jids)
     emails.where(scheduled: true).destroy_all
-  end
-
-  def create_notification!(body, icon)
-    notifications.create!(body: body, icon: icon)
   end
 
   def cancel_mailers(jids)
@@ -104,7 +99,7 @@ class Business < ApplicationRecord
   end
 
   def email_domain
-    email.split('@')[1]
+    email.split("@")[1]
   end
 
   private
@@ -120,6 +115,7 @@ class Business < ApplicationRecord
 
   def new_and_custom_domain?
     return false if persisted?
+
     Email::COMMON_DOMAINS.exclude?(email_domain)
   end
 end

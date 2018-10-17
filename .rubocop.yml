@@ -1,27 +1,39 @@
 AllCops:
-  TargetRubyVersion: 2.3.4
-  DisplayCopNames: true
-  Exclude:
-    - 'config/puma.rb'
-    - 'db/**/*.rb'
-    - 'bin/*'
-    - 'spec/**/*.rb'
-    - 'bundler_stubs/*'
+  TargetRubyVersion: 2.4
 
-Rails:
-  Enabled: true
-
-Style/FrozenStringLiteralComment:
+Style/MultilineBlockChain:
   Enabled: false
 
-Style/RegexpLiteral:
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Metrics/LineLength:
+  Max: 120
+
+Lint/AssignmentInCondition:
   Enabled: false
 
-Style/DateTime:
-  Enabled: false
+Layout/IndentHash:
+  EnforcedStyle: consistent
 
-Style/RescueStandardError:
-  Enabled: false
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
 
-Rails/OutputSafety:
-  Enabled: false
+Style/BracesAroundHashParameters:
+  EnforcedStyle: no_braces
+
+Metrics/AbcSize:
+  Max: 40

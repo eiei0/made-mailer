@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171219050717) do
+ActiveRecord::Schema.define(version: 20181014054927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,15 +50,6 @@ ActiveRecord::Schema.define(version: 20171219050717) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_id"], name: "index_emails_on_business_id"
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.string "body", null: false
-    t.string "icon", null: false
-    t.bigint "business_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["business_id"], name: "index_notifications_on_business_id"
   end
 
   create_table "products", force: :cascade do |t|

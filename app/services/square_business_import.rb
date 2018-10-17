@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Handles importing business data from Square
 class SquareBusinessImport
   def initialize
@@ -11,6 +13,7 @@ class SquareBusinessImport
   def run
     customer_ids.each do |customer_id|
       next if customers_result(customer_id).blank?
+
       customers_result.customer.tap do |customer|
         Business.find_or_create!(business_params(customer, customer_id))
       end
@@ -36,7 +39,7 @@ class SquareBusinessImport
 
   def invoices
     transactions_result.transactions.select do |t|
-      t.product == 'INVOICES'
+      t.product == "INVOICES"
     end
   end
 

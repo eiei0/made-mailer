@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Http requests for the dashboard
 class DashboardController < ApplicationController
   def index
@@ -5,6 +7,5 @@ class DashboardController < ApplicationController
     @mailers_scheduled = DashboardBuilder.mailers_scheduled
     @unresponsive = DashboardBuilder.unresponsive
     @new_responses = DashboardBuilder.new_responses
-    @notifications = DashboardBuilder.notifications
   end
 end

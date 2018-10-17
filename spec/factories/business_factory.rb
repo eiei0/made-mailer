@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :business do
-    company_name "Test Business"
-    email "test@test.com"
-    first "Test"
-    last "User"
-    url "https://www.test.com/"
+    company_name { "Test Business" }
+    email { "test@test.com" }
+    first { "Test" }
+    last { "User" }
+    url { "https://www.test.com/" }
 
     factory :business_with_scheduled_emails do
       transient do
-        emails_count 5
+        emails_count { 5 }
       end
 
       after(:create) do |business, evaluator|
@@ -18,7 +20,7 @@ FactoryBot.define do
 
     factory :business_with_unscheduled_emails do
       transient do
-        emails_count 5
+        emails_count { 5 }
       end
 
       after(:create) do |business, evaluator|
