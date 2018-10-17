@@ -15,11 +15,11 @@ Product.destroy_all
 50.times do |_index|
   Business.create!(
     company_name: Faker::Company.name,
-    email: Faker::Internet.safe_email(Faker::Hipster.words(2).join(" ").parameterize.to_s),
+    email: Faker::Internet.email(Faker::Hipster.words(2).join(" ").parameterize.to_s),
     first: Faker::Name.first_name,
     last: Faker::Name.last_name,
     url: Faker::Internet.url,
-    address: Faker::Address.street_address,
+    address_1: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state_abbr,
     postal_code: Faker::Address.zip_code,
