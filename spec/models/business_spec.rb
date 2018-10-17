@@ -1,113 +1,115 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Business do
   it { should have_many(:emails).dependent(:destroy) }
 
-  describe '#primary_contact_name' do
-    it 'returns a string with the users first and last name included' do
+  describe "#primary_contact_name" do
+    it "returns a string with the users first and last name included" do
       business = build(:business, first: "Test", last: "User")
       expect(business.primary_contact_name).to eq("Test User")
     end
   end
 
-  describe '#scheduled?' do
-    context 'when business has an assocated email that has a delivery date in the future' do
-      it 'returns true' do
+  describe "#scheduled?" do
+    context "when business has an assocated email that has a delivery date in the future" do
+      it "returns true" do
         business = create(:business_with_scheduled_emails)
         expect(business.scheduled?).to be true
       end
     end
 
-    context 'when business does not have an associated email that has a delivery date in the future' do
-      it 'returns false' do
+    context "when business does not have an associated email that has a delivery date in the future" do
+      it "returns false" do
         business = create(:business_with_unscheduled_emails)
         expect(business.scheduled?).to be false
       end
     end
   end
 
-  describe '#responded?' do
-    it '' do
+  describe "#responded?" do
+    it "" do
       business = build(:business, status: "response_received")
       expect(business.responded?).to be true
     end
   end
 
-  describe '#search' do
+  describe "#search" do
     let (:tim) { create(:business, first: "Tiny", last: "Tim", company_name: "The Golden Crutch", email: "tim@thegoldencrutch.com") }
     let (:betty) { create(:business, first: "Betty", last: "Boop", company_name: "Bangup Betty", email: "betty@bangupbetty.com") }
 
-    context 'when there are no search params sent to the method' do
-      it 'returns all businesses' do
+    context "when there are no search params sent to the method" do
+      it "returns all businesses" do
         params = nil
         expect(Business.search(params)).to match_array(Business.all)
       end
     end
 
-    context 'when params include first name' do
-      it 'it includes the businesses that match the search paramters' do
+    context "when params include first name" do
+      it "it includes the businesses that match the search paramters" do
         expect(Business.search("Tiny")).to include(tim)
       end
 
-      it 'it does not include the businesses that match the search paramters' do
+      it "it does not include the businesses that match the search paramters" do
         expect(Business.search("Tiny")).not_to include(betty)
       end
     end
 
-    context 'when params include last name' do
-      it 'it includes the businesses that match the search paramters' do
+    context "when params include last name" do
+      it "it includes the businesses that match the search paramters" do
         expect(Business.search("Tim")).to include(tim)
       end
 
-      it 'it does not include the businesses that match the search paramters' do
+      it "it does not include the businesses that match the search paramters" do
         expect(Business.search("Tim")).not_to include(betty)
       end
     end
 
-    context 'when params include comany_name' do
-      it 'it includes the businesses that match the search paramters' do
+    context "when params include comany_name" do
+      it "it includes the businesses that match the search paramters" do
         expect(Business.search("Golden")).to include(tim)
       end
 
-      it 'it does not include the businesses that match the search paramters' do
+      it "it does not include the businesses that match the search paramters" do
         expect(Business.search("Golden")).not_to include(betty)
       end
     end
 
-    context 'when params include email' do
-      it 'it includes the businesses that match the search paramters' do
+    context "when params include email" do
+      it "it includes the businesses that match the search paramters" do
         expect(Business.search("tim")).to include(tim)
       end
 
-      it 'it does not include the businesses that match the search paramters' do
+      it "it does not include the businesses that match the search paramters" do
         expect(Business.search("tim")).not_to include(betty)
       end
     end
   end
 
-  describe '#update_after_mailer_delivery' do
+  describe "#update_after_mailer_delivery" do
     before do
       Timecop.freeze(DateTime.now)
     end
 
-    it 'updates the business record' do
+    it "updates the business record" do
       business = create(:business, last_contacted_at: 2.days.ago, mailer_phase: "initial_intro")
-      expect{ business.update_after_mailer_delivery("first_follow_up") }
+      expect { business.update_after_mailer_delivery("first_follow_up") }
         .to change { business.last_contacted_at }.from(2.days.ago).to(DateTime.now)
         .and change { business.mailer_phase }.from("initial_intro").to("first_follow_up")
     end
   end
 
-  describe '#new?' do
-    context 'when business is new' do
-      it 'returns true' do
+  describe "#new?" do
+    context "when business is new" do
+      it "returns true" do
         business = build_stubbed(:business, mailer_phase: "initial_intro")
         expect(business.new?).to be true
       end
     end
 
-    context 'when business is not new' do
-      it 'returns false' do
+    context "when business is not new" do
+      it "returns false" do
         business = build_stubbed(:business, mailer_phase: "first_follow_up")
         expect(business.new?).to be false
       end

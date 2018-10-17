@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 # Encapsulation of all necessary logic to create and update a Business
 class BusinessForm
   include ActiveModel::Model
 
   attr_reader   :business_params
   attr_accessor :company_name, :email, :first, :last, :url, :delivery_date,
-                :notes, :deliver_now, :address_1, :address_2, :city, :state,
-                :postal_code, :country, :status, :phone, :connection_point
+    :notes, :deliver_now, :address_1, :address_2, :city, :state,
+    :postal_code, :country, :status, :phone, :connection_point
 
   # validates :business_params, presence: true, if: :business_params_valid?
   validates :delivery_date, presence: true, if: :scheduled?
 
-  def initialize(attrs = {})
+  def initialize(attrs={})
     @business_params = attrs.except(:delivery_date, :deliver_now)
     @deliver_now = attrs[:deliver_now]
     @delivery_date = attrs[:delivery_date]
@@ -29,13 +31,13 @@ class BusinessForm
 
   def create_business
     Business.create!(
-      business_params.merge('status' => business_params[:status].underscore)
+      business_params.merge("status" => business_params[:status].underscore)
     )
   end
 
   def build_emails(business)
     builder = MailerBuilder.new(
-      business, 'initial_intro', deliver_now, delivery_date
+      business, "initial_intro", deliver_now, delivery_date
     )
     builder.build!
   end
@@ -44,7 +46,7 @@ class BusinessForm
   # checked value is inverted becuse of the MailerBuilder
   # uses this for the value of Email#scheduled.
   def scheduled?
-    deliver_now == '1'
+    deliver_now == "1"
   end
 
   def business_params_valid?

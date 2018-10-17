@@ -1,4 +1,6 @@
-require 'faker'
+# frozen_string_literal: true
+
+require "faker"
 
 unless User.where(email: "jonathan@madelr.com").present?
   user = User.new(first: "Jonathan", last: "MacDonald", email: "jonathan@madelr.com", password: "Taco123")
@@ -10,10 +12,10 @@ Business.destroy_all
 Email.destroy_all
 Product.destroy_all
 
-50.times do |index|
+50.times do |_index|
   Business.create!(
     company_name: Faker::Company.name,
-    email: Faker::Internet.safe_email("#{Faker::Hipster.words(2).join(" ").parameterize}"),
+    email: Faker::Internet.safe_email(Faker::Hipster.words(2).join(" ").parameterize.to_s),
     first: Faker::Name.first_name,
     last: Faker::Name.last_name,
     url: Faker::Internet.url,
@@ -32,8 +34,7 @@ Product.destroy_all
 end
 puts "Seeded #{Business.count} Businesses"
 
-
-200.times do |index|
+200.times do |_index|
   id = Business.offset(rand(Business.count)).first.id
   business = Business.find(id)
   Email.create!(
@@ -61,7 +62,7 @@ products = [{ name: "Signature 26” Necklace - Gold", price: 9.59 },
             { name: "Bracelet - Gold", price: 5.69 },
             { name: "Bracelet - Rose Gold", price: 7.22 },
             { name: "Bracelet - Sterling", price: 4.43 },
-            { name: "Threads - Sterling", price: 4.78},
+            { name: "Threads - Sterling", price: 4.78 },
             { name: "Studs - Brass", price: 3.77 },
             { name: "Dangles - Gold Plated Brass", price: 3.92 },
             { name: "Dangles - Silver Plated Brass", price: 3.88 },

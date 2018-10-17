@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Rails
 class ApplicationController < ActionController::Base
   protect_from_forgery prepend: true
@@ -29,11 +31,12 @@ class ApplicationController < ActionController::Base
 
   def sort_column
     return params[sort] if Business.column_names.include?(params[:sort])
-    'last_contacted_at'
+
+    "last_contacted_at"
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
   def set_raven_context

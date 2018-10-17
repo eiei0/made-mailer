@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :email do
     classification "initial_intro"
@@ -9,12 +11,12 @@ FactoryBot.define do
 
     trait :unscheduled do
       scheduled false
-      delivery_date nil 
+      delivery_date nil
     end
 
     trait :scheduled do
       scheduled true
-      delivery_date 1.day.from_now 
+      delivery_date 1.day.from_now
     end
   end
 end

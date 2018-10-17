@@ -1,4 +1,6 @@
-require 'net/imap'
+# frozen_string_literal: true
+
+require "net/imap"
 
 # Responsible for establishing a connection to the
 #   configured Zoho account inbox and fetching any
@@ -7,7 +9,7 @@ class ZohoImap
   attr_reader :client
 
   def initialize
-    @client ||= Net::IMAP.new('imap.zoho.com', 993, true)
+    @client ||= Net::IMAP.new("imap.zoho.com", 993, true)
   end
 
   def poll
@@ -15,23 +17,23 @@ class ZohoImap
     m = fetch_new_messages
     client.disconnect
     m
-  rescue => e
+  rescue StandardError => e
     raise "Authentication failed: #{e}"
   end
 
   private
 
   def connect!
-    client.authenticate('PLAIN', ENV['wholesale_email'], ENV['zoho_password'])
+    client.authenticate("PLAIN", ENV["wholesale_email"], ENV["zoho_password"])
   end
 
   def fetch_new_messages
     messages = []
-    client.select('INBOX')
-    unread_message_ids = client.search(['UNSEEN'])
+    client.select("INBOX")
+    unread_message_ids = client.search(["UNSEEN"])
     if unread_message_ids.present?
       unread_message_ids.each do |id|
-        raw_message = client.fetch(id, 'RFC822').first.attr['RFC822']
+        raw_message = client.fetch(id, "RFC822").first.attr["RFC822"]
         messages << Mail.read_from_string(raw_message)
       end
     end

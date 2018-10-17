@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MailerPreview < ActionMailer::Preview
   def initial_intro
     Mailer.initial_intro(Business.first)

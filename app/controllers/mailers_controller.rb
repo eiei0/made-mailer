@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Http requests for all mailers
 class MailersController < ApplicationController
   before_action :fetch_business, only: %i[create destroy]
@@ -7,7 +9,7 @@ class MailersController < ApplicationController
       flash[:notice] =
         "#{params[:type].humanize} mailer sent to #{@business.company_name}."
     end
-  rescue => e
+  rescue StandardError => e
     flash[:notice] = e.to_s
   ensure
     redirect_back(fallback_location: root_path)
@@ -15,13 +17,13 @@ class MailersController < ApplicationController
 
   def destroy
     stopped = @business.stop_email_flow
-    @business.update!(status: 'pending', mailer_phase: nil)
+    @business.update!(status: "pending", mailer_phase: nil)
 
     if stopped
       flash[:notice] =
         "All automated mailers stopped for #{@business.company_name}."
     end
-  rescue => e
+  rescue StandardError => e
     flash[:notice] = e.to_s
   ensure
     redirect_back(fallback_location: root_path)

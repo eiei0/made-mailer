@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Fetches all necessary objects to build the dashboard
 class CalendarBuilder
   attr_accessor :from, :to

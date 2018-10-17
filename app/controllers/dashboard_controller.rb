@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Http requests for the dashboard
 class DashboardController < ApplicationController
   def index

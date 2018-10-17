@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # Handles the scheduling and delivery of emails
 class MailerBuilder
   attr_accessor :business, :type, :deliver_now, :delivery_date
 
-  def initialize(business, type, deliver_now, delivery_date = nil)
+  def initialize(business, type, deliver_now, delivery_date=nil)
     @business = business
     @type = type
     @deliver_now = deliver_now
