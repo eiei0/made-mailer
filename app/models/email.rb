@@ -101,9 +101,9 @@ class Email < ApplicationRecord
 
   def update_records(email)
     update(scheduled: false,
-                      delivery_date: DateTime.now.in_time_zone,
-                      subject: email.subject,
-                      body: email.parts.first.body.to_s.html_safe)
+           delivery_date: DateTime.now.in_time_zone,
+           subject: email.subject,
+           body: email.parts.first.body.to_s.html_safe)
     business.update_after_mailer_delivery(classification)
   end
 end
