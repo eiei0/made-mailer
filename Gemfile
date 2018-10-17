@@ -45,6 +45,7 @@ end
 
 group :development, :test do
   gem 'capybara', '~> 2.13'
+  gem 'dotenv-rails'
   gem 'faker'
   gem 'figaro'
   gem 'pry-rails'
