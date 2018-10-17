@@ -65,7 +65,7 @@ class Business < ApplicationRecord
   end
 
   def update_after_mailer_delivery(mailer_phase)
-    update_attributes(
+    update(
       last_contacted_at: DateTime.now.in_time_zone,
       mailer_phase: mailer_phase
     )

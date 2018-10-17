@@ -42,7 +42,7 @@ class Email < ApplicationRecord
 
   def schedule_mailer
     jid = MailerWorker.perform_in(delivery_date, id)
-    update_attributes(jid: jid)
+    update(jid: jid)
   end
 
   def deliver!
@@ -100,7 +100,7 @@ class Email < ApplicationRecord
   private
 
   def update_records(email)
-    update_attributes(scheduled: false,
+    update(scheduled: false,
                       delivery_date: DateTime.now.in_time_zone,
                       subject: email.subject,
                       body: email.parts.first.body.to_s.html_safe)
