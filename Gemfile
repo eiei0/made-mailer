@@ -29,6 +29,7 @@ gem "square_connect", "~>2.5.0.180"
 gem "turbolinks", "~> 5"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "uglifier", ">= 1.3.0"
+gem "webpacker", "~> 3.5"
 
 source "https://rails-assets.org" do
   gem "rails-assets-bootstrap-sass", "~> 3.3.1"
