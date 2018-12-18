@@ -1,6 +1,0 @@
-<script>
-  <% flash.each do |type, message| %>
-    var type = '<%= type == "notice" ? "success" : "warning" %>';
-    new Noty({ type: type, layout: 'topRight', text: "<%= j message %>", timeout:  5000, theme: "bootstrap-v4" }).show();
-  <% end %>
-</script>

@@ -1,3 +1,0 @@
-<div id="morris-donut-chart">
-  <%= bar_chart Email.group(:classification).mailers_delivered(1.week.ago).count(:created_at) %>
-</div>
