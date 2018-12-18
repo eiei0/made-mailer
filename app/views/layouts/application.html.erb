@@ -11,6 +11,8 @@
 
     <body>
       <div class="container">
+        <div id="nav-bar"></div>
+
         <div class="inner-container">
           <%= yield %>
         </div>
@@ -18,6 +20,9 @@
 
       <div class="footer">
         <%= yield :footer %>
+
+        <%= javascript_pack_tag "navBar" %>
+        <%= stylesheet_pack_tag "navBar" %>
       </div>
     </body>
 </html>
