@@ -1,9 +1,6 @@
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
     <div class="login-panel panel panel-default">
-      <div class="logo-signin">
-        <%= link_to image_tag("made-logo-dark.png"), root_path %>
-      </div>
       <div class="panel-heading">
         <h3 class="panel-title">Please Sign In</h3>
       </div>
@@ -22,9 +19,6 @@
           </div>
 
           <%= f.submit "Sign In", class: 'btn btn-lg btn-primary btn-block' %>
-          <div class='devise-links'>
-            <%= render "devise/shared/links" %>
-          </div>
         <% end %>
       </div>
     </div>
